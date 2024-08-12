@@ -1,10 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import RouterCustom from "./router";
+import "./style/style.scss";
 
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <h1>Hello, world!</h1>
+  <BrowserRouter>
+    <RouterCustom />
+  </BrowserRouter>
 );
-
-
