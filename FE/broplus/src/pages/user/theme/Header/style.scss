@@ -1,3 +1,26 @@
+@use "sass:map";
+@import "style/pages/theme";
+
 .header-top {
   background: red;
 }
+
+.header_top_right {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+
+  ul {
+    display: flex;
+    column-gap: 10px;
+    list-style: none;
+
+    a {
+      text-decoration: none;
+      color: map.get($theme-colors, "main");
+      font-size: 14px;
+    }
+  }
+}
+
+// Bài 5: phút 15:00
