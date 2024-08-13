@@ -7,7 +7,7 @@
 
 .header_top_right {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
 
   ul {
@@ -17,10 +17,147 @@
 
     a {
       text-decoration: none;
-      color: map.get($theme-colors, "main");
+      color: map.get($theme-colors, "normal-text");
       font-size: 14px;
+    }
+    li:last-child {
+      cursor: pointer;
+      margin-left: 10px;
+
+      span {
+        font-size: 14px;
+        margin-left: 14px;
+      }
     }
   }
 }
 
-// Bài 5: phút 15:00
+.header_top_left {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  ul {
+    display: flex;
+    column-gap: 10px;
+    list-style: none;
+
+    a {
+      text-decoration: none;
+      color: map.get($theme-colors, "normal-text");
+      font-size: 14px;
+    }
+    li:last-child {
+      cursor: pointer;
+      margin-left: 10px;
+
+      span {
+        font-size: 14px;
+        margin-left: 14px;
+      }
+    }
+  }
+}
+
+.header-logo {
+  padding: 15px 0;
+}
+
+.header-menu {
+  padding: 25px 0;
+
+  ul {
+    display: flex;
+    margin-right: 25px;
+    justify-content: space-between;
+
+    .active a {
+      color: map.get($theme-colors, "main");
+    }
+
+    li {
+      cursor: pointer;
+      margin-left: 20px;
+      list-style: none;
+      position: relative;
+
+      a {
+        text-decoration: none;
+        color: map.get($theme-colors, "normal-text");
+        font-size: 14px;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 2px;
+        transition: all 0.3s ease-in-out;
+        padding: 5px 0;
+        display: block;
+      }
+    }
+
+    li:hover .header-menu-dropdown {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .header-menu-dropdown {
+      display: block;
+      background: black;
+      width: 180px;
+      z-index: 9;
+      padding: 5px 0;
+      position: absolute;
+      transition: all 0.3s ease-in-out;
+      opacity: 0;
+      visibility: hidden;
+
+      li {
+
+        a {
+          text-transform: capitalize;
+          font-weight: 400;
+          padding: 5px 15px;
+          color: white;
+        }
+
+        :hover {
+          color: map.get($theme-colors, "main");
+        }
+      }
+    }
+  }
+}
+
+.header-cart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 0;
+
+  ul {
+    display: flex;
+    margin-right: 25px;
+
+    li {
+      position: relative;
+      cursor: pointer;
+      margin-left: 20px;
+      list-style: none;
+
+      svg {
+        font-size: 25px;
+        color: map.get($theme-colors, "normal-text");
+      }
+
+      span {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: green;
+        color: white;
+        border-radius: 50%;
+        padding: 0 5px;
+        font-size: 12px;
+      }
+    }
+  }
+}
