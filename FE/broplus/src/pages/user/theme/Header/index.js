@@ -4,10 +4,10 @@ import { FaSquareFacebook } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { formatter } from "utils/formatter";
 import { ROUTER } from "utils/router";
+import { AiOutlineMenu } from "react-icons/ai";
 
 const Header = () => {
-
-  const [menu, setMenu] = useState([
+  const [menu] = useState([
     {
       name: "Trang chủ",
       path: ROUTER.USER.HOME,
@@ -32,10 +32,10 @@ const Header = () => {
         {
           name: "Sản phẩm 3",
           path: "",
-        }
-      ]  
+        },
+      ],
     },
-    
+
     {
       name: "Bài viết",
       path: ROUTER.LOGIN,
@@ -43,9 +43,9 @@ const Header = () => {
     {
       name: "Liên hệ",
       path: ROUTER.REGISTER,
-    }
+    },
   ]);
-  
+
   return (
     <>
       <div className="header-top">
@@ -101,39 +101,27 @@ const Header = () => {
             </div>
           </div>
           <div className="col-xl-6">
-
             <nav className="header-menu">
               <ul>
-                {
-                  menu?.map((menu, menuKey) => (
-                    <li key={menuKey} className={menuKey === 0 ? "active" : ""}>
-                      <Link to={menu?.path}> 
-                      {menu?.name}
-                      </Link>
-                      {
-                        menu.child && (
-                          <ul className="header-menu-dropdown">
-                            {
-                              menu.child.map((child, childKey) => (
-                                <li key={'&{menuKey}&{childKey}'}>
-                                  <Link to={child?.path}>
-                                    {child?.name}
-                                  </Link>
-                                </li>
-                              ))
-                            }
-                          </ul>
-                        )
-                      }
-                    </li>
-                  )) }
-
+                {menu?.map((menu, menuKey) => (
+                  <li key={menuKey} className={menuKey === 0 ? "active" : ""}>
+                    <Link to={menu?.path}>{menu?.name}</Link>
+                    {menu.child && (
+                      <ul className="header-menu-dropdown">
+                        {menu.child.map((child, childKey) => (
+                          <li key={"&{menuKey}&{childKey}"}>
+                            <Link to={child?.path}>{child?.name}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
               </ul>
-              
-          </nav>
+            </nav>
           </div>
           <div className="col-xl-3">
-          <div className="header-cart">
+            <div className="header-cart">
               <div className="header-cart_price">
                 <span>{formatter(1000000)}</span>
               </div>
@@ -147,6 +135,21 @@ const Header = () => {
               </ul>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="container">
+        <div className="row hero_categories_container">
+          <div className="col-lg-3">
+            <div className="hero_categories_all">
+            <AiOutlineMenu />
+              Danh sách sản phẩm</div>
+            <ul>
+             
+              <li>122</li>
+            </ul>
+          </div>
+          <div className="col-lg-9">Phải</div>
         </div>
       </div>
     </>

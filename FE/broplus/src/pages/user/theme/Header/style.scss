@@ -161,3 +161,23 @@
     }
   }
 }
+
+.hero_categories_all {
+  background-color: map.get($theme-colors, "main");
+  padding: 15px 25px 15px 40px;
+  display: flex;  
+  align-items: center;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  position: relative;
+
+  
+  svg, span {
+    font-size: 16px;
+    margin-left: 10px;
+
+  }
+
+}
