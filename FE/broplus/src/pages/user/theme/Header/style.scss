@@ -111,7 +111,6 @@
       visibility: hidden;
 
       li {
-
         a {
           text-transform: capitalize;
           font-weight: 400;
@@ -162,22 +161,67 @@
   }
 }
 
-.hero_categories_all {
-  background-color: map.get($theme-colors, "main");
-  padding: 15px 25px 15px 40px;
-  display: flex;  
-  align-items: center;
-  cursor: pointer;
-  color: white;
-  font-size: 16px;
-  font-weight: 600;
+.hero_categories {
   position: relative;
 
-  
-  svg, span {
+  .hero_categories_all {
+    background-color: map.get($theme-colors, "main");
+    padding: 15px 25px 15px 40px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: white;
     font-size: 16px;
-    margin-left: 10px;
+    font-weight: 700;
+    position: relative;
 
+    svg,
+    span {
+      font-size: 16px;
+      margin-left: 10px;
+    }
+
+    svg {
+      font-size: 20px;
+      font-weight: bold;
+    }
   }
 
+  ul {
+    border: 1px solid #e5e5e5;
+    position: absolute;
+    opacity: 1;
+    width: 99.5%;
+    background: white;
+    top: 100%;
+    left: 0;
+    z-index: 9;
+    padding: 10px 0;
+    transition: all 0.3s ease-in-out;
+    li {
+      list-style: none;
+
+      a {
+        text-decoration: none;
+        color: map.get($theme-colors, "normal-text");
+        font-size: 16px;
+        display: block;
+        line-height: 39px;
+        padding-left: 40px;
+      }
+      :hover {
+        background: map.get($theme-colors, "main");
+        color: white;
+
+        a {
+          color: map.get($theme-colors, "main");
+        }
+      }
+    }
+
+    &.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
 }

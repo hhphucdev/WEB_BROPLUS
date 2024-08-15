@@ -7,6 +7,9 @@ import { ROUTER } from "utils/router";
 import { AiOutlineMenu } from "react-icons/ai";
 
 const Header = () => {
+
+  const [isShowCategories, setIsShowCategories] = useState(true);
+
   const [menu] = useState([
     {
       name: "Trang chủ",
@@ -140,14 +143,33 @@ const Header = () => {
 
       <div className="container">
         <div className="row hero_categories_container">
-          <div className="col-lg-3">
-            <div className="hero_categories_all">
-            <AiOutlineMenu />
-              Danh sách sản phẩm</div>
-            <ul>
-             
-              <li>122</li>
+          <div className="col-lg-3 hero_categories">
+            <div className="hero_categories_all" onClick={() => setIsShowCategories(!isShowCategories)}>
+              <AiOutlineMenu />
+              Danh sách sản phẩm
+            </div>
+            {isShowCategories && (
+            <ul className={isShowCategories ? "" : "hidden"}>
+              <li>
+                <Link to={"#"}>Sản phẩm 1</Link>
+              </li>
+              <li>
+                <Link to={"#"}>Sản phẩm 2</Link>
+              </li>
+              <li>
+                <Link to={"#"}>Sản phẩm 3</Link>
+              </li>
+              <li>
+                <Link to={"#"}>Sản phẩm 4</Link>
+              </li>
+              <li>
+                <Link to={"#"}>Sản phẩm 5</Link>
+              </li>
+              <li>
+                <Link to={"#"}>Sản phẩm 6</Link>
+              </li>
             </ul>
+            )}
           </div>
           <div className="col-lg-9">Phải</div>
         </div>
