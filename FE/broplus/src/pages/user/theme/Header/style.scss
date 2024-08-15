@@ -193,9 +193,7 @@
     opacity: 1;
     width: 99.5%;
     background: white;
-    top: 100%;
-    left: 0;
-    z-index: 9;
+
     padding: 10px 0;
     transition: all 0.3s ease-in-out;
     li {
@@ -222,6 +220,48 @@
     &.hidden {
       opacity: 0;
       visibility: hidden;
+    }
+  }
+}
+
+.hero_search_container {
+  padding: 15px;
+
+  .hero_search_form {
+    width: 610px;
+    height: 50px;
+    float: left;
+
+    form {
+      display: flex;
+      align-items: center;
+    }
+
+    input {
+      border: none;
+      height: 48px;
+      font-size: 16px;
+      color: #b2b2b2;
+      padding-left: 20px;
+      border: 1px solid #e5e5e5;
+      width: 70%;
+
+      :focus {
+        outline: none;
+        border: none;
+      }
+    }
+
+    button {
+      font-size: 14px;
+      color: white;
+      font-weight: 800px;
+      text-transform: uppercase;
+      background: map.get($theme-colors, "main");
+      display: inline-block;
+      padding: 16px 30px 17px;
+      border: none;
+      height: 100%;
     }
   }
 }

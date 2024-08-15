@@ -7,7 +7,6 @@ import { ROUTER } from "utils/router";
 import { AiOutlineMenu } from "react-icons/ai";
 
 const Header = () => {
-
   const [isShowCategories, setIsShowCategories] = useState(true);
 
   const [menu] = useState([
@@ -144,34 +143,52 @@ const Header = () => {
       <div className="container">
         <div className="row hero_categories_container">
           <div className="col-lg-3 hero_categories">
-            <div className="hero_categories_all" onClick={() => setIsShowCategories(!isShowCategories)}>
+            <div
+              className="hero_categories_all"
+              onClick={() => setIsShowCategories(!isShowCategories)}
+            >
               <AiOutlineMenu />
               Danh sách sản phẩm
             </div>
             {isShowCategories && (
-            <ul className={isShowCategories ? "" : "hidden"}>
-              <li>
-                <Link to={"#"}>Sản phẩm 1</Link>
-              </li>
-              <li>
-                <Link to={"#"}>Sản phẩm 2</Link>
-              </li>
-              <li>
-                <Link to={"#"}>Sản phẩm 3</Link>
-              </li>
-              <li>
-                <Link to={"#"}>Sản phẩm 4</Link>
-              </li>
-              <li>
-                <Link to={"#"}>Sản phẩm 5</Link>
-              </li>
-              <li>
-                <Link to={"#"}>Sản phẩm 6</Link>
-              </li>
-            </ul>
+              <ul className={isShowCategories ? "" : "hidden"}>
+                <li>
+                  <Link to={"#"}>Sản phẩm 1</Link>
+                </li>
+                <li>
+                  <Link to={"#"}>Sản phẩm 2</Link>
+                </li>
+                <li>
+                  <Link to={"#"}>Sản phẩm 3</Link>
+                </li>
+                <li>
+                  <Link to={"#"}>Sản phẩm 4</Link>
+                </li>
+                <li>
+                  <Link to={"#"}>Sản phẩm 5</Link>
+                </li>
+                <li>
+                  <Link to={"#"}>Sản phẩm 6</Link>
+                </li>
+              </ul>
             )}
           </div>
-          <div className="col-lg-9">Phải</div>
+          <div className="col-lg-9 hero_search_container">
+            <div className="hero_search">
+              <div className="hero_search_form">
+                <form>
+                  <input
+                    type=""
+                    name=""
+                    value=""
+                    placeholder="Bạn đang tìm gì"
+                  />
+                  <button type="submit"> Tìm kiếm </button>
+                  <i className="fa fa-search"></i>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>
@@ -179,3 +196,5 @@ const Header = () => {
 };
 
 export default memo(Header);
+
+// Bài 11 11phut
