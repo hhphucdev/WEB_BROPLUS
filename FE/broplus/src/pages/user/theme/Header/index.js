@@ -1,6 +1,6 @@
 import { memo, useState } from "react";
 import "./style.scss";
-import { FaSquareFacebook } from "react-icons/fa6";
+import { FaPhone, FaSquareFacebook } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { formatter } from "utils/formatter";
 import { ROUTER } from "utils/router";
@@ -178,16 +178,25 @@ const Header = () => {
               <div className="hero_search_form">
                 <form>
                   <input
-                    type=""
+                    type="text"
                     name=""
                     value=""
                     placeholder="Bạn đang tìm gì"
                   />
                   <button type="submit"> Tìm kiếm </button>
-                  <i className="fa fa-search"></i>
                 </form>
               </div>
+              <div className="hero_search_phone">
+                <div className="hero_search_phone_icon">
+                  <FaPhone />
+                </div>
+                <div className="hero_search_phone_text">
+                  <p>0368564833</p>
+                  <span>Hỗ trợ 24/7</span>
+                </div>
+              </div>
             </div>
+            <div className="hero-item"></div>
           </div>
         </div>
       </div>

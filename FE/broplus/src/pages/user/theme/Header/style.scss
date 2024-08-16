@@ -1,6 +1,7 @@
 @use "sass:map";
 @import "style/pages/theme";
 
+$banner: "/assets/user/images/hero/banner.png";
 .header-top {
   background: red;
 }
@@ -225,12 +226,11 @@
 }
 
 .hero_search_container {
-  padding: 15px;
-
   .hero_search_form {
     width: 610px;
     height: 50px;
     float: left;
+    padding-left: 15px;
 
     form {
       display: flex;
@@ -262,6 +262,67 @@
       padding: 16px 30px 17px;
       border: none;
       height: 100%;
+    }
+  }
+
+  .hero_search_phone {
+    display: flex;
+    align-items: center;
+  }
+
+  .hero_search_phone_icon {
+    font-size: 30px;
+    color: map.get($theme-colors, "normal-text");
+  }
+
+  .hero_search_phone_text {
+    font-size: 16px;
+    color: map.get($theme-colors, "normal-text");
+    margin-left: 10px;
+
+    p {
+      color: map.get($theme-colors, "normal-text");
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    span {
+      color: #110606;
+      font-size: 14px;
+    }
+  }
+
+  .hero-item {
+    background-image: url($banner);
+    background-size: cover;
+    height: 410px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-left: 15px;
+    .hero-text {
+      padding: 0 15px;
+      h1 {
+        font-size: 40px;
+        color: white;
+        font-weight: 800;
+        margin-bottom: 20px;
+      }
+      p {
+        font-size: 16px;
+        color: white;
+        margin-bottom: 20px;
+      }
+      button {
+        background: map.get($theme-colors, "main");
+        color: white;
+        font-weight: 800px;
+        padding: 16px 30px 17px;
+        display: inline-block;
+        font-size: 14px;
+        border: none;
+        height: 100%;
+      }
     }
   }
 }
