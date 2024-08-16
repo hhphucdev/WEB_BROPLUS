@@ -196,9 +196,7 @@ const Header = () => {
                 </div>
               </div>
             </div>
-            <div className="hero-item">
-          
-            </div>
+            <div className="hero-item"></div>
           </div>
         </div>
       </div>
