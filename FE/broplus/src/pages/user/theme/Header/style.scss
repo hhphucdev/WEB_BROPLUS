@@ -231,6 +231,7 @@ $banner: "/assets/user/images/hero/banner.png";
     height: 50px;
     float: left;
     padding-left: 15px;
+    padding-bottom: 20px;
 
     form {
       display: flex;
@@ -300,29 +301,5 @@ $banner: "/assets/user/images/hero/banner.png";
     align-items: center;
     width: 100%;
     margin-left: 15px;
-    .hero-text {
-      padding: 0 15px;
-      h1 {
-        font-size: 40px;
-        color: white;
-        font-weight: 800;
-        margin-bottom: 20px;
-      }
-      p {
-        font-size: 16px;
-        color: white;
-        margin-bottom: 20px;
-      }
-      button {
-        background: map.get($theme-colors, "main");
-        color: white;
-        font-weight: 800px;
-        padding: 16px 30px 17px;
-        display: inline-block;
-        font-size: 14px;
-        border: none;
-        height: 100%;
-      }
-    }
   }
 }
