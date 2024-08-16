@@ -99,7 +99,7 @@ const Header = () => {
         <div className="row">
           <div className="col-xl-3">
             <div className="header-logo">
-              <h1> SHOP BROPLUS </h1>
+              <h1 className="logo-title">SHOP BROPLUS</h1>
             </div>
           </div>
           <div className="col-xl-6">
@@ -205,5 +205,3 @@ const Header = () => {
 };
 
 export default memo(Header);
-
-// Bài 11 11phut

@@ -2,42 +2,88 @@
 @import "style/pages/theme";
 
 .container_categories_slider {
-  max-width: 1200px !important;
-  margin-top: 30px !important;
+  max-width: 1200px;
+  margin-top: 30px;
 
   .categories_slider {
+    padding: 20px;
+
     .categories_slider_item {
       height: 300px;
-      position: relative;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: top center;
-      border-radius: 5px;
+      width: 250px;
+      margin: 15px;
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
 
-      p {
-        position: absolute;
-        left: 50px;
-        bottom: 20px;
+      .image-container {
+        height: 60%; 
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+      }
+
+      .info-container {
+        padding: 10px;
         text-align: center;
-        font-size: 18px;
-        color: map.get($theme-colors, "normal-text");
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        padding: 12px 0 10px;
-        width: 270px;
-        cursor: pointer;
+        background: rgba(255, 255, 255, 0.9);
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
 
-        &:hover {
-          background: rgb(237, 237, 237);
-          color: red;
+        p {
+          margin: 5px 0;
+          font-size: 16px;
+          font-weight: 700;
+          color: map.get($theme-colors, "normal-text");
+        }
+
+        .price {
+          font-size: 18px;
+          color: #d9534f; 
+          font-weight: bold;
+        }
+
+        .quantity {
+          font-size: 14px;
+          color: #5bc0de; 
         }
       }
+    }
+
+    .react-multi-carousel-track {
+      display: flex;
+      align-items: center;
+    }
+
+    .react-multi-carousel-item {
+      flex: none;
     }
 
     .react-multi-carousel-list {
       margin-left: 5px;
       margin-right: 5px;
+      overflow: visible;
+    }
+  }
+  .add-to-cart-btn {
+    background-color: map.get($theme-colors, "main");
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+
+    &:hover {
+      background-color: map.get($theme-colors, "main-hover");
     }
   }
 }
