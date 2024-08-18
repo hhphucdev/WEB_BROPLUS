@@ -10,7 +10,6 @@ import "./style.scss";
 import { Link } from "react-router-dom";
 import { ROUTER } from "utils/router";
 
-
 const HomePage = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
 
@@ -19,7 +18,6 @@ const HomePage = () => {
   const handleTabChange = () => {
     setIsRoundTrip(!isRoundTrip);
   };
-
 
   const responsive = {
     superLargeDesktop: {
@@ -285,7 +283,6 @@ const HomePage = () => {
         </Carousel>
       </div>
 
-      {/* Featured Begin */}
       <div className="container">
         <div className="featured">
           <div className="section_title">
@@ -347,7 +344,6 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      {/* Featured End */}
     </>
   );
 };
