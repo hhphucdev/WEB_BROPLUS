@@ -7,9 +7,19 @@ import category3 from "assets/user/images/categories/cat-2.jpg";
 import category4 from "assets/user/images/categories/cat-3.jpg";
 import category5 from "assets/user/images/categories/cat-4.jpg";
 import "./style.scss";
+import { Link } from "react-router-dom";
+import { ROUTER } from "utils/router";
+
 
 const HomePage = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
+
+  const [isRoundTrip, setIsRoundTrip] = useState(false);
+
+  const handleTabChange = () => {
+    setIsRoundTrip(!isRoundTrip);
+  };
+
 
   const responsive = {
     superLargeDesktop: {
@@ -198,6 +208,64 @@ const HomePage = () => {
 
   return (
     <>
+      <div className="hero-item"></div>
+
+      <div className="box">
+        <div className="box_header">
+          <div className="box_header_left col-lg-9">
+            <input
+              type="radio"
+              name="tab"
+              id="tab1"
+              checked={!isRoundTrip}
+              onChange={handleTabChange}
+            />
+            <label htmlFor="tab1">Một chiều</label>
+            <input
+              type="radio"
+              name="tab"
+              id="tab2"
+              checked={isRoundTrip}
+              onChange={handleTabChange}
+            />
+            <label htmlFor="tab2">Khứ hồi</label>
+          </div>
+          <div className="box_header_right col-lg-3">
+            <Link to={ROUTER.LOGIN}>Hướng dẫn mua vé</Link>
+          </div>
+        </div>
+        <div className="box-content">
+          <div className="box-content_left">
+            <div className="box-content_left_top">
+              <div className="box-content_left_top_item">
+                <h6>Điểm đi</h6>
+                <input type="text" placeholder="Nơi đi" />
+              </div>
+              <div className="box-content_left_top_item">
+                <h6>Điểm đến</h6>
+                <input type="text" placeholder="Nơi đến" />
+              </div>
+              <div className="box-content_left_top_item">
+                <h6>Ngày đi</h6>
+                <input type="date" />
+              </div>
+              {isRoundTrip && (
+                <div className="box-content_left_top_item">
+                  <h6>Ngày về</h6>
+                  <input type="date" />
+                </div>
+              )}
+              <div className="box-content_left_top_item">
+                <h6>Số vé</h6>
+                <input type="number" placeholder="Số lượng" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="box-footer">
+          <button>Tìm chuyến xe</button>
+        </div>
+      </div>
       <div className="container container_categories_slider">
         <Carousel responsive={responsive} className="categories_slider">
           {sliderItems.map((item, key) => (

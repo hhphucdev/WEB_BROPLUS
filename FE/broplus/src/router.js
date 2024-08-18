@@ -1,34 +1,34 @@
-import { Route, Routes } from "react-router-dom";
-import HomePage from "./pages/user/HomePage";
-import { ROUTER } from "./utils/router";
-import MasterLayout from "./pages/user/theme/masterLayout";
-import ProfilePage from "./pages/user/ProfilePage";
+import { Route, Routes } from 'react-router-dom';
+import HomePage from './pages/user/HomePage';
+import { ROUTER } from './utils/router';
+import MasterLayout from './pages/user/theme/masterLayout';
+import ProfilePage from './pages/user/ProfilePage';
+import Login from './component/Login';
+import Footer from './pages/user/theme/Footer';
 
-const renderUserRouter = () => {
-  const userRoutes = [
-    {
-      path: ROUTER.USER.HOME,
-      component: <HomePage />,
-    },
-    {
-      path: ROUTER.USER.PROFILE,
-      component: <ProfilePage />,
-    },
-  ];
-
+const renderUserRoutesWithLayout = () => {
   return (
     <MasterLayout>
       <Routes>
-        {userRoutes.map((item, key) => (
-          <Route key={key} path={item.path} element={item.component} />
-        ))}
+        <Route path={ROUTER.USER.HOME} element={<HomePage />} />
+        <Route path={ROUTER.USER.PROFILE} element={<ProfilePage />} />
+        {/* Thêm các route khác mà cần MasterLayout */}
       </Routes>
     </MasterLayout>
   );
 };
 
+// Main Router Component
 const RouterCustom = () => {
-  return renderUserRouter();
+  return (
+    <Routes>
+      {/* Route cho trang đăng nhập với footer */}
+      <Route path={ROUTER.USER.LOGIN} element={<><Login /><Footer /></>} />
+
+      {/* Routes sử dụng MasterLayout */}
+      <Route path="*" element={renderUserRoutesWithLayout()} />
+    </Routes>
+  );
 };
 
 export default RouterCustom;

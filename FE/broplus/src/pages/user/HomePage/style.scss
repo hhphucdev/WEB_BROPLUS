@@ -1,6 +1,9 @@
 @use "sass:map";
 @import "style/pages/theme";
 
+$banner: "/assets/user/images/hero/web.png";
+
+
 .container_categories_slider {
   max-width: 1200px;
   margin-top: 30px;
@@ -233,4 +236,126 @@
       }
     }
   }
+}
+
+.hero-item {
+  background-image: url($banner);
+  background-size: cover;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.box {
+  border: 1px solid #ff0303;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(248, 138, 3, 0.5);
+  padding: 20px;
+  margin: 30px auto;
+  width: 78%;
+  background-color: #fff;
+  overflow: visible;
+  position: relative;
+}
+
+.box_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  gap: 20px;
+}
+
+.box_header_left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.box_header_left input[type="radio"] {
+  margin-right: 5px;
+}
+
+.box_header_left label {
+  margin-right: 20px;
+}
+
+.box_header_right {
+  display: flex;
+  margin-left: auto;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.box-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.box-content_left {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.box-content_left_top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.box-content_left_top_item {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 120px;
+}
+
+.box-content_left_top_item h6 {
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.box-content_left_top_item input {
+  width: 100%;
+  padding: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+.box-footer {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 0;
+  z-index: 10;
+}
+
+.box-footer button {
+  background-color: #f98d00;
+  border: none;
+  color: white;
+  padding: 10px 60px;
+  font-size: 18px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  font-weight: bold;
+}
+
+.box-footer button:hover {
+  background-color: #e67e22;
 }
