@@ -23,7 +23,7 @@ const Footer = () => {
               <h6>Cửa hàng</h6>
               <ul>
                 <li>
-                  <Link to="">Liên hệ</Link>
+                  <Link to="ROUTE.USER.HOME">Trang chủ</Link>
                 </li>
                 <li>
                   <Link to="">Sản phẩm</Link>
