@@ -2,6 +2,7 @@ import { memo } from "react";
 import "./style.scss";
 import { Link } from "react-router-dom";
 import { FaSquareFacebook } from "react-icons/fa6";
+import { ROUTER } from "utils/router";
 
 const Footer = () => {
   return (
@@ -23,7 +24,7 @@ const Footer = () => {
               <h6>Cửa hàng</h6>
               <ul>
                 <li>
-                  <Link to="ROUTE.USER.HOME">Trang chủ</Link>
+                  <Link to={ROUTER.USER.HOME}>Trang chủ</Link>
                 </li>
                 <li>
                   <Link to="">Sản phẩm</Link>
