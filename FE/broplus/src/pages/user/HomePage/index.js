@@ -11,8 +11,6 @@ import { Link } from "react-router-dom";
 import { ROUTER } from "utils/router";
 
 const HomePage = () => {
-  const [selectedCategory, setSelectedCategory] = useState("all");
-
   const [isRoundTrip, setIsRoundTrip] = useState(false);
 
   const handleTabChange = () => {
@@ -26,7 +24,7 @@ const HomePage = () => {
     },
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 4,
+      items: 3,
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
@@ -41,168 +39,49 @@ const HomePage = () => {
   const sliderItems = [
     {
       id: 1,
-      title: "PC Gaming",
-      price: "12,000,000 VND",
-      quantity: "Số lượng: 1500",
       image: category,
     },
     {
       id: 2,
-      title: "PC Gaming",
-      price: "15,000,000 VND",
-      quantity: "Số lượng: 1300",
       image: category2,
     },
     {
       id: 3,
-      title: "PC Gaming",
-      price: "20,000,000 VND",
-      quantity: "Số lượng: 900",
       image: category3,
     },
     {
       id: 4,
-      title: "PC Gaming",
-      price: "11,000,000 VND",
-      quantity: "Số lượng: 1600",
       image: category4,
     },
     {
       id: 5,
-      title: "PC Gaming",
-      price: "25,000,000 VND",
-      quantity: "Số lượng: 700",
       image: category5,
     },
   ];
 
-  const featuredItems = {
-    all: {
-      title: "Toàn bộ",
-      products: [
-        {
-          id: 1,
-          title: "PC Gaming",
-          price: "12,000,000 VND",
-          quantity: "Số lượng: 1500",
-          image: category,
-        },
-        {
-          id: 2,
-          title: "PC Gaming",
-          price: "15,000,000 VND",
-          quantity: "Số lượng: 1300",
-          image: category2,
-        },
-        {
-          id: 3,
-          title: "PC Gaming",
-          price: "20,000,000 VND",
-          quantity: "Số lượng: 900",
-          image: category3,
-        },
-        {
-          id: 4,
-          title: "PC Gaming",
-          price: "11,000,000 VND",
-          quantity: "Số lượng: 1600",
-          image: category4,
-        },
-        {
-          id: 5,
-          title: "PC Gaming",
-          price: "25,000,000 VND",
-          quantity: "Số lượng: 700",
-          image: category5,
-        },
-      ],
+  const tripInfo = [
+    {
+      id: 1,
+      image: category,
+      title: "Đà Lạt",
+      price: "290,000 VND",
+      content: "305km - 8 giờ",
     },
-    computers: {
-      title: "Máy tính",
-      products: [
-        {
-          id: 1,
-          title: "PC Gaming",
-          price: "25,000,000 VND",
-          quantity: "Số lượng: 700",
-          image: category5,
-        },
-        {
-          id: 2,
-          title: "PC Gaming",
-          price: "25,000,000 VND",
-          quantity: "Số lượng: 700",
-          image: category5,
-        },
-        {
-          id: 3,
-          title: "PC Gaming",
-          price: "25,000,000 VND",
-          quantity: "Số lượng: 700",
-          image: category5,
-        },
-        {
-          id: 4,
-          title: "PC Gaming",
-          price: "25,000,000 VND",
-          quantity: "Số lượng: 700",
-          image: category5,
-        },
-        {
-          id: 5,
-          title: "PC Gaming",
-          price: "25,000,000 VND",
-          quantity: "Số lượng: 700",
-          image: category5,
-        },
-      ],
+    {
+      id: 2,
+      image: category2,
+      title: "Nha Trang",
+      price: "290,000 VND",
+      content: "305km - 8 giờ",
     },
-    mice: {
-      title: "Chuột",
-      products: [
-        {
-          id: 1,
-          title: "PC Gaming",
-          price: "25,000,000 VND",
-          quantity: "Số lượng: 700",
-          image: category5,
-        },
-        {
-          id: 2,
-          title: "PC Gaming",
-          price: "25,000,000 VND",
-          quantity: "Số lượng: 700",
-          image: category5,
-        },
-        {
-          id: 3,
-          title: "PC Gaming",
-          price: "25,000,000 VND",
-          quantity: "Số lượng: 700",
-          image: category5,
-        },
-        {
-          id: 4,
-          title: "PC Gaming",
-          price: "25,000,000 VND",
-          quantity: "Số lượng: 700",
-          image: category5,
-        },
-      ],
+    {
+      id: 3,
+      image: category3,
+      title: "Phan Thiết",
+      price: "290,000 VND",
+      content: "305km - 8 giờ",
     },
-    keyboards: {
-      title: "Bàn phím",
-      products: [
-        {
-          id: 1,
-          title: "PC Gaming",
-          price: "25,000,000 VND",
-          quantity: "Số lượng: 700",
-          image: category5,
-        },
-      ],
-    },
-  };
+  ];
 
   return (
     <>
@@ -265,6 +144,9 @@ const HomePage = () => {
         </div>
       </div>
       <div className="container container_categories_slider">
+        <div className="section_title">
+          <h2>KHUYẾN MÃI NỔI BẬT</h2>
+        </div>
         <Carousel responsive={responsive} className="categories_slider">
           {sliderItems.map((item, key) => (
             <div className="categories_slider_item" key={key}>
@@ -272,12 +154,6 @@ const HomePage = () => {
                 className="image-container"
                 style={{ backgroundImage: `url(${item.image})` }}
               ></div>
-              <div className="info-container">
-                <p>{item.title}</p>
-                <p className="price">{item.price}</p>
-                <p className="quantity">{item.quantity}</p>
-              </div>
-              <div className="add-to-cart-btn">Thêm vào giỏ hàng</div>
             </div>
           ))}
         </Carousel>
@@ -286,61 +162,62 @@ const HomePage = () => {
       <div className="container">
         <div className="featured">
           <div className="section_title">
-            <h2>Sản phẩm nổi bật</h2>
+            <h2>TUYẾN PHỔ BIẾN</h2>
+            <h4>Được khách hàng tin tưởng và lựa chọn</h4>
           </div>
-          <div className="featured_menu">
-            <button
-              className={`featured_menu_item ${
-                selectedCategory === "all" ? "active" : ""
-              }`}
-              onClick={() => setSelectedCategory("all")}
-            >
-              Tất cả
-            </button>
-            <button
-              className={`featured_menu_item ${
-                selectedCategory === "computers" ? "active" : ""
-              }`}
-              onClick={() => setSelectedCategory("computers")}
-            >
-              Máy tính
-            </button>
-            <button
-              className={`featured_menu_item ${
-                selectedCategory === "mice" ? "active" : ""
-              }`}
-              onClick={() => setSelectedCategory("mice")}
-            >
-              Chuột
-            </button>
-            <button
-              className={`featured_menu_item ${
-                selectedCategory === "keyboards" ? "active" : ""
-              }`}
-              onClick={() => setSelectedCategory("keyboards")}
-            >
-              Bàn phím
-            </button>
-          </div>
-          <div className="featured_products">
-            {featuredItems[selectedCategory].products.map((product) => (
-              <div className="featured_product_item" key={product.id}>
-                <div
-                  className="featured_product_image"
-                  style={{ backgroundImage: `url(${product.image})` }}
-                ></div>
-                <div className="featured_product_info">
-                  <p className="featured_product_title">{product.title}</p>
-                  <p className="featured_product_price">{product.price}</p>
-                  <p className="featured_product_quantity">
-                    {product.quantity}
-                  </p>
-                  <button className="featured_product_btn">
-                    Thêm vào giỏ hàng
-                  </button>
+          <div className="popular-routes">
+            <div className="trip-info">
+              {tripInfo.map((trip, key) => (
+                <div className="trip-info-item">
+                  <div className="trip-info-content">
+                    <div
+                      className="image-container-trip"
+                      style={{ backgroundImage: `url(${trip.image})` }}
+                    ></div>
+                    <div className="trip-details">
+                      {[...Array(3)].map((_, index) => (
+                        <div className="trip-detail-item" key={index}>
+                          <h5>{trip.title}</h5>
+                          <p className="price">{trip.price}</p>
+                          <p className="content">{trip.content}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="container">
+        <div className="featured">
+          <div className="section_title">
+            <h2>TUYẾN PHỔ BIẾN</h2>
+            <h4>Được khách hàng tin tưởng và lựa chọn</h4>
+          </div>
+          <div className="popular-routes">
+            <div className="trip-info">
+              {tripInfo.map((trip, key) => (
+                <div className="trip-info-item">
+                  <div className="trip-info-content">
+                    <div
+                      className="image-container-trip"
+                      style={{ backgroundImage: `url(${trip.image})` }}
+                    ></div>
+                    <div className="trip-details">
+                      {[...Array(3)].map((_, index) => (
+                        <div className="trip-detail-item" key={index}>
+                          <h5>{trip.title}</h5>
+                          <p className="price">{trip.price}</p>
+                          <p className="content">{trip.content}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

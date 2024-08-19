@@ -4,16 +4,15 @@
 $banner: "/assets/user/images/hero/web.png";
 
 .container_categories_slider {
-  max-width: 1200px;
-  margin-top: 30px;
+  padding: 20px;
+  text-align: center;
 
   .categories_slider {
     padding: 20px;
 
     .categories_slider_item {
-      height: 300px;
-      width: 250px;
-      margin: 15px;
+      height: 200px;
+      width: 350px;
       background-color: #f0f0f0;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -23,54 +22,9 @@ $banner: "/assets/user/images/hero/web.png";
       overflow: hidden;
 
       .image-container {
-        height: 60%;
-        background-repeat: no-repeat;
+        height: 100%;
         background-size: cover;
         background-position: center;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-      }
-
-      .info-container {
-        padding: 10px;
-        text-align: center;
-        background: rgba(255, 255, 255, 0.9);
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-
-        p {
-          margin: 5px 0;
-          font-size: 16px;
-          font-weight: 700;
-          color: map.get($theme-colors, "normal-text");
-        }
-
-        .price {
-          font-size: 18px;
-          color: #d9534f;
-          font-weight: bold;
-        }
-
-        .quantity {
-          font-size: 14px;
-          color: #5bc0de;
-        }
-      }
-
-      .add-to-cart-btn {
-        background-color: map.get($theme-colors, "main");
-        color: white;
-        padding: 10px 20px;
-        border-radius: 5px;
-        font-size: 16px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        text-align: center;
-
-        &:hover {
-          background-color: map.get($theme-colors, "main-hover");
-        }
       }
     }
 
@@ -101,21 +55,9 @@ $banner: "/assets/user/images/hero/web.png";
     h2 {
       position: relative;
       display: inline-block;
-      padding-bottom: 10px;
       font-size: 24px;
       font-weight: bold;
       color: map.get($theme-colors, "primary-text");
-
-      &::after {
-        content: "";
-        position: absolute;
-        bottom: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100px;
-        height: 2px;
-        background-color: map.get($theme-colors, "main");
-      }
     }
   }
 
@@ -153,9 +95,11 @@ $banner: "/assets/user/images/hero/web.png";
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
+    max-width: 100%;
+    margin: 0 auto;
 
     .featured_product_item {
-      width: calc(20% - 20px);
+      width: calc(33.33% - 20px);
       background-color: #f8f8f8;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -358,3 +302,85 @@ $banner: "/assets/user/images/hero/web.png";
 .box-footer button:hover {
   background-color: #e67e22;
 }
+
+.popular-routes {
+  .trip-info {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+
+    h2 {
+      font-size: 24px;
+      font-weight: bold;
+      color: map.get($theme-colors, "primary-text");
+    }
+
+    a {
+      color: map.get($theme-colors, "main");
+      font-size: 16px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  }
+
+  .trip-info-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    width: 350px;
+
+    .trip-info-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-container-trip {
+      width: 100%;
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .trip-details {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .trip-detail-item {
+      width: 100%;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h5 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: bold;
+      color: map.get($theme-colors, "main");
+    }
+
+    .price {
+      margin: 0;
+      font-size: 16px;
+      font-weight: bold;
+      color: black;
+      text-align: right;
+    }
+
+    .content {
+      margin: 0;
+      font-size: 14px;
+      color: black;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+    }
+  }
+}
+
