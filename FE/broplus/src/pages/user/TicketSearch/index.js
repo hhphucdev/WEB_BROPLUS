@@ -26,6 +26,8 @@ const TicketSearch = () => {
                 placeholder="Vui lòng nhập mã vé"
               />
             </div>
+           
+            
 
             <div className="form-group">
               <button type="submit">Tìm kiếm</button>
