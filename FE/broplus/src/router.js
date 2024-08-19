@@ -5,6 +5,7 @@ import MasterLayout from './pages/user/theme/masterLayout';
 import ProfilePage from './pages/user/ProfilePage';
 import Login from './component/Login';
 import Footer from './pages/user/theme/Footer';
+import TicketSearch from 'pages/user/TicketSearch';
 
 const renderUserRoutesWithLayout = () => {
   return (
@@ -12,6 +13,7 @@ const renderUserRoutesWithLayout = () => {
       <Routes>
         <Route path={ROUTER.USER.HOME} element={<HomePage />} />
         <Route path={ROUTER.USER.PROFILE} element={<ProfilePage />} />
+        <Route path={ROUTER.USER.TICKET_SEARCH} element={<TicketSearch />} />
       </Routes>
     </MasterLayout>
   );

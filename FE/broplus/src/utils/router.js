@@ -4,5 +4,6 @@ export const ROUTER = {
         PROFILE: "profile",
         PRODUCT : "product",
         LOGIN : "login",
+        TICKET_SEARCH : "ticket-search",
     }   
 }

@@ -193,32 +193,10 @@ const HomePage = () => {
       <div className="container">
         <div className="featured">
           <div className="section_title">
-            <h2>TUYẾN PHỔ BIẾN</h2>
+            <h2>CHẤT LƯỢNG LÀ SỨ MỆNH</h2>
             <h4>Được khách hàng tin tưởng và lựa chọn</h4>
           </div>
-          <div className="popular-routes">
-            <div className="trip-info">
-              {tripInfo.map((trip, key) => (
-                <div className="trip-info-item">
-                  <div className="trip-info-content">
-                    <div
-                      className="image-container-trip"
-                      style={{ backgroundImage: `url(${trip.image})` }}
-                    ></div>
-                    <div className="trip-details">
-                      {[...Array(3)].map((_, index) => (
-                        <div className="trip-detail-item" key={index}>
-                          <h5>{trip.title}</h5>
-                          <p className="price">{trip.price}</p>
-                          <p className="content">{trip.content}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          
         </div>
       </div>
     </>
