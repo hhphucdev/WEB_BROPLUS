@@ -5,5 +5,6 @@ export const ROUTER = {
         PRODUCT : "product",
         LOGIN : "login",
         TICKET_SEARCH : "ticket-search",
+        INTRODUCE : "introduce",
     }   
 }

@@ -15,7 +15,7 @@ const content = {
     supportText: "Hỗ trợ 24/7",
     menu: [
       { name: "Trang chủ", path: ROUTER.USER.HOME },
-      { name: "GIỚI THIỆU", path: ROUTER.USER.PRODUCT },
+      { name: "GIỚI THIỆU", path: ROUTER.USER.INTRODUCE },
       { name: "LỊCH TRÌNH", path: "" },
       { name: "TRA CỨU VÉ", path: ROUTER.USER.TICKET_SEARCH },
       { name: "Liên hệ", path: ROUTER.REGISTER },
@@ -31,7 +31,7 @@ const content = {
     supportText: "24/7 Support",
     menu: [
       { name: "Home", path: ROUTER.USER.HOME },
-      { name: "INTRODUCTION", path: ROUTER.USER.PRODUCT },
+      { name: "INTRODUCTION", path: ROUTER.USER.INTRODUCE },
       { name: "SCHEDULE", path: "" },
       { name: "TICKET INQUIRY", path: ROUTER.USER.TICKET_SEARCH },
       { name: "Contact", path: ROUTER.REGISTER },
@@ -47,12 +47,10 @@ const Header = () => {
 
   const currentContent = content[language];
 
-  // Kiểm tra xem hiện tại có phải là trang đăng nhập không
   const isLoginPage = location.pathname === ROUTER.USER.LOGIN;
 
   return (
     <>
-      {/* Header Top Section */}
       <div className="header-top">
         <div className="container">
           <div className="row">
@@ -93,7 +91,6 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Hiển thị menu nếu không phải trang đăng nhập */}
       {!isLoginPage && (
         <div className="container">
           <div className="row">
@@ -104,13 +101,19 @@ const Header = () => {
                     <li
                       key={menuKey}
                       className={
-                        location.pathname === menuItem.path ? "active" : ""
+                        location.pathname.includes(menuItem.path) &&
+                        menuItem.path !== ""
+                          ? "active"
+                          : ""
                       }
                     >
                       <Link
                         to={menuItem.path}
                         className={
-                          location.pathname === menuItem.path ? "active" : ""
+                          location.pathname.includes(menuItem.path) &&
+                          menuItem.path !== ""
+                            ? "active"
+                            : ""
                         }
                       >
                         {menuItem.name}

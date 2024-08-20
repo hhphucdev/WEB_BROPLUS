@@ -14,6 +14,7 @@ $banner: "/assets/user/images/hero/web.png";
   background-size: 300% 300%;
   animation: gradientAnimation 5s ease infinite;
   height: 40px;
+  
 }
 
 .language-selector {
@@ -148,8 +149,8 @@ $banner: "/assets/user/images/hero/web.png";
 
         &:hover,
         &.active {
-          color: map.get($theme-colors, "main");
-          border-bottom: 2px solid map.get($theme-colors, "main");
+          color: rgb(255, 136, 0);
+          border-bottom: 2px solid rgb(255, 136, 0);
         }
       }
 
