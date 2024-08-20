@@ -1,10 +1,13 @@
-import { memo } from "react";
+import { useState, memo } from "react";
 import "./style.scss";
 
 // Import images
 import image1 from "assets/user/images/categories/cat-4.jpg";
 
 const Introduce = () => {
+  // State to manage the visibility of the additional sections
+  const [showMore, setShowMore] = useState(false);
+
   return (
     <div className="container">
       <div className="section_title">
@@ -42,91 +45,116 @@ const Introduce = () => {
           </p>
         </div>
       </div>
+      {showMore && (
+        <>
+          <div className="section_image_text reverse">
+            <div className="text_container">
+              <h3>Về chúng tôi</h3>
+              <p>
+                BroPlus luôn đặt chất lượng sản phẩm và dịch vụ lên hàng đầu.
+                Chúng tôi không ngừng cải tiến và phát triển để mang đến cho
+                khách hàng những trải nghiệm tốt nhất.
+              </p>
+              <p>
+                Với phương châm "Chất lượng là danh dự", chúng tôi cam kết mang
+                đến cho khách hàng những sản phẩm và dịch vụ tốt nhất.
+              </p>
+            </div>
+            <div className="image_container">
+              <img src={image1} alt="BroPlus" />
+            </div>
+          </div>
+          <div className="section_image_text">
+            <div className="image_container">
+              <img src={image1} alt="BroPlus" />
+            </div>
+            <div className="text_container">
+              <h3>Về chúng tôi</h3>
+              <p>
+                BroPlus luôn đặt chất lượng sản phẩm và dịch vụ lên hàng đầu.
+                Chúng tôi không ngừng cải tiến và phát triển để mang đến cho
+                khách hàng những trải nghiệm tốt nhất.
+              </p>
+              <p>
+                Với phương châm "Chất lượng là danh dự", chúng tôi cam kết mang
+                đến cho khách hàng những sản phẩm và dịch vụ tốt nhất.
+              </p>
+            </div>
+          </div>
+          <div className="section_image_text reverse">
+            <div className="text_container">
+              <h3>Về chúng tôi</h3>
+              <p>
+                BroPlus luôn đặt chất lượng sản phẩm và dịch vụ lên hàng đầu.
+                Chúng tôi không ngừng cải tiến và phát triển để mang đến cho
+                khách hàng những trải nghiệm tốt nhất.
+              </p>
+              <p>
+                Với phương châm "Chất lượng là danh dự", chúng tôi cam kết mang
+                đến cho khách hàng những sản phẩm và dịch vụ tốt nhất.
+              </p>
+            </div>
+            <div className="image_container">
+              <img src={image1} alt="BroPlus" />
+            </div>
+          </div>
+          <div className="section_image_text">
+            <div className="image_container">
+              <img src={image1} alt="BroPlus" />
+            </div>
+            <div className="text_container">
+              <h3>Về chúng tôi</h3>
+              <p>
+                BroPlus luôn đặt chất lượng sản phẩm và dịch vụ lên hàng đầu.
+                Chúng tôi không ngừng cải tiến và phát triển để mang đến cho
+                khách hàng những trải nghiệm tốt nhất.
+              </p>
+              <p>
+                Với phương châm "Chất lượng là danh dự", chúng tôi cam kết mang
+                đến cho khách hàng những sản phẩm và dịch vụ tốt nhất.
+              </p>
+            </div>
+          </div>
+        </>
+      )}
+      <button onClick={() => setShowMore(!showMore)} className="toggle-button">
+        {showMore ? "Ẩn bớt" : "Xem thêm"}
+      </button>
+
       <div className="section_image_text reverse">
-        <div className="text_container">
-          <h3>Về chúng tôi</h3>
-          <p>
-            BroPlus luôn đặt chất lượng sản phẩm và dịch vụ lên hàng đầu. Chúng
-            tôi không ngừng cải tiến và phát triển để mang đến cho khách hàng
-            những trải nghiệm tốt nhất.
-          </p>
-          <p>
-            Với phương châm "Chất lượng là danh dự", chúng tôi cam kết mang đến
-            cho khách hàng những sản phẩm và dịch vụ tốt nhất.
-          </p>
-        </div>
-        <div className="image_container">
-          <img src={image1} alt="BroPlus" />
-        </div>
-      </div>
-      <div className="section_image_text">
-        <div className="image_container">
-          <img src={image1} alt="BroPlus" />
-        </div>
-        <div className="text_container">
-          <h3>Về chúng tôi</h3>
-          <p>
-            BroPlus luôn đặt chất lượng sản phẩm và dịch vụ lên hàng đầu. Chúng
-            tôi không ngừng cải tiến và phát triển để mang đến cho khách hàng
-            những trải nghiệm tốt nhất.
-          </p>
-          <p>
-            Với phương châm "Chất lượng là danh dự", chúng tôi cam kết mang đến
-            cho khách hàng những sản phẩm và dịch vụ tốt nhất.
-          </p>
-        </div>
-      </div>
-      <div className="section_image_text reverse">
-        <div className="text_container">
-          <h3>Về chúng tôi</h3>
-          <p>
-            BroPlus luôn đặt chất lượng sản phẩm và dịch vụ lên hàng đầu. Chúng
-            tôi không ngừng cải tiến và phát triển để mang đến cho khách hàng
-            những trải nghiệm tốt nhất.
-          </p>
-          <p>
-            Với phương châm "Chất lượng là danh dự", chúng tôi cam kết mang đến
-            cho khách hàng những sản phẩm và dịch vụ tốt nhất.
-          </p>
-        </div>
-        <div className="image_container">
-          <img src={image1} alt="BroPlus" />
-        </div>
-      </div>
-      <div className="section_image_text">
-        <div className="image_container">
-          <img src={image1} alt="BroPlus" />
-        </div>
-        <div className="text_container">
-          <h3>Về chúng tôi</h3>
-          <p>
-            BroPlus luôn đặt chất lượng sản phẩm và dịch vụ lên hàng đầu. Chúng
-            tôi không ngừng cải tiến và phát triển để mang đến cho khách hàng
-            những trải nghiệm tốt nhất.
-          </p>
-          <p>
-            Với phương châm "Chất lượng là danh dự", chúng tôi cam kết mang đến
-            cho khách hàng những sản phẩm và dịch vụ tốt nhất.
-          </p>
-        </div>
-      </div>
-      <div className="section_image_text reverse">
-        <div className="text_container">
-          <h3>Về chúng tôi</h3>
-          <p>
-            BroPlus luôn đặt chất lượng sản phẩm và dịch vụ lên hàng đầu. Chúng
-            tôi không ngừng cải tiến và phát triển để mang đến cho khách hàng
-            những trải nghiệm tốt nhất.
-          </p>
-          <p>
-            Với phương châm "Chất lượng là danh dự", chúng tôi cam kết mang đến
-            cho khách hàng những sản phẩm và dịch vụ tốt nhất.
-          </p>
-        </div>
-        <div className="image_container">
-          <img src={image1} alt="BroPlus" />
-        </div>
-      </div>
+            <div className="text_container">
+              <h3>Về chúng tôi</h3>
+              <p>
+                BroPlus luôn đặt chất lượng sản phẩm và dịch vụ lên hàng đầu.
+                Chúng tôi không ngừng cải tiến và phát triển để mang đến cho
+                khách hàng những trải nghiệm tốt nhất.
+              </p>
+              <p>
+                Với phương châm "Chất lượng là danh dự", chúng tôi cam kết mang
+                đến cho khách hàng những sản phẩm và dịch vụ tốt nhất.
+              </p>
+            </div>
+            <div className="image_container">
+              <img src={image1} alt="BroPlus" />
+            </div>
+          </div>
+          <div className="section_image_text">
+            <div className="image_container">
+              <img src={image1} alt="BroPlus" />
+            </div>
+            <div className="text_container">
+              <h3>Về chúng tôi</h3>
+              <p>
+                BroPlus luôn đặt chất lượng sản phẩm và dịch vụ lên hàng đầu.
+                Chúng tôi không ngừng cải tiến và phát triển để mang đến cho
+                khách hàng những trải nghiệm tốt nhất.
+              </p>
+              <p>
+                Với phương châm "Chất lượng là danh dự", chúng tôi cam kết mang
+                đến cho khách hàng những sản phẩm và dịch vụ tốt nhất.
+              </p>
+            </div>
+          </div>
     </div>
   );
 };
