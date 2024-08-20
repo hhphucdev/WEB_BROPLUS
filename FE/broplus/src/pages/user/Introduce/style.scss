@@ -1,67 +1,28 @@
-@use "sass:map";
-@import "style/pages/theme";
-
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.section_title {
-  text-align: center;
-  margin-bottom: 20px;
-
-  h2 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #ff6601;
-    margin-bottom: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
   }
-
-  p {
-    font-size: 1.2rem;
-    color: #777;
-  }
-}
-
-.section_content {
-  margin-bottom: 40px;
-
-  p {
-    font-size: 1rem;
-    color: #555;
-    line-height: 1.6;
+  
+  .section_title {
+    text-align: center;
     margin-bottom: 20px;
-  }
-}
-
-.section_image_text {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 40px;
-
-  .image_container {
-    flex: 1;
-    margin-right: 20px;
-
-    img {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-    }
-  }
-
-  .text_container {
-    flex: 1;
-    margin-left: 20px;
-
-    h3 {
-      font-size: 2rem;
+  
+    h2 {
+      font-size: 2.5rem;
       font-weight: bold;
       color: #333;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
-
+  
+    p {
+      font-size: 1.2rem;
+      color: #777;
+    }
+  }
+  
+  .section_content {
+    margin-bottom: 40px;
+  
     p {
       font-size: 1rem;
       color: #555;
@@ -69,4 +30,79 @@
       margin-bottom: 20px;
     }
   }
-}
+  
+  .section_image_text {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 40px;
+  
+    .image_container {
+      flex: 1;
+      margin-right: 20px;
+  
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+    }
+  
+    .text_container {
+      flex: 1;
+      margin-left: 20px;
+  
+      h3 {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+      }
+  
+      p {
+        font-size: 1rem;
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
+    }
+  
+    &.reverse {
+      flex-direction: row-reverse;
+  
+      .image_container {
+        margin-left: 20px;
+        margin-right: 0;
+      }
+  
+      .text_container {
+        margin-right: 20px;
+        margin-left: 0;
+      }
+    }
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .section_image_text {
+      flex-direction: column;
+  
+      .image_container,
+      .text_container {
+        margin: 0 0 20px 0;
+      }
+  
+      &.reverse {
+        flex-direction: column;
+  
+        .image_container {
+          margin: 0 0 20px 0;
+        }
+  
+        .text_container {
+          margin: 0;
+        }
+      }
+    }
+  }
+  
