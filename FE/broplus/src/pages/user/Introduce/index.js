@@ -1,11 +1,9 @@
 import { useState, memo } from "react";
 import "./style.scss";
 
-// Import images
 import image1 from "assets/user/images/categories/cat-4.jpg";
 
 const Introduce = () => {
-  // State to manage the visibility of the additional sections
   const [showMore, setShowMore] = useState(false);
 
   return (
