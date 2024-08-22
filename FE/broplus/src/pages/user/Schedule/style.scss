@@ -1,32 +1,104 @@
 .schedule-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   padding: 20px;
 
-  .search-bar {
-    width: 450px;
-    padding: 10px;
-    margin: 0 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    box-sizing: border-box;
+  .search-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+
+    .search-bar {
+      width: 450px;
+      padding: 10px;
+      margin: 0 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      box-sizing: border-box;
+    }
+
+    .switch-button {
+      padding: 10px;
+      font-size: 15px;
+      background-color: orange;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #ff8c00;
+      }
+    }
   }
 
-  .switch-button {
-    padding: 10px;
-    font-size: 15px;
-    background-color: orange;
-    color: #fff;
+  .routes-header {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    background-color: #f8f9fa;
     font-weight: bold;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    border-bottom: 2px solid #dee2e6;
 
-    &:hover {
-      background-color: #ff8c00;
+    .header-item {
+      flex: 1;
+      text-align: center;
+    }
+  }
+
+  .routes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .route {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+
+    .route-info {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .route-detail {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .location {
+      font-size: 18px;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .arrow {
+      font-size: 18px;
+      font-weight: 700;
+      color: #007bff;
+    }
+
+    .type {
+      font-size: 16px;
+      background-color: #f0f0f0;
+      padding: 5px 10px;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .distance,
+    .time,
+    .price {
+      font-size: 16px;
+      color: #555;
+      text-align: center;
+      flex: 1;
     }
   }
 }
