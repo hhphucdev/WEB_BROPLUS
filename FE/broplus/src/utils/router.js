@@ -7,5 +7,6 @@ export const ROUTER = {
     TICKET_SEARCH: "ticket-search",
     INTRODUCE: "introduce",
     CONTACT: "contact",
+    SCHEDULE: "schedule",
   },
 };

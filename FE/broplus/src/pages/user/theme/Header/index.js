@@ -16,7 +16,7 @@ const content = {
     menu: [
       { name: "Trang chủ", path: ROUTER.USER.HOME },
       { name: "GIỚI THIỆU", path: ROUTER.USER.INTRODUCE },
-      { name: "LỊCH TRÌNH", path: "" },
+      { name: "LỊCH TRÌNH", path: ROUTER.USER.SCHEDULE },
       { name: "TRA CỨU VÉ", path: ROUTER.USER.TICKET_SEARCH },
       { name: "Liên hệ", path: ROUTER.USER.CONTACT },
       { name: "Tin tức", path: "" },
@@ -32,7 +32,7 @@ const content = {
     menu: [
       { name: "Home", path: ROUTER.USER.HOME },
       { name: "INTRODUCTION", path: ROUTER.USER.INTRODUCE },
-      { name: "SCHEDULE", path: "" },
+      { name: "SCHEDULE", path: ROUTER.USER.SCHEDULE },
       { name: "TICKET INQUIRY", path: ROUTER.USER.TICKET_SEARCH },
       { name: "Contact", path: ROUTER.USER.CONTACT },
       { name: "News", path: "" },

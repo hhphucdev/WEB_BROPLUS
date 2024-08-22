@@ -20,6 +20,12 @@ const Contact = () => {
           <label for="email">Email:</label>
           <input type="email" id="email" name="email" required />
 
+          <label for="phone">Số điện thoại:</label>
+          <input type="text" id="phone" name="phone" required />
+
+          <label for="subject">Chủ đề:</label>
+          <input type="text" id="subject" name="subject" required />
+
           <label for="message">Tin nhắn:</label>
           <textarea id="message" name="message" required></textarea>
 
