@@ -20,10 +20,14 @@ const Chat = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className={`chat-box ${isOpen ? 'show' : ''}`}>
+    <div className={`chat-box ${isOpen ? "show" : ""}`}>
       <div className="chat-header">
         <h4>Phúc An Travel</h4>
-        <button onClick={onClose} className="close-chat" aria-label="Close chat">
+        <button
+          onClick={onClose}
+          className="close-chat"
+          aria-label="Close chat"
+        >
           &times;
         </button>
       </div>
