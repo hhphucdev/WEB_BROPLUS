@@ -9,6 +9,8 @@
   box-shadow: 0 0 10px rgb(252, 130, 0);
   background-color: #fff;
   margin-bottom: 20px;
+  margin-top: 30px;
+
 
   .content {
     flex: 1;
@@ -72,9 +74,9 @@
       }
     }
     .forgot-password {
-      margin: 20px auto;
       font-size: 16px;
       color: #ff0000;
+      width: 100%;
       background: none;
       border: none;
       cursor: pointer;
@@ -86,14 +88,14 @@
       }
     }
     .toggle-button {
-      margin: 20px auto;
       padding: 10px;
       font-size: 16px;
+      width: 100%;
+      text-decoration: none;
       color: #007bff;
       background: none;
       border: none;
       cursor: pointer;
-      text-decoration: underline;
       transition: color 0.3s;
 
       &:hover {
@@ -105,9 +107,7 @@
     position: relative;
 
     input {
-      width: calc(
-        100% - 60px
-      ); 
+      width: calc(100% - 60px);
     }
 
     .toggle-password {
@@ -126,7 +126,27 @@
         color: #ff8000;
         background: none;
       }
-
     }
   }
+}
+
+.otp-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.otp-input {
+  
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+}
+
+.otp-input:focus {
+  border-color: #007bff;
+  outline: none;
 }

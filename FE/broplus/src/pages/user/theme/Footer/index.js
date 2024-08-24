@@ -11,7 +11,7 @@ const Footer = () => {
         <div className="row">
           <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
             <div className="footer-about">
-              <h1 className="footer-about-logo">BROPLUS</h1>
+              <h1 className="footer-about-logo">PHÚC AN</h1>
               <ul>
                 <li>Địa chỉ: 260 Lê Đức Thọ, Quận Gò Vấp, TP.HCM</li>
                 <li>Phone: 0368564833 </li>
@@ -21,28 +21,38 @@ const Footer = () => {
           </div>
           <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div className="footer-widget">
-              <h6>Cửa hàng</h6>
+              <h6>Hãy khám phá</h6>
               <ul>
                 <li>
                   <Link to={ROUTER.USER.HOME}>Trang chủ</Link>
                 </li>
+                
                 <li>
-                  <Link to="">Sản phẩm</Link>
+                  <Link to={ROUTER.USER.CONTACT}>Liên hệ</Link>
+                </li>
+                
+                <li>
+                  <Link to={ROUTER.USER.INTRODUCE}>Giới thiệu</Link>
                 </li>
                 <li>
-                  <Link to="">Thông tin</Link>
+                  <Link to={ROUTER.USER.INTRODUCE}>Tin tức</Link>
                 </li>
+                
               </ul>
 
               <ul>
                 <li>
-                  <Link to="">Mua hàng</Link>
+                  <Link to={ROUTER.USER.SCHEDULE}>Lịch trình</Link>
                 </li>
                 <li>
-                  <Link to="">Sản phẩm</Link>
+                  <Link to={ROUTER.USER.SCHEDULE}>Hướng dẫn</Link>
+                </li>
+                
+                <li>
+                  <Link to={ROUTER.USER.TICKET_SEARCH}>Tra cứu vé</Link>
                 </li>
                 <li>
-                  <Link to="">Sản phẩm</Link>
+                  <Link to={ROUTER.USER.LOGIN}>Đăng nhập</Link>
                 </li>
               </ul>
             </div>
@@ -53,24 +63,25 @@ const Footer = () => {
               <p>Đăng ký nhận thông tin tại đây</p>
               <form action="#">
                 <div className="input-group">
-              <input type="text" placeholder="Nhập email của bạn" />
-              <button type= "submit" className="button-submit">Đăng ký</button>
-              </div>
-              <div className="footer-widget-social">
-                <div>
-                    <FaSquareFacebook />
+                  <input type="text" placeholder="Nhập email của bạn" />
+                  <button type="submit" className="button-submit">
+                    Đăng ký
+                  </button>
                 </div>
-                <div>
+                <div className="footer-widget-social">
+                  <div>
                     <FaSquareFacebook />
-                </div>
-                <div>
+                  </div>
+                  <div>
                     <FaSquareFacebook />
-                </div>
-                <div>
+                  </div>
+                  <div>
                     <FaSquareFacebook />
+                  </div>
+                  <div>
+                    <FaSquareFacebook />
+                  </div>
                 </div>
-
-              </div>
               </form>
             </div>
           </div>

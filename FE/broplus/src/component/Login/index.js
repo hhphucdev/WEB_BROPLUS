@@ -1,32 +1,47 @@
-import { memo, useState } from "react";
+import { memo, useState, useRef } from "react";
 import "./style.scss";
 import BannerLogin from "assets/user/images/hero/banner_login.png";
 
 const Login = () => {
   const [isRegistering, setIsRegistering] = useState(false);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
-  const [isOtpSent, setIsOtpSent] = useState(false); // Track OTP sent status
-  const [passwordVisible, setPasswordVisible] = useState(false); // Track password visibility
+  const [isOtpSent, setIsOtpSent] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const otpInputs = useRef([]);
 
   const handleToggleForm = () => {
     setIsRegistering(!isRegistering);
     setIsForgotPassword(false);
-    setIsOtpSent(false); // Reset OTP sent status when toggling forms
+    setIsOtpSent(false);
   };
 
   const handleForgotPassword = () => {
     setIsForgotPassword(true);
     setIsRegistering(false);
-    setIsOtpSent(false); // Reset OTP sent status when switching to forgot password
+    setIsOtpSent(false);
   };
 
   const handleSendOtp = () => {
-    // Logic to send OTP
-    setIsOtpSent(true); // Set OTP sent status
+    setIsOtpSent(true);
   };
 
   const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible); // Toggle password visibility
+    setPasswordVisible(!passwordVisible);
+  };
+
+  const handleOtpChange = (e, index) => {
+    const { value } = e.target;
+    if (/^\d$/.test(value)) {
+      otpInputs.current[index].value = value;
+      if (index < otpInputs.current.length - 1) {
+        otpInputs.current[index + 1].focus();
+      }
+    } else if (value === "") {
+      if (index > 0) {
+        otpInputs.current[index - 1].focus();
+      }
+    }
   };
 
   return (
@@ -68,9 +83,28 @@ const Login = () => {
               </div>
             ) : (
               <div>
+                <h3>Xác nhận mã OTP</h3>
                 <form>
-                  <label htmlFor="otp">Nhập mã OTP:</label>
-                  <input type="text" id="otp" name="otp" required />
+                  <div className="otp-container">
+                    {[...Array(6)].map((_, index) => (
+                      <input
+                        key={index}
+                        type="text"
+                        maxLength="1"
+                        required
+                        className="otp-input"
+                        ref={(el) => (otpInputs.current[index] = el)}
+                        onChange={(e) => handleOtpChange(e, index)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Backspace" && e.target.value === "") {
+                            if (index > 0) {
+                              otpInputs.current[index - 1].focus();
+                            }
+                          }
+                        }}
+                      />
+                    ))}
+                  </div>
                   <button type="submit">Xác nhận OTP</button>
                 </form>
                 <button className="toggle-button" onClick={handleToggleForm}>

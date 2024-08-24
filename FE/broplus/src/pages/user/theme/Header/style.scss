@@ -13,264 +13,107 @@ $banner: "/assets/user/images/hero/banner.png";
   );
   background-size: 300% 300%;
   animation: gradientAnimation 5s ease infinite;
-  height: 40px;
-  
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
 }
 
-.language-selector {
+.header-top-inner {
   display: flex;
+  flex-direction: column;
   align-items: center;
 
-  select {
-    padding: 10px 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background: white;
-    color: #333;
-    font-size: 14px;
-    cursor: pointer;
+  .header-top-left {
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 
-    .language-icon {
-      margin-right: 8px;
-      font-size: 16px;
-      padding: 10px;
-    }
-
-    option {
-      display: flex;
-      align-items: center;
-      padding: 10px;
-    }
-
-    &:focus {
-      outline: none;
-      border-color: #007bff;
-    }
-  }
-}
-
-@keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.header_top_left {
-  display: flex;
-  align-items: center;
-
-  ul {
-    display: flex;
-    column-gap: 10px;
-    list-style: none;
-    color: white;
-    font-size: 16px;
-    padding-left: 20px;
-    padding-right: 250px;
-
-    li {
-      display: flex;
-      align-items: center;
-
-      svg {
-        margin-right: 8px;
-      }
-
-      span {
-        font-size: 16px;
-        font-weight: bold;
-      }
-    }
-  }
-}
-
-.header_top_right {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-
-  ul {
-    display: flex;
-    column-gap: 10px;
-    list-style: none;
-
-    li:last-child {
-      cursor: pointer;
-
-      span {
-        font-size: 16px;
+    .language-selector {
+      .language-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
         color: white;
         font-weight: bold;
+
+        .language-icon {
+          font-size: 20px;
+          margin-right: 5px;
+        }
+
+        &:hover {
+          color: map.get($theme-colors, "main");
+        }
+      }
+    }
+
+    .header-top-right {
+      .rounded-button {
+        background-color: #f98d00;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-align: center;
+
+        &:hover {
+          background-color: #e67e22;
+        }
+
+        a {
+          text-decoration: none;
+          color: white;
+          font-weight: bold;
+          padding: 5px;
+          text-align: center;
+        }
       }
     }
   }
-}
 
-.header-logo {
-  padding: 15px 0;
-}
+  .header-menu {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px 0;
 
-.header-menu {
-  padding: 25px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  ul {
-    display: flex;
-    justify-content: center;
-    margin: 0;
-    padding: 0 20px;
-
-    li {
-      cursor: pointer;
-      margin: 0 20px;
+    ul {
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
       list-style: none;
-      position: relative;
 
-      a {
-        text-decoration: none;
-        color: map.get($theme-colors, "normal-text");
-        font-size: 14px;
-        text-transform: uppercase;
-        font-weight: bold;
-        letter-spacing: 2px;
-        transition: color 0.3s ease-in-out, border-bottom 0.3s ease-in-out;
-        padding: 5px 0;
-        display: block;
+      li {
+        margin: 0 20px;
+        position: relative;
 
-        &:hover,
-        &.active {
-          color: rgb(255, 136, 0);
-          border-bottom: 2px solid rgb(255, 136, 0);
-        }
-      }
+        a {
+          text-decoration: none;
+          color: white;
+          font-size: 14px;
+          text-transform: uppercase;
+          font-weight: bold;
+          letter-spacing: 2px;
+          padding: 5px 0;
+          display: block;
 
-      &:hover .header-menu-dropdown {
-        opacity: 1;
-        visibility: visible;
-      }
-
-      .header-menu-dropdown {
-        display: block;
-        background: black;
-        width: 180px;
-        z-index: 9;
-        padding: 5px 0;
-        position: absolute;
-        transition: all 0.3s ease-in-out;
-        opacity: 0;
-        visibility: hidden;
-
-        li {
-          a {
-            text-transform: capitalize;
-            font-weight: 400;
-            padding: 5px 15px;
-            color: white;
-
-            &:hover {
-              color: map.get($theme-colors, "main");
-            }
+          &:hover,
+          &.active {
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.7);
+            border-bottom: 2px solid rgb(255, 255, 255);
           }
         }
       }
     }
-  }
-}
-
-.language-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  font-size: 10px;
-  color: white;
-  font-weight: bold;
-
-  .language-icon {
-    font-size: 20px;
-    margin-right: 5px;
-  }
-
-  &:hover {
-    color: map.get($theme-colors, "main");
-  }
-}
-
-.header-cart {
-  display: flex;
-  align-items: center;
-  padding: 24px 0;
-
-  .header-cart_price {
-    margin-right: 20px;
-
-    span {
-      font-size: 18px;
-      font-weight: bold;
-      color: map.get($theme-colors, "normal-text");
-    }
-  }
-
-  ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-
-    li {
-      position: relative;
-      cursor: pointer;
-      margin-left: 20px;
-
-      svg {
-        font-size: 25px;
-        color: map.get($theme-colors, "normal-text");
-      }
-
-      span {
-        position: absolute;
-        top: -5px;
-        right: -5px;
-        background: green;
-        color: white;
-        border-radius: 50%;
-        padding: 0 5px;
-        font-size: 12px;
-      }
-    }
-  }
-}
-
-.rounded-button {
-  background-color: #f98d00;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  text-align: center;
-
-  &:hover {
-    background-color: #e67e22;
-  }
-
-  a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    padding: 5px;
-    text-align: center;
   }
 }
