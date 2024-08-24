@@ -78,6 +78,12 @@ const Schedule = () => {
     },
   ];
 
+  // Filter routes based on the search inputs
+  const filteredRoutes = routes.filter(
+    (route) =>
+      route.from.toLowerCase().includes(from.toLowerCase()) &&
+      route.to.toLowerCase().includes(to.toLowerCase())
+  );
 
   return (
     <div className="schedule-container">
@@ -109,22 +115,26 @@ const Schedule = () => {
         <div className="header-item"></div>
       </div>
       <div className="routes-list">
-        {routes.map((route, index) => (
-          <div className="route" key={index}>
-            <div className="route-info">
-              <div className="route-detail">
-                <span className="location">{route.from}</span>
-                <span className="arrow">→</span>
-                <span className="location">{route.to}</span>
+        {filteredRoutes.length > 0 ? (
+          filteredRoutes.map((route, index) => (
+            <div className="route" key={index}>
+              <div className="route-info">
+                <div className="route-detail">
+                  <span className="location">{route.from}</span>
+                  <span className="arrow">→</span>
+                  <span className="location">{route.to}</span>
+                </div>
+                {route.type && <div className="type">{route.type}</div>}
+                <div className="distance">{route.distance}</div>
+                <div className="time">{route.time}</div>
+                <div className="price">{route.price || "N/A"}</div>
+                <div className="book-button">Tìm tuyến xe</div>
               </div>
-              {route.type && <div className="type">{route.type}</div>}
-              <div className="distance">{route.distance}</div>
-              <div className="time">{route.time}</div>
-              <div className="price">{route.price || "N/A"}</div>
-              <div className="book-button">Tìm tuyến xe</div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <div className="no-results">Không tìm thấy tuyến xe phù hợp.</div>
+        )}
       </div>
     </div>
   );

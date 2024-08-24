@@ -47,7 +47,6 @@ const Header = () => {
 
   const currentContent = content[language];
 
-  const isLoginPage = location.pathname === ROUTER.USER.LOGIN;
 
   return (
     <>
@@ -91,7 +90,6 @@ const Header = () => {
         </div>
       </div>
 
-      {!isLoginPage && (
         <div className="container">
           <div className="row">
             <div className="col-xl-12">
@@ -125,7 +123,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-      )}
+      
     </>
   );
 };

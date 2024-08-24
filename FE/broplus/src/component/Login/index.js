@@ -1,109 +1,119 @@
-import { useState } from 'react';
-import './style.scss';
+import { memo, useState } from "react";
+import "./style.scss";
+import BannerLogin from "assets/user/images/hero/banner_login.png";
 
 const Login = () => {
-  const [isLogin, setIsLogin] = useState(true);
-  const [isOTP, setIsOTP] = useState(false);
-  const [phone, setPhone] = useState('');
-  const [otp, setOtp] = useState(['', '', '', '', '', '']);
+  const [isRegistering, setIsRegistering] = useState(false);
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
+  const [isOtpSent, setIsOtpSent] = useState(false); // Track OTP sent status
+  const [passwordVisible, setPasswordVisible] = useState(false); // Track password visibility
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-    if (phone) {
-      setIsOTP(true);
-    }
+  const handleToggleForm = () => {
+    setIsRegistering(!isRegistering);
+    setIsForgotPassword(false);
+    setIsOtpSent(false); // Reset OTP sent status when toggling forms
   };
 
-  const handleOtpChange = (e, index) => {
-    const { value } = e.target;
-    if (/^[0-9]?$/.test(value)) {
-      let newOtp = [...otp];
-      newOtp[index] = value;
-      setOtp(newOtp);
-      if (index < 5 && value) {
-        document.getElementById(`otp-input-${index + 1}`).focus();
-      }
-    }
+  const handleForgotPassword = () => {
+    setIsForgotPassword(true);
+    setIsRegistering(false);
+    setIsOtpSent(false); // Reset OTP sent status when switching to forgot password
+  };
+
+  const handleSendOtp = () => {
+    // Logic to send OTP
+    setIsOtpSent(true); // Set OTP sent status
+  };
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible); // Toggle password visibility
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-form">
-        {isOTP ? (
-          <>
-            <h2>Xác Minh OTP</h2>
-            <div className="otp-inputs">
-              {otp.map((digit, index) => (
-                <input
-                  key={index}
-                  id={`otp-input-${index}`}
-                  type="text"
-                  maxLength="1"
-                  value={digit}
-                  onChange={(e) => handleOtpChange(e, index)}
-                  className="otp-input"
-                />
-              ))}
-            </div>
-            <button type="submit">Xác Minh OTP</button>
-          </>
+    <div className="login-container">
+      <div className="content">
+        <img src={BannerLogin} alt="Example" className="login-image" />
+      </div>
+      <div className="form">
+        {isForgotPassword ? (
+          <div>
+            <h3>Khôi phục mật khẩu</h3>
+            <form>
+              <label htmlFor="phone">Số điện thoại:</label>
+              <input type="text" id="phone" name="phone" required />
+              <button type="submit">Gửi liên kết khôi phục</button>
+            </form>
+            <button
+              className="toggle-button"
+              onClick={() => setIsForgotPassword(false)}
+            >
+              Quay lại
+            </button>
+          </div>
+        ) : isRegistering ? (
+          <div>
+            <h3>Đăng ký tài khoản</h3>
+            {!isOtpSent ? (
+              <div>
+                <form>
+                  <label htmlFor="phone">Số điện thoại:</label>
+                  <input type="text" id="phone" name="phone" required />
+                  <button type="button" onClick={handleSendOtp}>
+                    Gửi mã OTP
+                  </button>
+                </form>
+                <button className="toggle-button" onClick={handleToggleForm}>
+                  Đã có tài khoản? Đăng nhập
+                </button>
+              </div>
+            ) : (
+              <div>
+                <form>
+                  <label htmlFor="otp">Nhập mã OTP:</label>
+                  <input type="text" id="otp" name="otp" required />
+                  <button type="submit">Xác nhận OTP</button>
+                </form>
+                <button className="toggle-button" onClick={handleToggleForm}>
+                  Đã có tài khoản? Đăng nhập
+                </button>
+              </div>
+            )}
+          </div>
         ) : (
-          <>
-            {isLogin && (
-              <>
-                <h2>Đăng Nhập</h2>
-                <form onSubmit={handleRegister}>
-                  <div className="form-group">
-                    <label htmlFor="login-phone">Số điện thoại</label>
-                    <input
-                      type="text"
-                      id="login-phone"
-                      placeholder="Nhập số điện thoại"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="login-password">Mật khẩu</label>
-                    <input type="password" id="login-password" placeholder="Nhập mật khẩu" />
-                  </div>
-                  <button type="submit">Đăng Nhập</button>
-                </form>
-                <p className="switch-form">
-                  Chưa có tài khoản? <button onClick={() => setIsLogin(false)}>Đăng ký</button>
-                </p>
-              </>
-            )}
-            {!isLogin && (
-              <>
-                <h2>Đăng Ký</h2>
-                <form onSubmit={handleRegister}>
-                  <div className="form-group">
-                    <label htmlFor="register-phone">Số điện thoại</label>
-                    <input
-                      type="text"
-                      id="register-phone"
-                      placeholder="Nhập số điện thoại"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="register-password">Mật khẩu</label>
-                    <input type="password" id="register-password" placeholder="Nhập mật khẩu" />
-                  </div>
-                  <button type="submit">Đăng Ký</button>
-                </form>
-                <p className="switch-form">
-                  Đã có tài khoản? <button onClick={() => setIsLogin(true)}>Đăng nhập</button>
-                </p>
-              </>
-            )}
-          </>
+          <div>
+            <h3>Đăng nhập vào tài khoản</h3>
+            <form>
+              <label htmlFor="phone">Số điện thoại:</label>
+              <input type="text" id="phone" name="phone" required />
+              <label htmlFor="password">Mật khẩu:</label>
+              <div className="password-container">
+                <input
+                  type={passwordVisible ? "text" : "password"}
+                  id="password"
+                  name="password"
+                  required
+                />
+                <button
+                  type="button"
+                  className="toggle-password"
+                  onClick={togglePasswordVisibility}
+                >
+                  {passwordVisible ? "Ẩn" : "Hiện"}
+                </button>
+              </div>
+              <button type="submit">Đăng nhập</button>
+            </form>
+            <button className="toggle-button" onClick={handleToggleForm}>
+              Chưa có tài khoản? Đăng ký
+            </button>
+            <button className="forgot-password" onClick={handleForgotPassword}>
+              Quên mật khẩu
+            </button>
+          </div>
         )}
       </div>
     </div>
   );
 };
 
-export default Login;
+export default memo(Login);
