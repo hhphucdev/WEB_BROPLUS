@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { FaArrowUp } from "react-icons/fa"; // Sử dụng icon từ react-icons, có thể thay thế bằng icon khác nếu muốn
+import { FaArrowUp, FaComment } from "react-icons/fa";
 import "./style.scss";
+import Chat from "../Chat";
 
 const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -25,14 +27,24 @@ const ScrollToTopButton = () => {
     });
   };
 
+  const toggleChat = () => {
+    setIsChatOpen(!isChatOpen);
+  };
+
   return (
-    <div className="scroll-to-top">
-      {isVisible && (
-        <button onClick={scrollToTop} className="scroll-button">
-          <FaArrowUp />
+    <>
+      <div className="scroll-to-top">
+        <button onClick={toggleChat} className="chat-button" aria-label="Open chat">
+          <FaComment />
         </button>
-      )}
-    </div>
+        {isVisible && (
+          <button onClick={scrollToTop} className="scroll-button" aria-label="Scroll to top">
+            <FaArrowUp />
+          </button>
+        )}
+      </div>
+      <Chat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+    </>
   );
 };
 
