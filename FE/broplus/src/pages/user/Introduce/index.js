@@ -9,15 +9,12 @@ const Introduce = () => {
   return (
     <div className="container">
       <div className="section_title">
-        <h2>BROPLUS</h2>
+        <h2>PHÚC AN</h2>
         <p>"Chất lượng là danh dự"</p>
       </div>
       <div className="section_content">
         <p>
-          BroPlus là một công ty chuyên cung cấp các sản phẩm công nghệ thông
-          minh, chất lượng cao. Với đội ngũ nhân viên trẻ trung, năng động và
-          chuyên nghiệp, chúng tôi luôn cố gắng mang đến cho khách hàng những
-          sản phẩm tốt nhất, dịch vụ chăm sóc khách hàng tận tình nhất.
+          Phúc An là một công ty 
         </p>
         <p>
           Chúng tôi cam kết mang đến cho khách hàng những sản phẩm chất lượng

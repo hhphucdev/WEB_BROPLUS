@@ -18,6 +18,7 @@ const Schedule = () => {
       type: "Giường",
       distance: "639km",
       time: "11 giờ 30 phút",
+      price: "---",
     },
     {
       from: "An Nhơn",
@@ -25,12 +26,15 @@ const Schedule = () => {
       type: "Giường",
       distance: "660km",
       time: "13 giờ 46 phút",
+      price: "---",
     },
     {
       from: "An Nhơn",
       to: "TP.Hồ Chí Minh",
+      type: "Limousine",
       distance: "627km",
       time: "10 giờ 7 phút",
+      price: "---",
     },
     {
       from: "Bạc Liêu",
@@ -38,6 +42,7 @@ const Schedule = () => {
       type: "Giường",
       distance: "271km",
       time: "6 giờ",
+      price: "---",
     },
     {
       from: "Bảo Lộc",
@@ -45,6 +50,7 @@ const Schedule = () => {
       type: "Limousine",
       distance: "650km",
       time: "15 giờ 30 phút",
+      price: "---",
     },
     {
       from: "Bảo Lộc",
@@ -52,6 +58,7 @@ const Schedule = () => {
       type: "Giường",
       distance: "756km",
       time: "16 giờ 38 phút",
+      price: "---",
     },
     {
       from: "Bảo Lộc",
@@ -59,6 +66,7 @@ const Schedule = () => {
       type: "Giường",
       distance: "827km",
       time: "19 giờ",
+      price: "---",
     },
     {
       from: "Bảo Lộc",
@@ -66,8 +74,10 @@ const Schedule = () => {
       type: "Limousine",
       distance: "900km",
       time: "18 giờ 30 phút",
+      price: "---",
     },
   ];
+
 
   return (
     <div className="schedule-container">
@@ -94,8 +104,9 @@ const Schedule = () => {
         <div className="header-item">Tuyến xe</div>
         <div className="header-item">Loại xe</div>
         <div className="header-item">Quãng đường</div>
-        <div className="header-item">Thời gian hành trình</div>
+        <div className="header-item">Thời gian</div>
         <div className="header-item">Giá vé</div>
+        <div className="header-item"></div>
       </div>
       <div className="routes-list">
         {routes.map((route, index) => (
@@ -110,6 +121,7 @@ const Schedule = () => {
               <div className="distance">{route.distance}</div>
               <div className="time">{route.time}</div>
               <div className="price">{route.price || "N/A"}</div>
+              <div className="book-button">Tìm tuyến xe</div>
             </div>
           </div>
         ))}
