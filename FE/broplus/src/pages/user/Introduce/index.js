@@ -1,7 +1,7 @@
 import { useState, memo } from "react";
 import "./style.scss";
 
-import image1 from "assets/user/images/categories/cat-4.jpg";
+import image1 from "assets/user/images/categories/khuyenmai1.png";
 
 const Introduce = () => {
   const [showMore, setShowMore] = useState(false);
