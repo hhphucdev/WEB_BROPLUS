@@ -2,15 +2,12 @@
 @import "style/pages/theme";
 
 $banner: "/assets/user/images/hero/banner.png";
+$banner1: "/assets/user/images/hero/home_banner.png";
 
 .header-top {
-  background: linear-gradient(
-    90deg,
-    rgb(249, 129, 0),
-    rgb(255, 170, 0),
-    rgb(255, 204, 0),
-    rgb(249, 141, 0)
-  );
+
+  background: url($banner1);
+
   background-size: 300% 300%;
   animation: gradientAnimation 5s ease infinite;
   padding: 20px 0;
@@ -55,9 +52,9 @@ $banner: "/assets/user/images/hero/banner.png";
 
     .header-top-right {
       .rounded-button {
-        background-color: #f98d00;
-        border: none;
-        color: white;
+        background-color: #fdfdfd;
+        border: 1px solid #fdfdfd;
+        color: rgb(0, 0, 0);
         padding: 10px 20px;
         font-size: 16px;
         border-radius: 25px;
@@ -71,19 +68,19 @@ $banner: "/assets/user/images/hero/banner.png";
 
         a {
           text-decoration: none;
-          color: white;
+          color: rgb(0, 0, 0);
           font-weight: bold;
           padding: 5px;
           text-align: center;
+          margin-top: 5px;
         }
       }
     }
   }
 
   .header-menu {
-    margin-top: 10px;
     width: 100%;
-    padding: 10px 0;
+  
 
     ul {
       display: flex;
@@ -115,5 +112,18 @@ $banner: "/assets/user/images/hero/banner.png";
         }
       }
     }
+  }
+}
+
+.logo {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-left: 175px;
+  margin-bottom: 10px;
+
+  img {
+    width: 50px;
+    height: 50px;
   }
 }

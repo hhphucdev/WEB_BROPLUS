@@ -45,6 +45,19 @@ $banner: "/assets/user/images/hero/banner.png";
   }
 }
 
+
+.section_title_categories_slider {
+  margin-bottom: 20px;
+  text-align: center;
+
+  h2 {
+    position: relative;
+    display: inline-block;
+    font-size: 24px;
+    font-weight: bold;
+    color: green;
+  }
+}
 .featured {
   margin-top: 50px;
 
@@ -57,7 +70,7 @@ $banner: "/assets/user/images/hero/banner.png";
       display: inline-block;
       font-size: 24px;
       font-weight: bold;
-      color: map.get($theme-colors, "primary-text");
+      color: green;
     }
   }
 

@@ -5,9 +5,11 @@ import { MdAccountCircle } from "react-icons/md";
 import { FcGlobe, FcRating } from "react-icons/fc";
 import "./style.scss";
 
+import Logo from "assets/user/images/hero/logo1.png";
+
 const content = {
   vi: {
-    loginText: "Đăng nhập/ Đăng ký",
+    loginText: "Đăng nhập/Đăng ký",
     searchPlaceholder: "Bạn đang tìm gì",
     supportNumber: "0368564833",
     supportText: "Hỗ trợ 24/7",
@@ -22,7 +24,7 @@ const content = {
     ],
   },
   en: {
-    loginText: "Login/ Register",
+    loginText: "Login/Register",
     searchPlaceholder: "What are you looking for",
     supportNumber: "0368564833",
     supportText: "24/7 Support",
@@ -61,6 +63,13 @@ const Header = () => {
                 )}
                 {language === "vi" ? " VI" : " EN"}
               </button>
+            </div>
+
+            <div className="logo">
+              <Link to={ROUTER.USER.HOME}>
+                <img src={Logo} alt="Logo" />
+                
+              </Link>
             </div>
  
             <div className="header-top-right">

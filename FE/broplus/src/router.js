@@ -17,6 +17,7 @@ const UserRoutes = () => (
       <Route path={ROUTER.USER.CONTACT} element={<Contact />} />
       <Route path={ROUTER.USER.SCHEDULE} element={<Schedule />} />
       <Route path={ROUTER.USER.LOGIN} element={<Login />} />
+      <Route path="*" element={<HomePage />} />
     </Routes>
   </MasterLayout>
 );

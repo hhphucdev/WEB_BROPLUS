@@ -2,7 +2,7 @@
 @import "style/pages/theme";
 
 .footer {
-  background: #f3f6fa;
+  background: #ff6a000e;
   padding-top: 70px;
   padding-bottom: 0;
   .footer-about {
@@ -120,4 +120,21 @@
       }
     }
   }
+}
+
+.footer-bottom {
+  background: rgb(7, 111, 7);
+  padding: 10px 0;
+  color: white;
+  text-align: center;
+  font-size: 16px;
+  a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    &:hover {
+      color: map.get($theme-colors, "normal-text");
+    }
+  }
+  
 }

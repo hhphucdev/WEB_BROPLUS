@@ -1,11 +1,11 @@
 import { memo, useState } from "react";
 import "react-multi-carousel/lib/styles.css";
 import Carousel from "react-multi-carousel";
-import category from "assets/user/images/categories/cat-3.jpg";
-import category2 from "assets/user/images/categories/cat-1.jpg";
-import category3 from "assets/user/images/categories/cat-2.jpg";
-import category4 from "assets/user/images/categories/cat-3.jpg";
-import category5 from "assets/user/images/categories/cat-4.jpg";
+import category from "assets/user/images/categories/khuyenmai1.png";
+import category2 from "assets/user/images/categories/khuyenmai2.png";
+import category3 from "assets/user/images/categories/khuyenmai3.png";
+import category4 from "assets/user/images/categories/khuyenmai4.png";
+import category5 from "assets/user/images/categories/khuyenmai5.png";
 import "./style.scss";
 import { Link } from "react-router-dom";
 import { ROUTER } from "utils/router";
@@ -144,7 +144,7 @@ const HomePage = () => {
         </div>
       </div>
       <div className="container container_categories_slider">
-        <div className="section_title">
+        <div className="section_title_categories_slider">
           <h2>KHUYẾN MÃI NỔI BẬT</h2>
         </div>
         <Carousel responsive={responsive} className="categories_slider">
