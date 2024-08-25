@@ -91,7 +91,7 @@ const Footer = () => {
       <div className="footer-bottom">
         <div className="container">
           <div className="footer-bottom-inner">
-            <p>© 2024 | Bản quyền thuộc về Phúc An</p>
+            <p>© 2024 | Bản quyền thuộc về Hoàng Phúc</p>
           </div>
         </div>
       </div>

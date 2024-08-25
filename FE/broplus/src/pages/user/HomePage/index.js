@@ -12,9 +12,53 @@ import { ROUTER } from "utils/router";
 
 const HomePage = () => {
   const [isRoundTrip, setIsRoundTrip] = useState(false);
+  const [departureDate, setDepartureDate] = useState(
+    new Date().toISOString().split("T")[0]
+  );
+  const [returnDate, setReturnDate] = useState(
+    new Date().toISOString().split("T")[0]
+  );
+  const [filters, setFilters] = useState({
+    departureTime: [],
+    busType: [],
+    seatRow: [],
+    floor: [],
+  });
 
   const handleTabChange = () => {
     setIsRoundTrip(!isRoundTrip);
+  };
+
+  const handleDepartureDateChange = (event) => {
+    setDepartureDate(event.target.value);
+    if (event.target.value > returnDate) {
+      setReturnDate(event.target.value);
+    }
+  };
+
+  const handleReturnDateChange = (event) => {
+    setReturnDate(event.target.value);
+  };
+
+  const handleFilterChange = (category, value) => {
+    setFilters((prevFilters) => {
+      const newFilters = { ...prevFilters };
+      if (newFilters[category].includes(value)) {
+        newFilters[category] = newFilters[category].filter((item) => item !== value);
+      } else {
+        newFilters[category].push(value);
+      }
+      return newFilters;
+    });
+  };
+
+  const deleteAllFilters = () => {
+    setFilters({
+      departureTime: [],
+      busType: [],
+      seatRow: [],
+      floor: [],
+    });
   };
 
   const responsive = {
@@ -37,26 +81,11 @@ const HomePage = () => {
   };
 
   const sliderItems = [
-    {
-      id: 1,
-      image: category,
-    },
-    {
-      id: 2,
-      image: category2,
-    },
-    {
-      id: 3,
-      image: category3,
-    },
-    {
-      id: 4,
-      image: category4,
-    },
-    {
-      id: 5,
-      image: category5,
-    },
+    { id: 1, image: category },
+    { id: 2, image: category2 },
+    { id: 3, image: category3 },
+    { id: 4, image: category4 },
+    { id: 5, image: category5 },
   ];
 
   const tripInfo = [
@@ -83,10 +112,15 @@ const HomePage = () => {
     },
   ];
 
+  const [hasSearched, setHasSearched] = useState(false);
+
+  const handleSearch = () => {
+    setHasSearched(true);
+  };
+
   return (
     <>
       <div className="hero-item"></div>
-
       <div className="box">
         <div className="box_header">
           <div className="box_header_left col-lg-9">
@@ -108,7 +142,7 @@ const HomePage = () => {
             <label htmlFor="tab2">Khứ hồi</label>
           </div>
           <div className="box_header_right col-lg-3">
-            <Link to={ROUTER.LOGIN}>Hướng dẫn mua vé</Link>
+            <Link to={ROUTER.USER.HOME}>Hướng dẫn mua vé</Link>
           </div>
         </div>
         <div className="box-content">
@@ -124,81 +158,234 @@ const HomePage = () => {
               </div>
               <div className="box-content_left_top_item">
                 <h6>Ngày đi</h6>
-                <input type="date" />
+                <input
+                  type="date"
+                  value={departureDate}
+                  min={new Date().toISOString().split("T")[0]}
+                  onChange={handleDepartureDateChange}
+                />
               </div>
               {isRoundTrip && (
                 <div className="box-content_left_top_item">
                   <h6>Ngày về</h6>
-                  <input type="date" />
+                  <input
+                    type="date"
+                    value={returnDate}
+                    min={departureDate}
+                    onChange={handleReturnDateChange}
+                  />
                 </div>
               )}
               <div className="box-content_left_top_item">
                 <h6>Số vé</h6>
-                <input type="number" placeholder="Số lượng" />
+                <input type="number" placeholder="Số lượng" min="1" max="5" />
               </div>
             </div>
           </div>
         </div>
         <div className="box-footer">
-          <button>Tìm chuyến xe</button>
+          <button onClick={handleSearch}>Tìm chuyến xe</button>
         </div>
-      </div>
-      <div className="container container_categories_slider">
-        <div className="section_title_categories_slider">
-          <h2>KHUYẾN MÃI NỔI BẬT</h2>
-        </div>
-        <Carousel responsive={responsive} className="categories_slider">
-          {sliderItems.map((item, key) => (
-            <div className="categories_slider_item" key={key}>
-              <div
-                className="image-container"
-                style={{ backgroundImage: `url(${item.image})` }}
-              ></div>
-            </div>
-          ))}
-        </Carousel>
       </div>
 
-      <div className="container">
-        <div className="featured">
-          <div className="section_title">
-            <h2>TUYẾN PHỔ BIẾN</h2>
-            <h4>Được khách hàng tin tưởng và lựa chọn</h4>
-          </div>
-          <div className="popular-routes">
-            <div className="trip-info">
-              {tripInfo.map((trip, key) => (
-                <div className="trip-info-item">
-                  <div className="trip-info-content">
-                    <div
-                      className="image-container-trip"
-                      style={{ backgroundImage: `url(${trip.image})` }}
-                    ></div>
-                    <div className="trip-details">
-                      {[...Array(3)].map((_, index) => (
-                        <div className="trip-detail-item" key={index}>
-                          <h5>{trip.title}</h5>
-                          <p className="price">{trip.price}</p>
-                          <p className="content">{trip.content}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+      {!hasSearched ? (
+        <>
+          <div className="container container_categories_slider">
+            <div className="section_title_categories_slider">
+              <h2>KHUYẾN MÃI NỔI BẬT</h2>
+            </div>
+            <Carousel responsive={responsive} className="categories_slider">
+              {sliderItems.map((item, key) => (
+                <div className="categories_slider_item" key={key}>
+                  <div
+                    className="image-container"
+                    style={{ backgroundImage: `url(${item.image})` }}
+                  ></div>
                 </div>
               ))}
+            </Carousel>
+          </div>
+
+          <div className="container">
+            <div className="featured">
+              <div className="section_title">
+                <h2>TUYẾN PHỔ BIẾN</h2>
+                <h4>Được khách hàng tin tưởng và lựa chọn</h4>
+              </div>
+              <div className="popular-routes">
+                <div className="trip-info">
+                  {tripInfo.map((trip, key) => (
+                    <div className="trip-info-item" key={key}>
+                      <div className="trip-info-content">
+                        <div
+                          className="image-container-trip"
+                          style={{ backgroundImage: `url(${trip.image})` }}
+                        ></div>
+                        <div className="trip-details">
+                          {[...Array(3)].map((_, index) => (
+                            <div className="trip-detail-item" key={index}>
+                              <h5>{trip.title}</h5>
+                              <p className="price">{trip.price}</p>
+                              <p className="content">{trip.content}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div className="container">
-        <div className="featured">
-          <div className="section_title">
-            <h2>CHẤT LƯỢNG LÀ SỨ MỆNH</h2>
-            <h4>Được khách hàng tin tưởng và lựa chọn</h4>
+
+          <div className="container">
+            <div className="featured">
+              <div className="section_title">
+                <h2>CHẤT LƯỢNG LÀ SỨ MỆNH</h2>
+                <h4>Được khách hàng tin tưởng và lựa chọn</h4>
+              </div>
+            </div>
           </div>
+        </>
+      ) : (
+        <div className="container search-page">
+          <div className="search-filters">
+            <h3>BỘ LỌC TÌM KIẾM</h3>
+
+            <button onClick={deleteAllFilters}>Bỏ lọc</button>
+            <div className="filter-section">
+              <h4>Giờ đi</h4>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filters.departureTime.includes("00:00 - 06:00")}
+                  onChange={() => handleFilterChange("departureTime", "00:00 - 06:00")}
+                /> Sáng sớm 00:00 - 06:00 (0)
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filters.departureTime.includes("06:00 - 12:00")}
+                  onChange={() => handleFilterChange("departureTime", "06:00 - 12:00")}
+                /> Buổi sáng 06:00 - 12:00 (1)
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filters.departureTime.includes("12:00 - 18:00")}
+                  onChange={() => handleFilterChange("departureTime", "12:00 - 18:00")}
+                /> Buổi chiều 12:00 - 18:00 (19)
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filters.departureTime.includes("18:00 - 24:00")}
+                  onChange={() => handleFilterChange("departureTime", "18:00 - 24:00")}
+                /> Buổi tối 18:00 - 24:00 (11)
+              </label>
+            </div>
+            <div className="filter-section">
+              <h4>Loại xe</h4>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filters.busType.includes("Ghế")}
+                  onChange={() => handleFilterChange("busType", "Ghế")}
+                /> Ghế
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filters.busType.includes("Giường")}
+                  onChange={() => handleFilterChange("busType", "Giường")}
+                /> Giường
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filters.busType.includes("Limousine")}
+                  onChange={() => handleFilterChange("busType", "Limousine")}
+                /> Limousine
+              </label>
+            </div>
+            <div className="filter-section">
+              <h4>Hàng ghế</h4>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filters.seatRow.includes("Hàng đầu")}
+                  onChange={() => handleFilterChange("seatRow", "Hàng đầu")}
+                /> Hàng đầu
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filters.seatRow.includes("Hàng giữa")}
+                  onChange={() => handleFilterChange("seatRow", "Hàng giữa")}
+                /> Hàng giữa
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filters.seatRow.includes("Hàng cuối")}
+                  onChange={() => handleFilterChange("seatRow", "Hàng cuối")}
+                /> Hàng cuối
+              </label>
+            </div>
+            <div className="filter-section">
+              <h4>Tầng</h4>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filters.floor.includes("Tầng trên")}
+                  onChange={() => handleFilterChange("floor", "Tầng trên")}
+                /> Tầng trên
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filters.floor.includes("Tầng dưới")}
+                  onChange={() => handleFilterChange("floor", "Tầng dưới")}
+                /> Tầng dưới
+              </label>
+            </div>
+          </div>
+
+
           
+          <div className="search-results">
+            <h2>Kết quả tìm kiếm Bến Tre - Bến Tre (31)</h2>
+            <div className="search-result-item">
+              <div className="result-info">
+                <div className="result-icons">
+                  <span>iconGiá rẻ bất ngờ</span>
+                  <span>iconGiờ khởi hành</span>
+                  <span>iconGhế trống</span>
+                </div>
+                <div className="result-details">
+                  <div className="departure-time">11:15</div>
+                  <div className="pickup">pickup</div>
+                  <div className="duration">4 giờ (Asian/Ho Chi Minh)</div>
+                  <div className="station">
+                    15:15 Bến Xe Trà Vinh - Bến Xe Miền Tây
+                  </div>
+                  <div className="bus-type">Giường</div>
+                  <div className="seats">8 chỗ trống</div>
+                  <div className="price">150.000đ</div>
+                </div>
+              </div>
+              <div className="result-actions">
+                <button>Chọn ghế</button>
+                <button>Lịch trình</button>
+                <button>Trung chuyển</button>
+                <button>Chính sách</button>
+                <button>Chọn chuyến</button>
+              </div>
+            </div>
+            {/* Add more search-result-item divs for more results */}
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
