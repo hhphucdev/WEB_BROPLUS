@@ -44,7 +44,9 @@ const HomePage = () => {
     setFilters((prevFilters) => {
       const newFilters = { ...prevFilters };
       if (newFilters[category].includes(value)) {
-        newFilters[category] = newFilters[category].filter((item) => item !== value);
+        newFilters[category] = newFilters[category].filter(
+          (item) => item !== value
+        );
       } else {
         newFilters[category].push(value);
       }
@@ -110,6 +112,121 @@ const HomePage = () => {
       price: "290,000 VND",
       content: "305km - 8 giờ",
     },
+  ];
+
+  const searchData = [
+    {
+      departureTime: "11:15",
+      pickup: "pickup",
+      duration: "4 giờ (Asian/Ho Chi Minh)",
+      station: "15:15 Bến Xe Trà Vinh - Bến Xe Miền Tây",
+      busType: "Giường",
+      seats: "8 chỗ trống",
+      price: "150.000đ",
+      icons: ["iconGiá rẻ bất ngờ", "iconGiờ khởi hành", "iconGhế trống"]
+    },
+    {
+      departureTime: "12:30",
+      pickup: "pickup",
+      duration: "5 giờ (Asian/Ho Chi Minh)",
+      station: "16:00 Bến Xe Cần Thơ - Bến Xe Miền Tây",
+      busType: "Ghế",
+      seats: "10 chỗ trống",
+      price: "200.000đ",
+      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"]
+    },
+    {
+      departureTime: "12:30",
+      pickup: "pickup",
+      duration: "5 giờ (Asian/Ho Chi Minh)",
+      station: "16:00 Bến Xe Cần Thơ - Bến Xe Miền Tây",
+      busType: "Ghế",
+      seats: "10 chỗ trống",
+      price: "200.000đ",
+      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"]
+    },
+    {
+      departureTime: "12:30",
+      pickup: "pickup",
+      duration: "5 giờ (Asian/Ho Chi Minh)",
+      station: "16:00 Bến Xe Cần Thơ - Bến Xe Miền Tây",
+      busType: "Ghế",
+      seats: "10 chỗ trống",
+      price: "200.000đ",
+      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"]
+    },
+    {
+      departureTime: "12:30",
+      pickup: "pickup",
+      duration: "5 giờ (Asian/Ho Chi Minh)",
+      station: "16:00 Bến Xe Cần Thơ - Bến Xe Miền Tây",
+      busType: "Ghế",
+      seats: "10 chỗ trống",
+      price: "200.000đ",
+      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"]
+    },
+    {
+      departureTime: "12:30",
+      pickup: "pickup",
+      duration: "5 giờ (Asian/Ho Chi Minh)",
+      station: "16:00 Bến Xe Cần Thơ - Bến Xe Miền Tây",
+      busType: "Ghế",
+      seats: "10 chỗ trống",
+      price: "200.000đ",
+      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"]
+    },
+    {
+      departureTime: "12:30",
+      pickup: "pickup",
+      duration: "5 giờ (Asian/Ho Chi Minh)",
+      station: "16:00 Bến Xe Cần Thơ - Bến Xe Miền Tây",
+      busType: "Ghế",
+      seats: "10 chỗ trống",
+      price: "200.000đ",
+      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"]
+    },
+    {
+      departureTime: "12:30",
+      pickup: "pickup",
+      duration: "5 giờ (Asian/Ho Chi Minh)",
+      station: "16:00 Bến Xe Cần Thơ - Bến Xe Miền Tây",
+      busType: "Ghế",
+      seats: "10 chỗ trống",
+      price: "200.000đ",
+      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"]
+    },
+    {
+      departureTime: "12:30",
+      pickup: "pickup",
+      duration: "5 giờ (Asian/Ho Chi Minh)",
+      station: "16:00 Bến Xe Cần Thơ - Bến Xe Miền Tây",
+      busType: "Ghế",
+      seats: "10 chỗ trống",
+      price: "200.000đ",
+      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"]
+    },
+    {
+      departureTime: "12:30",
+      pickup: "pickup",
+      duration: "5 giờ (Asian/Ho Chi Minh)",
+      station: "16:00 Bến Xe Cần Thơ - Bến Xe Miền Tây",
+      busType: "Ghế",
+      seats: "10 chỗ trống",
+      price: "200.000đ",
+      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"]
+    },
+    {
+      departureTime: "12:30",
+      pickup: "pickup",
+      duration: "5 giờ (Asian/Ho Chi Minh)",
+      station: "16:00 Bến Xe Cần Thơ - Bến Xe Miền Tây",
+      busType: "Ghế",
+      seats: "10 chỗ trống",
+      price: "200.000đ",
+      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"]
+    },
+
+
   ];
 
   const [hasSearched, setHasSearched] = useState(false);
@@ -259,29 +376,41 @@ const HomePage = () => {
                 <input
                   type="checkbox"
                   checked={filters.departureTime.includes("00:00 - 06:00")}
-                  onChange={() => handleFilterChange("departureTime", "00:00 - 06:00")}
-                /> Sáng sớm 00:00 - 06:00 (0)
+                  onChange={() =>
+                    handleFilterChange("departureTime", "00:00 - 06:00")
+                  }
+                />{" "}
+                Sáng sớm 00:00 - 06:00 (0)
               </label>
               <label>
                 <input
                   type="checkbox"
                   checked={filters.departureTime.includes("06:00 - 12:00")}
-                  onChange={() => handleFilterChange("departureTime", "06:00 - 12:00")}
-                /> Buổi sáng 06:00 - 12:00 (1)
+                  onChange={() =>
+                    handleFilterChange("departureTime", "06:00 - 12:00")
+                  }
+                />{" "}
+                Buổi sáng 06:00 - 12:00 (1)
               </label>
               <label>
                 <input
                   type="checkbox"
                   checked={filters.departureTime.includes("12:00 - 18:00")}
-                  onChange={() => handleFilterChange("departureTime", "12:00 - 18:00")}
-                /> Buổi chiều 12:00 - 18:00 (19)
+                  onChange={() =>
+                    handleFilterChange("departureTime", "12:00 - 18:00")
+                  }
+                />{" "}
+                Buổi chiều 12:00 - 18:00 (19)
               </label>
               <label>
                 <input
                   type="checkbox"
                   checked={filters.departureTime.includes("18:00 - 24:00")}
-                  onChange={() => handleFilterChange("departureTime", "18:00 - 24:00")}
-                /> Buổi tối 18:00 - 24:00 (11)
+                  onChange={() =>
+                    handleFilterChange("departureTime", "18:00 - 24:00")
+                  }
+                />{" "}
+                Buổi tối 18:00 - 24:00 (11)
               </label>
             </div>
             <div className="filter-section">
@@ -291,21 +420,24 @@ const HomePage = () => {
                   type="checkbox"
                   checked={filters.busType.includes("Ghế")}
                   onChange={() => handleFilterChange("busType", "Ghế")}
-                /> Ghế
+                />{" "}
+                Ghế
               </label>
               <label>
                 <input
                   type="checkbox"
                   checked={filters.busType.includes("Giường")}
                   onChange={() => handleFilterChange("busType", "Giường")}
-                /> Giường
+                />{" "}
+                Giường
               </label>
               <label>
                 <input
                   type="checkbox"
                   checked={filters.busType.includes("Limousine")}
                   onChange={() => handleFilterChange("busType", "Limousine")}
-                /> Limousine
+                />{" "}
+                Limousine
               </label>
             </div>
             <div className="filter-section">
@@ -315,21 +447,24 @@ const HomePage = () => {
                   type="checkbox"
                   checked={filters.seatRow.includes("Hàng đầu")}
                   onChange={() => handleFilterChange("seatRow", "Hàng đầu")}
-                /> Hàng đầu
+                />{" "}
+                Hàng đầu
               </label>
               <label>
                 <input
                   type="checkbox"
                   checked={filters.seatRow.includes("Hàng giữa")}
                   onChange={() => handleFilterChange("seatRow", "Hàng giữa")}
-                /> Hàng giữa
+                />{" "}
+                Hàng giữa
               </label>
               <label>
                 <input
                   type="checkbox"
                   checked={filters.seatRow.includes("Hàng cuối")}
                   onChange={() => handleFilterChange("seatRow", "Hàng cuối")}
-                /> Hàng cuối
+                />{" "}
+                Hàng cuối
               </label>
             </div>
             <div className="filter-section">
@@ -339,50 +474,49 @@ const HomePage = () => {
                   type="checkbox"
                   checked={filters.floor.includes("Tầng trên")}
                   onChange={() => handleFilterChange("floor", "Tầng trên")}
-                /> Tầng trên
+                />{" "}
+                Tầng trên
               </label>
               <label>
                 <input
                   type="checkbox"
                   checked={filters.floor.includes("Tầng dưới")}
                   onChange={() => handleFilterChange("floor", "Tầng dưới")}
-                /> Tầng dưới
+                />{" "}
+                Tầng dưới
               </label>
             </div>
           </div>
 
-
-          
           <div className="search-results">
-            <h2>Kết quả tìm kiếm Bến Tre - Bến Tre (31)</h2>
-            <div className="search-result-item">
-              <div className="result-info">
-                <div className="result-icons">
-                  <span>iconGiá rẻ bất ngờ</span>
-                  <span>iconGiờ khởi hành</span>
-                  <span>iconGhế trống</span>
-                </div>
-                <div className="result-details">
-                  <div className="departure-time">11:15</div>
-                  <div className="pickup">pickup</div>
-                  <div className="duration">4 giờ (Asian/Ho Chi Minh)</div>
-                  <div className="station">
-                    15:15 Bến Xe Trà Vinh - Bến Xe Miền Tây
+            <h2>Kết quả tìm kiếm Bến Tre - Bến Tre ({searchData.length})</h2>
+            {searchData.map((item, index) => (
+              <div className="search-result-item" key={index}>
+                <div className="result-info">
+                  <div className="result-icons">
+                    {item.icons.map((icon, i) => (
+                      <span key={i}>{icon}</span>
+                    ))}
                   </div>
-                  <div className="bus-type">Giường</div>
-                  <div className="seats">8 chỗ trống</div>
-                  <div className="price">150.000đ</div>
+                  <div className="result-details">
+                    <div className="departure-time">{item.departureTime}</div>
+                    <div className="pickup">{item.pickup}</div>
+                    <div className="duration">{item.duration}</div>
+                    <div className="station">{item.station}</div>
+                    <div className="bus-type">{item.busType}</div>
+                    <div className="seats">{item.seats}</div>
+                    <div className="price">{item.price}</div>
+                  </div>
+                </div>
+                <div className="result-actions">
+                  <button>Chọn ghế</button>
+                  <button>Lịch trình</button>
+                  <button>Trung chuyển</button>
+                  <button>Chính sách</button>
+                  <button>Chọn chuyến</button>
                 </div>
               </div>
-              <div className="result-actions">
-                <button>Chọn ghế</button>
-                <button>Lịch trình</button>
-                <button>Trung chuyển</button>
-                <button>Chính sách</button>
-                <button>Chọn chuyến</button>
-              </div>
-            </div>
-            {/* Add more search-result-item divs for more results */}
+            ))}
           </div>
         </div>
       )}
