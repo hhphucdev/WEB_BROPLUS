@@ -123,7 +123,7 @@ const HomePage = () => {
       busType: "Giường",
       seats: "8 chỗ trống",
       price: "150.000đ",
-      icons: ["iconGiá rẻ bất ngờ", "iconGiờ khởi hành", "iconGhế trống"]
+      icons: ["iconGiá rẻ bất ngờ", "iconGiờ khởi hành", "iconGhế trống"],
     },
     {
       departureTime: "12:30",
@@ -133,7 +133,7 @@ const HomePage = () => {
       busType: "Ghế",
       seats: "10 chỗ trống",
       price: "200.000đ",
-      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"]
+      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"],
     },
     {
       departureTime: "12:30",
@@ -143,7 +143,7 @@ const HomePage = () => {
       busType: "Ghế",
       seats: "10 chỗ trống",
       price: "200.000đ",
-      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"]
+      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"],
     },
     {
       departureTime: "12:30",
@@ -153,7 +153,7 @@ const HomePage = () => {
       busType: "Ghế",
       seats: "10 chỗ trống",
       price: "200.000đ",
-      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"]
+      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"],
     },
     {
       departureTime: "12:30",
@@ -163,7 +163,7 @@ const HomePage = () => {
       busType: "Ghế",
       seats: "10 chỗ trống",
       price: "200.000đ",
-      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"]
+      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"],
     },
     {
       departureTime: "12:30",
@@ -173,7 +173,7 @@ const HomePage = () => {
       busType: "Ghế",
       seats: "10 chỗ trống",
       price: "200.000đ",
-      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"]
+      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"],
     },
     {
       departureTime: "12:30",
@@ -183,7 +183,7 @@ const HomePage = () => {
       busType: "Ghế",
       seats: "10 chỗ trống",
       price: "200.000đ",
-      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"]
+      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"],
     },
     {
       departureTime: "12:30",
@@ -193,7 +193,7 @@ const HomePage = () => {
       busType: "Ghế",
       seats: "10 chỗ trống",
       price: "200.000đ",
-      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"]
+      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"],
     },
     {
       departureTime: "12:30",
@@ -203,7 +203,7 @@ const HomePage = () => {
       busType: "Ghế",
       seats: "10 chỗ trống",
       price: "200.000đ",
-      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"]
+      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"],
     },
     {
       departureTime: "12:30",
@@ -213,7 +213,7 @@ const HomePage = () => {
       busType: "Ghế",
       seats: "10 chỗ trống",
       price: "200.000đ",
-      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"]
+      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"],
     },
     {
       departureTime: "12:30",
@@ -223,16 +223,19 @@ const HomePage = () => {
       busType: "Ghế",
       seats: "10 chỗ trống",
       price: "200.000đ",
-      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"]
+      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"],
     },
-
-
   ];
 
   const [hasSearched, setHasSearched] = useState(false);
 
   const handleSearch = () => {
-    setHasSearched(true);
+    if (!hasSearched) {
+      setHasSearched(true);
+    } 
+    else {
+      setHasSearched(false);
+    }
   };
 
   return (
@@ -368,7 +371,6 @@ const HomePage = () => {
         <div className="container search-page">
           <div className="search-filters">
             <h3>BỘ LỌC TÌM KIẾM</h3>
-
             <button onClick={deleteAllFilters}>Bỏ lọc</button>
             <div className="filter-section">
               <h4>Giờ đi</h4>
