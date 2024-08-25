@@ -49,7 +49,7 @@ const ScrollToTopButton = () => {
         <button
           onClick={openZalo}
           className="chat-button"
-          aria-label="Open chat"
+          aria-label="Open Zalo"
         >
           <BsFillChatQuoteFill />
         </button>

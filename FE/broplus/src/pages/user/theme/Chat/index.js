@@ -47,7 +47,7 @@ const Chat = ({ isOpen, onClose }) => {
             placeholder="Hãy nhập tin nhắn của bạn..."
           />
           <button onClick={handleSendMessage} aria-label="Send message">
-            Send
+            Gửi
           </button>
         </div>
       </div>
