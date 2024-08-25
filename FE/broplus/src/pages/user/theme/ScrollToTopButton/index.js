@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaArrowUp, FaComment } from "react-icons/fa";
+import { BsFillChatQuoteFill } from "react-icons/bs";
 import "./style.scss";
 import Chat from "../Chat";
 
@@ -31,14 +32,33 @@ const ScrollToTopButton = () => {
     setIsChatOpen(!isChatOpen);
   };
 
+  const openZalo = () => {
+    window.open("https://zalo.me/0368564833", "_blank");
+  }
+
   return (
     <>
       <div className="scroll-to-top">
-        <button onClick={toggleChat} className="chat-button" aria-label="Open chat">
+        <button
+          onClick={toggleChat}
+          className="chat-button"
+          aria-label="Open chat"
+        >
           <FaComment />
         </button>
+        <button
+          onClick={openZalo}
+          className="chat-button"
+          aria-label="Open chat"
+        >
+          <BsFillChatQuoteFill />
+        </button>
         {isVisible && (
-          <button onClick={scrollToTop} className="scroll-button" aria-label="Scroll to top">
+          <button
+            onClick={scrollToTop}
+            className="scroll-button"
+            aria-label="Scroll to top"
+          >
             <FaArrowUp />
           </button>
         )}
