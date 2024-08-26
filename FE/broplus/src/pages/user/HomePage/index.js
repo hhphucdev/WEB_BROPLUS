@@ -116,19 +116,19 @@ const HomePage = () => {
 
   const searchData = [
     {
-      departureTime: "11:15",
-      pickup: "pickup",
-      duration: "4 giờ (Asian/Ho Chi Minh)",
-      station: "15:15 Bến Xe Trà Vinh - Bến Xe Miền Tây",
+      formTime: "12:30",
+      toTime: "16:30",
+      duration: "4 giờ",
+      form: "Bến Xe Miền Đông",
+      to: "Bến Xe Cần Thơ",
       busType: "Giường",
       seats: "8 chỗ trống",
       price: "150.000đ",
-      icons: ["iconGiá rẻ bất ngờ", "iconGiờ khởi hành", "iconGhế trống"],
     },
     {
       departureTime: "12:30",
       pickup: "pickup",
-      duration: "5 giờ (Asian/Ho Chi Minh)",
+      duration: "5 giờ",
       station: "16:00 Bến Xe Cần Thơ - Bến Xe Miền Tây",
       busType: "Ghế",
       seats: "10 chỗ trống",
@@ -232,8 +232,7 @@ const HomePage = () => {
   const handleSearch = () => {
     if (!hasSearched) {
       setHasSearched(true);
-    } 
-    else {
+    } else {
       setHasSearched(false);
     }
   };
@@ -312,7 +311,9 @@ const HomePage = () => {
         <>
           <div className="container container_categories_slider">
             <div className="section_title_categories_slider">
-              <h2>KHUYẾN MÃI NỔI BẬT</h2>
+              <h2 className="section_title_categories_slider_h2">
+                KHUYẾN MÃI NỔI BẬT
+              </h2>
             </div>
             <Carousel responsive={responsive} className="categories_slider">
               {sliderItems.map((item, key) => (
@@ -491,22 +492,23 @@ const HomePage = () => {
           </div>
 
           <div className="search-results">
-            <h2>Kết quả tìm kiếm Bến Tre - Bến Tre ({searchData.length})</h2>
+            <h3>KẾT QUẢ TÌM KIẾM ({searchData.length})</h3>
+            {searchData.length === 0 && <div>Không tìm thấy kết quả</div>}
+
             {searchData.map((item, index) => (
               <div className="search-result-item" key={index}>
                 <div className="result-info">
-                  <div className="result-icons">
-                    {item.icons.map((icon, i) => (
-                      <span key={i}>{icon}</span>
-                    ))}
-                  </div>
                   <div className="result-details">
-                    <div className="departure-time">{item.departureTime}</div>
-                    <div className="pickup">{item.pickup}</div>
-                    <div className="duration">{item.duration}</div>
-                    <div className="station">{item.station}</div>
+                    <div className="form-time">{item.formTime}</div>
+                    <div className="duration">
+                      ...............{item.duration}...............
+                      
+                      </div>
+                    <div className="to-time">{item.toTime}</div>
                     <div className="bus-type">{item.busType}</div>
                     <div className="seats">{item.seats}</div>
+                    <div className="from">{item.form}</div>
+                    <div className="to">{item.to}</div>
                     <div className="price">{item.price}</div>
                   </div>
                 </div>

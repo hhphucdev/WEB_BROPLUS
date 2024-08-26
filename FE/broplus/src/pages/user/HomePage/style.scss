@@ -490,92 +490,128 @@ $banner: "/assets/user/images/hero/banner.png";
     opacity: 1;
   }
 
+  .search-page {
+    display: flex;
+  }
+
+  .search-filters {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(243, 0, 0, 0.1);
+    background-color: #fff;
+    width: 300px;
+  }
+
   .search-results {
     flex: 1;
     padding: 20px;
+    overflow-y: auto;
 
     .search-result-item {
       border: 2px solid #ddd;
-      margin: 0 0 15px;
       margin-bottom: 15px;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
-      .result-info {
-        display: flex;
-        justify-content: space-between;
+      .result-details {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: auto auto;
+        grid-gap: 10px;
+        margin-bottom: 15px;
 
-        .result-icons {
-          flex: 1;
+        .form-time {
+          grid-column: 1 / 2;
+          font-weight: bold;
+          color: #333;
+          font-size: 25px;
         }
 
-        .result-details {
-          flex: 3;
-          display: flex;
-          justify-content: space-between;
+        .duration {
+          grid-column: 2 / 3;
+          color: #333;
+          text-align: center;
+          white-space: nowrap;
+          overflow: hidden; 
+          text-overflow: ellipsis; 
+        }
 
-          .departure-time,
-          .pickup,
-          .duration,
-          .station,
-          .bus-type,
-          .seats,
-          .price {
-            margin-right: 10px;
-          }
+        .to-time {
+          grid-column: 3 / 4;
+          font-weight: bold;
+          color: #333;
+          font-size: 25px;
+          margin-left: 50px;
+        }
+
+        .bus-type {
+          grid-column: 4 / 5;
+          font-weight: bold;
+          color: #333;
+          margin-left: auto;
+        }
+
+        .seats {
+          grid-column: 5 / 6;
+          font-weight: bold;
+          color: #333;
+          margin-left: auto;
+        }
+
+        .from {
+          grid-column: 1 / 3;
+          grid-row: 2;
+          font-weight: bold;
+          color: #333;
+        }
+
+        .to {
+          grid-column: 3 / 4;
+          grid-row: 2;
+          font-weight: bold;
+          color: #333;
+          margin-left: auto;
+          text-align: center;
+          white-space: nowrap;
+          overflow: hidden; 
+          text-overflow: ellipsis; 
+        }
+
+        .price {
+          grid-column: 4 / 6;
+          grid-row: 2;
+          font-weight: bold;
+          color: #ff8800;
+          margin-left: auto;
+          font-size: large;
         }
       }
 
       .result-actions {
-        margin-top: 10px;
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 15px;
 
         button {
-          margin-right: 5px;
+          margin-right: 10px;
+          padding: 10px 15px;
+          border: none;
+          border-radius: 5px;
+          background-color: #007bff;
+          color: #fff;
+          cursor: pointer;
+          transition: background-color 0.3s;
+
+          &:hover {
+            background-color: #0056b3;
+          }
         }
       }
     }
   }
-}
-
-.search-page {
-  display: flex;
-}
-
-.search-filters {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow-y: auto;
-  padding: 10px;
-  box-shadow: 0 4px 8px rgba(243, 0, 0, 0.1);
-}
-
-.search-results {
-  flex: 1;
-  padding: 10px;
-  overflow-y: auto;
-}
-
-.search-result-item {
-  margin-bottom: 10px;
-}
-
-.result-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.result-icons {
-  margin-bottom: 10px;
-}
-
-.result-details {
-  margin-bottom: 10px;
-}
-
-.result-actions {
-  display: flex;
-  gap: 10px;
 }

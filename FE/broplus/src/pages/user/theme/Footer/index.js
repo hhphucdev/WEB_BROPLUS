@@ -1,10 +1,17 @@
 import { memo } from "react";
+import { useEffect } from "react";
 import "./style.scss";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FaSquareFacebook } from "react-icons/fa6";
 import { ROUTER } from "utils/router";
 
 const Footer = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
   return (
     <footer className="footer">
       <div className="container">
@@ -26,18 +33,17 @@ const Footer = () => {
                 <li>
                   <Link to={ROUTER.USER.HOME}>Trang chủ</Link>
                 </li>
-                
+
                 <li>
                   <Link to={ROUTER.USER.CONTACT}>Liên hệ</Link>
                 </li>
-                
+
                 <li>
                   <Link to={ROUTER.USER.INTRODUCE}>Giới thiệu</Link>
                 </li>
                 <li>
                   <Link to={ROUTER.USER.INTRODUCE}>Tin tức</Link>
                 </li>
-                
               </ul>
 
               <ul>
@@ -47,7 +53,7 @@ const Footer = () => {
                 <li>
                   <Link to={ROUTER.USER.SCHEDULE}>Hướng dẫn</Link>
                 </li>
-                
+
                 <li>
                   <Link to={ROUTER.USER.TICKET_SEARCH}>Tra cứu vé</Link>
                 </li>
