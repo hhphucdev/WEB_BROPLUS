@@ -9,6 +9,8 @@ import category5 from "assets/user/images/categories/khuyenmai5.png";
 import "./style.scss";
 import { Link } from "react-router-dom";
 import { ROUTER } from "utils/router";
+import { MdEventSeat, MdMyLocation } from "react-icons/md";
+import { GrLocation } from "react-icons/gr";
 
 const HomePage = () => {
   const [isRoundTrip, setIsRoundTrip] = useState(false);
@@ -235,6 +237,53 @@ const HomePage = () => {
     } else {
       setHasSearched(false);
     }
+  };
+
+  const [activeSection, setActiveSection] = useState(null);
+
+  const handleButtonClick = (section) => {
+    setActiveSection(activeSection === section ? null : section);
+  };
+
+  const seats = {
+    "tang-duoi": [
+      { id: "A01", status: "available" },
+      { id: "A02", status: "sold" },
+      { id: "A03", status: "selected" },
+      { id: "A04", status: "available" },
+      { id: "A05", status: "available" },
+      { id: "A06", status: "available" },
+      { id: "A07", status: "available" },
+      { id: "A08", status: "sold" },
+      { id: "A09", status: "available" },
+      { id: "A10", status: "available" },
+      { id: "A11", status: "available" },
+      { id: "A12", status: "available" },
+      { id: "A13", status: "available" },
+      { id: "A14", status: "available" },
+      { id: "A15", status: "available" },
+      { id: "A16", status: "available" },
+      { id: "A17", status: "available" },
+    ],
+    "tang-tren": [
+      { id: "B01", status: "available" },
+      { id: "B02", status: "available" },
+      { id: "B03", status: "sold" },
+      { id: "B04", status: "available" },
+      { id: "B05", status: "available" },
+      { id: "B06", status: "available" },
+      { id: "B07", status: "available" },
+      { id: "B08", status: "available" },
+      { id: "B09", status: "available" },
+      { id: "B10", status: "sold" },
+      { id: "B11", status: "available" },
+      { id: "B12", status: "available" },
+      { id: "B13", status: "available" },
+      { id: "B14", status: "available" },
+      { id: "B15", status: "available" },
+      { id: "B16", status: "available" },
+      { id: "B17", status: "available" },
+    ],
   };
 
   return (
@@ -501,9 +550,13 @@ const HomePage = () => {
                   <div className="result-details">
                     <div className="form-time">{item.formTime}</div>
                     <div className="duration">
-                      ...............{item.duration}...............
-                      
-                      </div>
+                      <MdMyLocation className="icon icon-left" />
+                      ........
+                      <div className="text">{item.duration}</div>
+                      ........
+                      <GrLocation className="icon icon-right" />
+                    </div>
+
                     <div className="to-time">{item.toTime}</div>
                     <div className="bus-type">{item.busType}</div>
                     <div className="seats">{item.seats}</div>
@@ -513,12 +566,68 @@ const HomePage = () => {
                   </div>
                 </div>
                 <div className="result-actions">
-                  <button>Chọn ghế</button>
-                  <button>Lịch trình</button>
-                  <button>Trung chuyển</button>
-                  <button>Chính sách</button>
-                  <button>Chọn chuyến</button>
+                  <button onClick={() => handleButtonClick("seats")}>
+                    Chọn ghế
+                  </button>
+                  <button onClick={() => handleButtonClick("schedule")}>
+                    Lịch trình
+                  </button>
+                  <button onClick={() => handleButtonClick("transit")}>
+                    Trung chuyển
+                  </button>
+                  <button onClick={() => handleButtonClick("policy")}>
+                    Chính sách
+                  </button>
+                  <button className="align-right">Chọn chuyến</button>
                 </div>
+
+                {activeSection === "seats" && (
+                  <div className="seat-selection">
+                    <div className="seat-section">
+                      <h3>Tầng dưới</h3>
+                      <div className="seats">
+                        {seats["tang-duoi"].map((seat) => (
+                          <div key={seat.id} className={`seat ${seat.status}`}>
+                            <MdEventSeat style={{ fontSize: "24px" }} />
+                            <span>{seat.id}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="seat-section">
+                      <h3>Tầng trên</h3>
+                      <div className="seats">
+                        {seats["tang-tren"].map((seat) => (
+                          <div key={seat.id} className={`seat ${seat.status}`}>
+                            <MdEventSeat style={{ fontSize: "24px" }} />
+                            <span>{seat.id}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {activeSection === "schedule" && (
+                  <div className="schedule-info">
+                    <p>Lịch trình</p>
+                    {/* Add schedule details here */}
+                  </div>
+                )}
+
+                {activeSection === "transit" && (
+                  <div className="transit-info">
+                    <p>Trung chuyển</p>
+                    {/* Add transit details here */}
+                  </div>
+                )}
+
+                {activeSection === "policy" && (
+                  <div className="policy-info">
+                    <p>Chính sách</p>
+                    {/* Add policy details here */}
+                  </div>
+                )}
               </div>
             ))}
           </div>

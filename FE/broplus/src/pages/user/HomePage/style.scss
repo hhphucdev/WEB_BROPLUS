@@ -533,12 +533,28 @@ $banner: "/assets/user/images/hero/banner.png";
         }
 
         .duration {
-          grid-column: 2 / 3;
-          color: #333;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 16px;
           text-align: center;
-          white-space: nowrap;
-          overflow: hidden; 
-          text-overflow: ellipsis; 
+          color: #3b3b3b;
+
+          .icon {
+            font-size: 20px;
+          }
+
+          .text {
+            flex: 1;
+          }
+
+          .icon-left {
+            color: rgb(12, 134, 1);
+          }
+
+          .icon-right {
+            color: rgb(255, 123, 0);
+          }
         }
 
         .to-time {
@@ -578,8 +594,8 @@ $banner: "/assets/user/images/hero/banner.png";
           margin-left: auto;
           text-align: center;
           white-space: nowrap;
-          overflow: hidden; 
-          text-overflow: ellipsis; 
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         .price {
@@ -593,22 +609,115 @@ $banner: "/assets/user/images/hero/banner.png";
       }
 
       .result-actions {
+        border-top: 1px solid #ddd;
+        padding-top: 15px;
         display: flex;
-        justify-content: flex-end;
-        margin-top: 15px;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
 
         button {
-          margin-right: 10px;
           padding: 10px 15px;
           border: none;
           border-radius: 5px;
-          background-color: #007bff;
-          color: #fff;
+          color: #000000;
           cursor: pointer;
-          transition: background-color 0.3s;
+          background: transparent;
+          transition: color 0.3s;
+          font-weight: bold;
 
           &:hover {
-            background-color: #0056b3;
+            color: #f98d00;
+          }
+
+          &.align-right {
+            margin-left: auto;
+            background-color: #ff2600;
+            color: white;
+            font-weight: bold;
+            border-radius: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            &:hover {
+              background-color: #106e03;
+            }
+          }
+
+          .seat-selection {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+
+            .seat-section {
+              margin-bottom: 20px;
+
+              h3 {
+                font-size: 18px;
+                margin-bottom: 10px;
+              }
+
+              .seats {
+                display: grid;
+                grid-template-columns: repeat(6, 1fr); // 6 columns
+                grid-template-rows: repeat(3, 1fr); // 3 rows
+                gap: 10px;
+                justify-content: center;
+
+                .seat {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  width: 60px;
+                  height: 60px;
+                  border-radius: 50%;
+                  font-size: 16px;
+                  color: #fff;
+                  cursor: pointer;
+                  background-color: #ccc; // Default color
+
+                  &.available {
+                    background-color: #28a745; // Green
+                  }
+
+                  &.sold {
+                    background-color: #dc3545; // Red
+                  }
+
+                  &.selected {
+                    background-color: #ffc107; // Yellow
+                  }
+
+                  span {
+                    margin-top: 5px;
+                    font-size: 14px;
+                  }
+                }
+              }
+            }
+          }
+
+          .schedule-info,
+          .transit-info,
+          .policy-info {
+            margin-top: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+
+            .seat-option {
+              padding: 5px;
+              border: 1px solid #ccc;
+              border-radius: 5px;
+              margin-bottom: 5px;
+              background-color: #fff;
+
+              &:hover {
+                background-color: #e0e0e0;
+              }
+            }
           }
         }
       }
