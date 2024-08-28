@@ -639,85 +639,114 @@ $banner: "/assets/user/images/hero/banner.png";
             padding: 10px 20px;
             cursor: pointer;
             transition: background-color 0.3s;
+
             &:hover {
               background-color: #106e03;
             }
           }
+        }
+      }
 
-          .seat-selection {
+      .seat-selection {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .seat-legend {
+          display: flex;
+          justify-content: space-around;
+          margin-bottom: 20px;
+
+          .seat {
             display: flex;
-            flex-direction: column;
-            padding: 20px;
+            justify-content: center;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 10px;
+            width: 80px;
+            text-align: center;
+            margin-top: 10px;
 
-            .seat-section {
-              margin-bottom: 20px;
-
-              h3 {
-                font-size: 18px;
-                margin-bottom: 10px;
-              }
-
-              .seats {
-                display: grid;
-                grid-template-columns: repeat(6, 1fr); // 6 columns
-                grid-template-rows: repeat(3, 1fr); // 3 rows
-                gap: 10px;
-                justify-content: center;
-
-                .seat {
-                  display: flex;
-                  flex-direction: column;
-                  align-items: center;
-                  justify-content: center;
-                  width: 60px;
-                  height: 60px;
-                  border-radius: 50%;
-                  font-size: 16px;
-                  color: #fff;
-                  cursor: pointer;
-                  background-color: #ccc; // Default color
-
-                  &.available {
-                    background-color: #28a745; // Green
-                  }
-
-                  &.sold {
-                    background-color: #dc3545; // Red
-                  }
-
-                  &.selected {
-                    background-color: #ffc107; // Yellow
-                  }
-
-                  span {
-                    margin-top: 5px;
-                    font-size: 14px;
-                  }
-                }
-              }
+            &.sold {
+              background-color: #ffcccc;
+            }
+            &.available {
+              background-color: #ccffcc;
+            }
+            &.selected {
+              background-color: #cce5ff;
             }
           }
+        }
 
-          .schedule-info,
-          .transit-info,
-          .policy-info {
-            margin-top: 15px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f9f9f9;
+        .seat-section {
+          margin-bottom: 20px;
 
-            .seat-option {
-              padding: 5px;
-              border: 1px solid #ccc;
+          h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #333;
+          }
+
+          .seats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+
+            .seat {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              padding: 10px;
+              border: 1px solid #ddd;
               border-radius: 5px;
-              margin-bottom: 5px;
-              background-color: #fff;
+              background-color: #f9f9f9;
+              cursor: pointer;
+              transition: background-color 0.3s;
+
+              &.sold {
+                background-color: #ffcccc;
+              }
+              &.available {
+                background-color: #ccffcc;
+              }
+              &.selected {
+                background-color: #cce5ff;
+              }
 
               &:hover {
                 background-color: #e0e0e0;
               }
+
+              span {
+                margin-top: 5px;
+                font-size: 14px;
+                color: #333;
+              }
             }
+          }
+        }
+      }
+
+      .schedule-info,
+      .transit-info,
+      .policy-info {
+        margin-top: 15px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+
+        .seat-option {
+          padding: 5px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          margin-bottom: 5px;
+          background-color: #fff;
+
+          &:hover {
+            background-color: #e0e0e0;
           }
         }
       }

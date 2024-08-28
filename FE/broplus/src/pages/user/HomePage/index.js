@@ -583,6 +583,11 @@ const HomePage = () => {
 
                 {activeSection === "seats" && (
                   <div className="seat-selection">
+                    <div className="seat-legend">
+                      <div className="seat sold">Đã bán</div>
+                      <div className="seat available">Còn trống</div>
+                      <div className="seat selected">Đang chọn</div>
+                    </div>
                     <div className="seat-section">
                       <h3>Tầng dưới</h3>
                       <div className="seats">
@@ -615,17 +620,112 @@ const HomePage = () => {
                   </div>
                 )}
 
+
+
                 {activeSection === "transit" && (
                   <div className="transit-info">
-                    <p>Trung chuyển</p>
-                    {/* Add transit details here */}
+                    <br />
+                    <h3>Đón/ trả tận nơi: </h3>
+                    <p>
+                      - Thời gian nhận khách : Trước 4 tiếng.
+                      <br />
+                      - Thời gian xe đón : Chuẩn bị trước 2 -3 tiếng, do mật độ
+                      giao thông trong thành phố và sẽ kết hợp đón nhiều điểm
+                      khác nhau nên thời gian đón cụ thể tài xế sẽ liên hệ hẹn
+                      giờ.
+                      <br />
+                      - Hẻm nhỏ xe không quay đầu được : Xe trung chuyển sẽ đón
+                      Khách đầu hẻm/ đầu đường.
+                      <br />
+                      - Khu vực có biển cấm dừng đỗ xe không đón được : Xe trung
+                      chuyển sẽ đón tại vị trí gần nhất có thể.
+                      <br />- Hành lý : Hành lý nhỏ gọn dưới 20 kg, không vận
+                      chuyển kèm động vật , thú cưng, không mang đồ có mùi, đồ
+                      chảy nước trên xe.
+                    </p>
                   </div>
                 )}
 
+
                 {activeSection === "policy" && (
                   <div className="policy-info">
-                    <p>Chính sách</p>
-                    {/* Add policy details here */}
+                    <br />
+                    <h3>Chính sách huỷ vé</h3>
+                    <ul>
+                      <li>Chỉ được chuyển đổi vé 1 lần duy nhất.</li>
+                      <li>
+                        Chi phí hủy vé từ 10% – 30% giá vé tùy thuộc thời gian
+                        hủy vé so với giờ khởi hành ghi trên vé và số lượng vé
+                        cá nhân/tập thể áp dụng theo các quy định hiện hành.
+                      </li>
+                      <li>
+                        Quý khách khi có nhu cầu muốn thay đổi hoặc hủy vé đã
+                        thanh toán, cần liên hệ với Trung tâm tổng đài 1900 6067
+                        hoặc quầy vé chậm nhất trước 24h so với giờ xe khởi hành
+                        được ghi trên vé, trên email hoặc tin nhắn để được hướng
+                        dẫn thêm.
+                      </li>
+                      <br />
+                    </ul>
+
+                    <h3>Yêu cầu khi lên xe</h3>
+                    <ul>
+                      <li>
+                        Có mặt tại Văn phòng/Bến xe (Địa điểm xe đón trực tiếp)
+                        trước 30 phút để làm thủ tục lên xe (đối với ngày lễ tết
+                        cần ra trước 60 phút).
+                      </li>
+                      <li>
+                        Xuất trình thông tin vé được gửi qua SMS/Email/Futa App
+                        hoặc liên hệ quầy vé để nhận thông tin vé trước khi lên
+                        xe.
+                      </li>
+                      <li>Không mang thức ăn/đồ uống có mùi lên xe.</li>
+                      <li>
+                        Không hút thuốc, không sử dụng đồ uống có cồn hoặc sử
+                        dụng chất kích thích trên xe.
+                      </li>
+                      <li>Không mang các vật dễ cháy nổ lên xe.</li>
+                      <li>Không vứt rác trên xe.</li>
+                      <li>Không mang động vật lên xe.</li>
+                    </ul>
+                    <br />
+                    <h3>Hành lý xách tay</h3>
+                    <ul>
+                      <li>Tổng trọng lượng hành lý không vượt quá 20kg.</li>
+                      <li>Không vận chuyển hàng hoá cồng kềnh.</li>
+                    </ul>
+                    <br />
+                    <h3>Trẻ em dưới 6 tuổi và phụ nữ có thai</h3>
+                    <ul>
+                      <li>
+                        Trẻ em dưới 6 tuổi, cao từ 1.3m trở xuống, cân nặng dưới
+                        30kg thì không phải mua vé.
+                      </li>
+                      <li>
+                        Trong trường hợp trẻ em không thoả 1 trong 3 tiêu chí
+                        trên sẽ mua 01 vé tương đương với người lớn.
+                      </li>
+                      <li>Mỗi người lớn sẽ đi kèm tối đa một trẻ em.</li>
+                      <li>
+                        Phụ nữ có thai cần đảm bảo sức khoẻ trong suốt quá trình
+                        di chuyển.
+                      </li>
+                    </ul>
+                    <br />
+                    <h3>Vé đón đường</h3>
+                    <ul>
+                      <li>
+                        Trường hợp có nhu cầu lên xe dọc đường, Quý khách vui
+                        lòng liên hệ tổng đài 1900 6067 để đăng kí trước ít nhất
+                        2 tiếng so với giờ xe khởi hành và vui lòng chuẩn bị
+                        hành lý nhỏ gọn (tối đa 20kg).
+                      </li>
+                      <li>
+                        Lưu ý, chúng tôi chỉ hỗ trợ đón ở một số địa điểm thuận
+                        tiện nằm trên lộ trình.
+                      </li>
+                    </ul>
                   </div>
                 )}
               </div>
