@@ -7,6 +7,7 @@ import TicketSearch from "pages/user/TicketSearch";
 import Introduce from "pages/user/Introduce";
 import Contact from "pages/user/Contact";
 import Schedule from "pages/user/Schedule";
+import BookTicket from "pages/user/BookTicket";
 
 const UserRoutes = () => (
   <MasterLayout>
@@ -17,6 +18,7 @@ const UserRoutes = () => (
       <Route path={ROUTER.USER.CONTACT} element={<Contact />} />
       <Route path={ROUTER.USER.SCHEDULE} element={<Schedule />} />
       <Route path={ROUTER.USER.LOGIN} element={<Login />} />
+      <Route path={ROUTER.USER.BOOK_TICKET} element={<BookTicket />} />
       <Route path="*" element={<HomePage />} />
     </Routes>
   </MasterLayout>

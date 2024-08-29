@@ -8,5 +8,6 @@ export const ROUTER = {
     INTRODUCE: "introduce",
     CONTACT: "contact",
     SCHEDULE: "schedule",
+    BOOK_TICKET: "book-ticket",
   },
 };

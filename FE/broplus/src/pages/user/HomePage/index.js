@@ -7,7 +7,7 @@ import category3 from "assets/user/images/categories/khuyenmai3.png";
 import category4 from "assets/user/images/categories/khuyenmai4.png";
 import category5 from "assets/user/images/categories/khuyenmai5.png";
 import "./style.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ROUTER } from "utils/router";
 import { MdEventSeat, MdMyLocation } from "react-icons/md";
 import { GrLocation } from "react-icons/gr";
@@ -246,6 +246,11 @@ const HomePage = () => {
       ...prevSections,
       [index]: section,
     }));
+  };
+  const navigate = useNavigate();
+
+  const handleBookTicket = () => {
+    navigate(ROUTER.USER.BOOK_TICKET);
   };
 
   const seats = {
@@ -594,7 +599,9 @@ const HomePage = () => {
                   <button onClick={() => handleButtonClick("policy", index)}>
                     Chính sách
                   </button>
-                  <button className="align-right">Chọn chuyến</button>
+                  <button className="align-right" onClick={handleBookTicket}>
+                    Chọn chuyến
+                  </button>
                 </div>
 
                 <div className="result-content">
