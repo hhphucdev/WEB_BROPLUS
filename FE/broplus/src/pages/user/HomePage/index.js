@@ -289,6 +289,19 @@ const HomePage = () => {
     ],
   };
 
+  const schedule = [
+    {
+      time: "12:30",
+      station: "Bến Xe Miền Đông",
+      address: "292 Đinh Bộ Lĩnh, P.26, Q. Bình Thạnh, TP. Hồ Chí Minh",
+    },
+    {
+      time: "16:30",
+      station: "Bến Xe Cần Thơ",
+      address: "292 Đinh Bộ Lĩnh, P.26, Q. Bình Thạnh, TP. Hồ Chí Minh",
+    },
+  ];
+
   return (
     <>
       <div className="hero-item"></div>
@@ -627,8 +640,21 @@ const HomePage = () => {
 
                   {activeSection[index] === "schedule" && (
                     <div className="schedule-info">
-                      <p>Lịch trình</p>
-                      {/* Add schedule details here */}
+                      <ul>
+                        {schedule.map((item, key) => (
+                          <li key={key}>
+                            <span className="time">{item.time}</span>
+                            <span className="station">{item.station}</span>
+                            <span className="address">{item.address}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <p>
+                        Lưu ý
+                        <br />
+                        Thời gian trên chỉ mang tính chất tham khảo, có thể thay
+                        đổi tùy theo điều kiện giao thông.
+                      </p>
                     </div>
                   )}
 
