@@ -86,24 +86,27 @@
     }
 
     .right-column {
-      border: 1px solid #ccc;
-      padding: 10px;
-      border-radius: 10px;
-      background-color: #ffffff;
-
-      .trip-info {
-        p {
-          margin: 5px 0;
-        }
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    
+      .trip-info, .price-details {
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: #ffffff;
       }
-        .price-details {
-          p {
-            font-weight: bold;
-          }
-        
+    
+      .trip-info p, .price-details p {
+        margin: 5px 0;
+      }
+    
+      .price-details p {
+        font-weight: bold;
       }
     }
   }
+    
 
   .bottom-content {
     display: flex;

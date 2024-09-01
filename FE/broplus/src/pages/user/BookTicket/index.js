@@ -118,11 +118,12 @@ const BookTicket = () => {
             <p>Số ghế: {selectedSeats.join(", ")}</p>
             <p>Điểm trả khách: Trà Vinh</p>
             <p>Tổng tiền lượt đi: {totalPrice.toLocaleString("vi-VN")}đ</p>
-            <div className="price-details">
-              <p>Giá vé lượt đi: {SEAT_PRICE.toLocaleString("vi-VN")}đ</p>
-              <p>Phí thanh toán: 0đ</p>
-              <p>Tổng tiền: {totalPrice.toLocaleString("vi-VN")}đ</p>
-            </div>
+          </section>
+          <section className="price-details">
+            <h2>Chi tiết giá</h2>
+            <p>Giá vé lượt đi: {SEAT_PRICE.toLocaleString("vi-VN")}đ</p>
+            <p>Phí thanh toán: 0đ</p>
+            <p>Tổng tiền: {totalPrice.toLocaleString("vi-VN")}đ</p>
           </section>
         </div>
       </div>
