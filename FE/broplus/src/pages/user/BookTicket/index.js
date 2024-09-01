@@ -59,6 +59,22 @@ const BookTicket = () => {
     }
   };
 
+  const [isTermsDialogOpen, setIsTermsDialogOpen] = useState(false);
+  const [isGeneralTermsDialogOpen, setIsGeneralTermsDialogOpen] =
+    useState(false);
+
+  const handleOpenDialog = () => {
+    setIsTermsDialogOpen(true);
+  };
+
+  const handleCloseTermsDialog = () => {
+    setIsTermsDialogOpen(false);
+  };
+
+  const handleCloseGeneralTermsDialog = () => {
+    setIsGeneralTermsDialogOpen(false);
+  };
+
   return (
     <div className="book-ticket-page">
       <div className="main-content">
@@ -130,23 +146,35 @@ const BookTicket = () => {
 
       <div className="bottom-content">
         <div className="top-bottom-content">
-          <section className="customer-info left-bottom-column">
-            <h2>Thông tin khách hàng</h2>
-            <form>
-              <label>
-                Họ và tên*
-                <input type="text" required />
-              </label>
-              <label>
-                Số điện thoại*
-                <input type="text" required />
-              </label>
-              <label>
-                Email*
-                <input type="email" required />
-              </label>
-            </form>
-          </section>
+          <div className="left-bottom-column">
+            <section className="customer-info">
+              <h2>Thông tin khách hàng</h2>
+              <form>
+                <label>
+                  Họ và tên
+                  <input type="text" required />
+                </label>
+                <label>
+                  Số điện thoại
+                  <input type="text" required />
+                </label>
+                <label>
+                  Email
+                  <input type="email" required />
+                </label>
+                <div className="checkbox-container">
+                  <input type="checkbox" id="agreeTerms2" required />
+                  <label htmlFor="agreeTerms2">
+                    Tôi đồng ý với{" "}
+                    <button className="link-button" onClick={handleOpenDialog}>
+                      điều khoản
+                    </button>
+                    của chúng tôi
+                  </label>
+                </div>
+              </form>
+            </section>
+          </div>
 
           <div className="right-bottom-column">
             <section className="terms">
@@ -175,6 +203,33 @@ const BookTicket = () => {
           </div>
         </section>
       </div>
+
+      {/* Dialog cho các điều khoản */}
+      {isTermsDialogOpen && (
+        <div className="dialog">
+          <div className="dialog-content">
+            <h2>Điều khoản</h2>
+            <p>
+              Khi đặt vé, quý khách đồng ý với các điều khoản của chúng tôi. Vui
+              lòng kiểm tra thông tin trước khi xác nhận.
+            </p>
+            <button onClick={handleCloseTermsDialog}>Đóng</button>
+          </div>
+        </div>
+      )}
+
+      {isGeneralTermsDialogOpen && (
+        <div className="dialog">
+          <div className="dialog-content">
+            <h2>Điều khoản chung</h2>
+            <p>
+              Đây là điều khoản chung của chúng tôi. Vui lòng đọc kỹ trước khi
+              sử dụng dịch vụ.
+            </p>
+            <button onClick={handleCloseGeneralTermsDialog}>Đóng</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
