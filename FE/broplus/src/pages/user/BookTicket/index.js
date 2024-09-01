@@ -168,7 +168,7 @@ const BookTicket = () => {
                     Tôi đồng ý với{" "}
                     <button className="link-button" onClick={handleOpenDialog}>
                       điều khoản
-                    </button>
+                    </button>{" "}
                     của chúng tôi
                   </label>
                 </div>

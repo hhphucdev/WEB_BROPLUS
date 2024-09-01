@@ -206,23 +206,42 @@
 
           .checkbox-container {
             display: flex;
-            align-items: center;
+            align-items: center; 
             margin-top: 10px;
-
-            input[type="checkbox"] {
-              margin-right: 10px; /* Khoảng cách giữa checkbox và nhãn */
-              width: 16px;
-              height: 16px;
+            gap: 5px; 
+          }
+          
+          .checkbox-container input[type="checkbox"] {
+            margin-right: 10px;
+            width: 16px;
+            height: 16px;
+          }
+          
+          .checkbox-container label {
+            display: flex;
+            align-items: center; 
+            font-size: 14px;
+            color: #333;
+          
+            .link-button {
+              background: none;
+              color: blue;
+              text-decoration: underline;
+              border: none;
+              padding: 0;
+              cursor: pointer;
+              font-size: 14px;
+              margin: 0 5px; 
             }
-
-            label {
-              margin: 0; /* Đảm bảo nhãn không có khoảng cách thừa */
-              font-size: 14px; /* Kích thước chữ của nhãn */
-              color: #333; /* Màu chữ của nhãn */
+          
+            .link-button:hover {
+              color: darkblue;
             }
           }
         }
       }
+          
+                 
 
       .right-bottom-column {
         flex: 1;
@@ -303,19 +322,7 @@
       }
     }
   }
-  .link-button {
-    background: none;
-    color: blue;
-    text-decoration: underline;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    font-size: inherit;
-  }
-
-  .link-button:hover {
-    color: darkblue;
-  }
+ 
 
   .dialog {
     position: fixed;
