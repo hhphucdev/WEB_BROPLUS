@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { MdEventSeat } from "react-icons/md";
 import "./style.scss";
+import {  useNavigate } from "react-router-dom";
+
+
 
 const seatData = {
   "tang-duoi": [
@@ -46,6 +49,9 @@ const seatData = {
 const SEAT_PRICE = 100000;
 
 const BookTicket = () => {
+
+  const navigate = useNavigate();
+
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -73,6 +79,14 @@ const BookTicket = () => {
 
   const handleCloseGeneralTermsDialog = () => {
     setIsGeneralTermsDialogOpen(false);
+  };
+
+  const Payment = () => {
+    alert("Thanh toán thành công");
+  };
+
+  const CancelPayment = () => {
+    navigate(-1);
   };
 
   return (
@@ -189,17 +203,44 @@ const BookTicket = () => {
 
         <section className="pickup-info">
           <h2>Thông tin đón trả</h2>
-          <div className="pickup-point">
-            <h3>Điểm đón</h3>
-            <p>Bến xe Miền Tây</p>
-            <p>
-              Trước 21:45 29/08/2024 để được trung chuyển hoặc kiểm tra thông
-              tin trước khi lên xe.
-            </p>
+          <div className="pickup-dropoff-container">
+            <div className="pickup-point">
+              <h3>Điểm đón</h3>
+              <select>
+                <option value="ben-xe-mien-tay">Bến xe Miền Tây</option>
+                <option value="ben-xe-an-suong">Bến xe An Sương</option>
+                <option value="ben-xe-mien-dong">Bến xe Miền Đông</option>
+              </select>
+              <p>
+                Trước 21:45 29/08/2024 để được trung chuyển hoặc kiểm tra thông
+                tin trước khi lên xe.
+              </p>
+            </div>
+            <div className="drop-off-point">
+              <h3>Điểm trả</h3>
+              <select>
+                <option value="tra-vinh">Trà Vinh</option>
+                <option value="can-tho">Cần Thơ</option>
+                <option value="soc-trang">Sóc Trăng</option>
+              </select>
+            </div>
           </div>
-          <div className="drop-off-point">
-            <h3>Điểm trả</h3>
-            <p>Trà Vinh</p>
+        </section>
+
+        <section className="payment">
+          <div className="payment-content">
+            <div className="total-amount">
+              <h3>Tổng số tiền thanh toán:</h3>
+              <p>{totalPrice.toLocaleString("vi-VN")}đ</p>
+            </div>
+            <div className="payment-buttons">
+              <button className="cancel-button" onClick={CancelPayment}>
+                Hủy
+              </button>
+              <button className="pay-button" onClick={Payment}>
+                Thanh toán
+              </button>
+            </div>
           </div>
         </section>
       </div>

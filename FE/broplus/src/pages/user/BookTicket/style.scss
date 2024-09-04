@@ -302,21 +302,35 @@
     .pickup-info {
       border: 1px solid #ccc;
       border-radius: 10px;
+      padding: 15px;
       background-color: #ffffff;
-      width: 900px;
+      width: 870px;
+      gap: 20px;
+      .pickup-dropoff-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
 
-      h2 {
-        margin-bottom: 10px;
-        padding: 15px;
-      }
+        .pickup-point,
+        .drop-off-point {
+          flex: 1;
+          margin: 10px 0;
 
-      .pickup-point,
-      .drop-off-point {
-        h3 {
-          padding: 15px;
-        }
-        p {
-          padding: 15px;
+          h3 {
+            margin-bottom: 10px;
+          }
+
+          select {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+          }
+
+          p {
+            margin-top: 5px;
+          }
         }
       }
     }
@@ -356,6 +370,66 @@
 
         &:hover {
           background-color: #0056b3;
+        }
+      }
+    }
+  }
+  .payment {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #ffffff;
+    width: 870px;
+
+    .payment-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .total-amount {
+        h3 {
+          margin: 0;
+          font-size: 18px;
+          font-weight: bold;
+        }
+        p {
+          margin: 5px 0 0;
+          font-size: 20px;
+          color: #333;
+          font-size: 24px;
+          font-weight: bold;
+        }
+      }
+
+      .payment-buttons {
+        display: flex;
+        gap: 10px;
+
+        .cancel-button,
+        .pay-button {
+          padding: 10px 20px;
+          border-radius: 5px;
+          border: none;
+          cursor: pointer;
+          font-size: 16px;
+        }
+
+        .cancel-button {
+          background-color: #ff4d4f;
+          color: #fff;
+
+          &:hover {
+            background-color: #d43f3a;
+          }
+        }
+
+        .pay-button {
+          background-color: #ff7300;
+          color: #fff;
+
+          &:hover {
+            background-color: #e65c00;
+          }
         }
       }
     }
