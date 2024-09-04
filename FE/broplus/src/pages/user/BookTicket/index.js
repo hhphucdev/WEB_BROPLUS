@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { MdEventSeat } from "react-icons/md";
 import "./style.scss";
-import {  useNavigate } from "react-router-dom";
-
-
+import { useNavigate } from "react-router-dom";
 
 const seatData = {
   "tang-duoi": [
@@ -49,7 +47,6 @@ const seatData = {
 const SEAT_PRICE = 100000;
 
 const BookTicket = () => {
-
   const navigate = useNavigate();
 
   const [selectedSeats, setSelectedSeats] = useState([]);
