@@ -9,7 +9,7 @@ const authControllers = {
       const hashed = await brcypt.hash(req.body.password, salt);
 
       //Create a new user
-      const newUser = await new User({
+      const newUser = new User({
         username: req.body.username,
         email: req.body.email,
         password: hashed,
@@ -22,6 +22,14 @@ const authControllers = {
       res.status(500).json({ message: err.message });
     }
   },
+
+  //LOGIN
+    loginUser: async (req, res) => {
+        try {}
+        catch (err) {
+            res.status(500).json({ message: err.message });
+        }
+    }
 };
 
 module.exports = authControllers;
