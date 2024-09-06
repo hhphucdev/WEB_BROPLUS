@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const brcypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const authControllers = {
   //REGISTER
@@ -38,7 +39,15 @@ const authControllers = {
         res.status(404).json({ message: "Wrong password" });
       }
       if (user && validPassword) {
-        res.status(200).json({ message: "Login success" });
+        const accessToken = jwt.sign(
+          { id: user._id, admin: user.admin },
+          process.env.MYSECRET,
+          {
+            expiresIn: "1h",
+          }
+        );
+        const { password, ...info } = user._doc;
+        res.status(200).json({ ...info, accessToken });
       }
     } catch (err) {
       res.status(500).json({ message: err.message });
