@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
 
 dotenv.config();
 const app = express();
@@ -26,6 +27,7 @@ app.use(express.json());
 
 //Routes
 app.use("/auth", authRoutes);
+app.use("/users", userRoutes);
 
 app.listen(8000, () => {
   console.log("Server is running on port 8000");
