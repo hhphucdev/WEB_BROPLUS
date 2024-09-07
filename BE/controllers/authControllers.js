@@ -2,6 +2,7 @@ const User = require("../models/User");
 const brcypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+let refreshTokens = [];
 const authControllers = {
   //REGISTER
   registerUser: async (req, res) => {
@@ -26,7 +27,7 @@ const authControllers = {
   //GENERATE NEW ACCESS TOKEN
   generateAccessToken: (user) => {
     return jwt.sign({ id: user._id, admin: user.admin }, process.env.MYSECRET, {
-      expiresIn: "5d",
+      expiresIn: "20s",
     });
   },
 
@@ -57,9 +58,9 @@ const authControllers = {
       if (user && validPassword) {
         const accessToken = authControllers.generateAccessToken(user);
         const refreshToken = authControllers.generateRefreshToken(user);
+        refreshTokens.push(refreshToken);
         res.cookie("refreshtoken", refreshToken, {
           httpOnly: true,
-          secure: true,
           sameSite: "strict",
           path: "/",
         });
@@ -75,12 +76,17 @@ const authControllers = {
     if (!refreshToken) {
       return res.status(401).json("User not authenticated");
     }
+    if (!refreshTokens.includes(refreshToken)) {
+      return res.status(403).json("Refresh token is not valid");
+    }
     jwt.verify(refreshToken, process.env.MYREFRESHSECRET, (err, user) => {
       if (err) {
         return res.status(403).json("Token is not valid");
       }
+      refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
       const newAccessToken = authControllers.generateAccessToken(user);
       const newRefreshToken = authControllers.generateRefreshToken(user);
+      refreshTokens.push(newRefreshToken);
       res.cookie("refreshtoken", newRefreshToken, {
         httpOnly: true,
         secure: true,
@@ -88,7 +94,16 @@ const authControllers = {
       });
       res.status(200).json({ accessToken: newAccessToken });
     });
-  }
+  },
+
+  //USER LOGOUT
+  userLogout: async (req, res) => {
+    res.clearCookie("refreshtoken");
+    refreshTokens = refreshTokens.filter(
+      (token) => token !== req.cookies.refreshtoken
+    );
+    res.status(200).json("User has been logged out");
+  },
 };
 
 //STORE TOKEN
