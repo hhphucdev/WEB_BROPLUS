@@ -23,6 +23,22 @@ const authControllers = {
       res.status(500).json({ message: err.message });
     }
   },
+  //GENERATE NEW ACCESS TOKEN
+  generateAccessToken: (user) => {
+    return jwt.sign({ id: user._id, admin: user.admin }, process.env.MYSECRET, {
+      expiresIn: "5d",
+    });
+  },
+
+  //GENERATE NEW REFRESH TOKEN
+
+  generateRefreshToken: (user) => {
+    return jwt.sign(
+      { id: user._id, admin: user.admin },
+      process.env.MYREFRESHSECRET,
+      { expiresIn: "365d" }
+    );
+  },
 
   //   LOGIN
   loginUser: async (req, res) => {
@@ -39,15 +55,10 @@ const authControllers = {
         res.status(404).json({ message: "Wrong password" });
       }
       if (user && validPassword) {
-        const accessToken = jwt.sign(
-          { id: user._id, admin: user.admin },
-          process.env.MYSECRET,
-          {
-            expiresIn: "1h",
-          }
-        );
+        const accessToken = authControllers.generateAccessToken(user);
+        const refreshToken = authControllers.generateRefreshToken(user);
         const { password, ...info } = user._doc;
-        res.status(200).json({ ...info, accessToken });
+        res.status(200).json({ ...info, accessToken, refreshToken });
       }
     } catch (err) {
       res.status(500).json({ message: err.message });
