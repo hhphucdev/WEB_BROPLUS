@@ -1,7 +1,7 @@
 import { memo, useState, useRef } from "react";
 import "./style.scss";
 import BannerLogin from "assets/user/images/hero/banner_login.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../redux/apiRequest";
 
@@ -14,6 +14,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isLoading = useSelector((state) => state.auth.isLoading);
+  const error = useSelector((state) => state.auth.error);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -131,6 +133,8 @@ const Login = () => {
           </div>
         ) : (
           <div>
+            {isLoading && <p>Loading...</p>}
+
             <h3>Đăng nhập vào tài khoản</h3>
             <form onSubmit={handleLogin}>
               <label htmlFor="phone">Số điện thoại:</label>
@@ -157,6 +161,9 @@ const Login = () => {
                   {passwordVisible ? "Ẩn" : "Hiện"}
                 </button>
               </div>
+              {error && (
+                <p style={{ color: "red" }}>Sai thông tin đăng nhập!</p>
+              )}{" "}
               <button type="submit">Đăng nhập</button>
             </form>
             <button className="toggle-button" onClick={handleToggleForm}>
