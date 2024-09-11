@@ -1,6 +1,6 @@
 import { memo, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux"; 
+import { useDispatch, useSelector } from "react-redux";
 import { ROUTER } from "utils/router";
 import { MdAccountCircle } from "react-icons/md";
 import { FcGlobe, FcRating } from "react-icons/fc";
@@ -47,13 +47,13 @@ const Header = () => {
   const dispatch = useDispatch();
   const [language, setLanguage] = useState("vi");
 
-  const currentUser = useSelector((state) => state.auth.login.currentUser); 
+  const currentUser = useSelector((state) => state.auth.login.currentUser);
 
   const currentContent = content[language];
 
   const handleLogout = () => {
-    dispatch(logout()); 
-    navigate(ROUTER.USER.HOME); 
+    dispatch(logout());
+    navigate(ROUTER.USER.HOME);
   };
 
   return (
@@ -84,7 +84,7 @@ const Header = () => {
             <div className="header-top-right">
               {currentUser ? (
                 <div className="user-info">
-                  <span>Chào, {currentUser.username}!</span> 
+                  <span>Chào, {currentUser.username}!</span>
                   <button className="rounded-button" onClick={handleLogout}>
                     Đăng xuất
                   </button>
