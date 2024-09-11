@@ -46,18 +46,18 @@ const authControllers = {
     try {
       const user = await User.findOne({ phone: req.body.phone });
       if (!user) {
-        res.status(404).json({ message: "User not found" });
+        return res.status(404).json({ message: "User not found" });
       }
       const validPassword = await brcypt.compare(
         req.body.password,
         user.password
       );
       if (!validPassword) {
-        res.status(404).json({ message: "Wrong password" });
+        return res.status(404).json({ message: "Wrong password" });
       }
       if (user && validPassword) {
         const accessToken = authControllers.generateAccessToken(user);
-        const refreshToken = authControllers.generateRefreshToken(user);
+        const refreshToken = authControllers.generateRefreshToken(user);` `
         refreshTokens.push(refreshToken);
         res.cookie("refreshtoken", refreshToken, {
           httpOnly: true,

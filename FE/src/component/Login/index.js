@@ -7,6 +7,16 @@ const Login = () => {
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const newUser = {
+      phone: phone,
+      password: password,
+    };
+  };
 
   const otpInputs = useRef([]);
 
@@ -116,16 +126,22 @@ const Login = () => {
         ) : (
           <div>
             <h3>Đăng nhập vào tài khoản</h3>
-            <form>
+            <form onSubmit={handleLogin}>
               <label htmlFor="phone">Số điện thoại:</label>
-              <input type="text" id="phone" name="phone" required />
+              <input
+                type="text"
+                id="phone"
+                name="phone"
+                onChange={(e) => setPhone(e.target.value)}
+                required
+              />
               <label htmlFor="password">Mật khẩu:</label>
               <div className="password-container">
                 <input
                   type={passwordVisible ? "text" : "password"}
                   id="password"
                   name="password"
-                  required
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <button
                   type="button"
