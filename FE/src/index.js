@@ -3,10 +3,14 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import RouterCustom from "./router";
 import "./style/style.scss";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
-    <RouterCustom />
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <RouterCustom />
+    </BrowserRouter>
+  </Provider>
 );

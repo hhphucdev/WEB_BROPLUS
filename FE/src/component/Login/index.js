@@ -1,6 +1,9 @@
 import { memo, useState, useRef } from "react";
 import "./style.scss";
 import BannerLogin from "assets/user/images/hero/banner_login.png";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../redux/apiRequest";
 
 const Login = () => {
   const [isRegistering, setIsRegistering] = useState(false);
@@ -9,6 +12,8 @@ const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -16,6 +21,7 @@ const Login = () => {
       phone: phone,
       password: password,
     };
+    loginUser(newUser, dispatch, navigate);
   };
 
   const otpInputs = useRef([]);
