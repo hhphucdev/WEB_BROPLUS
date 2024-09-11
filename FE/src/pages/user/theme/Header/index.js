@@ -1,11 +1,12 @@
 import { memo, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux"; 
 import { ROUTER } from "utils/router";
 import { MdAccountCircle } from "react-icons/md";
 import { FcGlobe, FcRating } from "react-icons/fc";
 import "./style.scss";
-
 import Logo from "assets/user/images/hero/logo1.png";
+import { logout } from "../../../../redux/authSlice";
 
 const content = {
   vi: {
@@ -42,9 +43,18 @@ const content = {
 
 const Header = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [language, setLanguage] = useState("vi");
 
+  const currentUser = useSelector((state) => state.auth.login.currentUser); 
+
   const currentContent = content[language];
+
+  const handleLogout = () => {
+    dispatch(logout()); 
+    navigate(ROUTER.USER.HOME); 
+  };
 
   return (
     <div className="header-top">
@@ -68,15 +78,23 @@ const Header = () => {
             <div className="logo">
               <Link to={ROUTER.USER.HOME}>
                 <img src={Logo} alt="Logo" />
-                
               </Link>
             </div>
- 
+
             <div className="header-top-right">
-              <button className="rounded-button">
-                <MdAccountCircle />
-                <Link to={ROUTER.USER.LOGIN}>{currentContent.loginText}</Link>
-              </button>
+              {currentUser ? (
+                <div className="user-info">
+                  <span>Chào, {currentUser.username}!</span> 
+                  <button className="rounded-button" onClick={handleLogout}>
+                    Đăng xuất
+                  </button>
+                </div>
+              ) : (
+                <button className="rounded-button">
+                  <MdAccountCircle />
+                  <Link to={ROUTER.USER.LOGIN}>{currentContent.loginText}</Link>
+                </button>
+              )}
             </div>
           </div>
 
