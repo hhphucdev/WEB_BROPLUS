@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "express": "^4.21.0",
-    "react-confirm-dialog": "^1.0.5"
-  }
-}
