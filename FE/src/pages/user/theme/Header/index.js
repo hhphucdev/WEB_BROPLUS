@@ -130,6 +130,8 @@ const Header = () => {
                         </li>
                         <li
                           onClick={() => {
+                            if (window.confirm("Bạn có chắc chắn muốn đăng xuất?"))
+                              
                             dispatch(logout());
                             navigate(ROUTER.USER.LOGIN);
                           }}

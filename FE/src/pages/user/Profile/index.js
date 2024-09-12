@@ -18,7 +18,12 @@ const Profile = () => {
   };
 
   const handleLogout = () => {
-    dispatch(logout());
+    if (window.confirm("Bạn có chắc chắn muốn đăng xuất?")) {
+      dispatch(logout());
+    }
+    else {
+      return false;
+    }
   };
 
   return (
