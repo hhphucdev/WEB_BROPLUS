@@ -9,5 +9,10 @@ export const ROUTER = {
     CONTACT: "contact",
     SCHEDULE: "schedule",
     BOOK_TICKET: "book-ticket",
+    TICKET_HISTORY: "ticket-history",
+    PAYMENT: "payment",
+    ACCOUNT_INFO: "account-info",
+    ADDRESS: "address",
+    RESET_PASSWORD: "reset-password",
   },
 };

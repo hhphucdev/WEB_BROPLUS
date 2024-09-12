@@ -3,7 +3,17 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ROUTER } from "utils/router";
 import { MdAccountCircle } from "react-icons/md";
-import { FcGlobe, FcRating } from "react-icons/fc";
+import { IoLocation } from "react-icons/io5";
+
+import {
+  FcBullish,
+  FcContacts,
+  FcCurrencyExchange,
+  FcExport,
+  FcGlobe,
+  FcRating,
+  FcSynchronize,
+} from "react-icons/fc";
 import "./style.scss";
 import Logo from "assets/user/images/hero/logo1.png";
 import { logout } from "../../../../redux/authSlice";
@@ -46,14 +56,21 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [language, setLanguage] = useState("vi");
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Trạng thái mở/đóng menu
 
   const currentUser = useSelector((state) => state.auth.login.currentUser);
 
   const currentContent = content[language];
 
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate(ROUTER.USER.HOME);
+  // Xử lý khi người dùng bấm vào tên để mở menu
+  const handleUserClick = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  // Đóng menu khi chọn một chức năng
+  const handleMenuClick = (path) => {
+    setIsMenuOpen(false);
+    navigate(path);
   };
 
   return (
@@ -84,10 +101,45 @@ const Header = () => {
             <div className="header-top-right">
               {currentUser ? (
                 <div className="user-info">
-                  <span>Chào, {currentUser.username}!</span>
-                  <button className="rounded-button" onClick={handleLogout}>
-                    Đăng xuất
-                  </button>
+                  <span onClick={handleUserClick} className="user-name">
+                    Chào, {currentUser.username} <MdAccountCircle />
+                  </span>
+
+                  {isMenuOpen && (
+                    <div className="user-dropdown-menu">
+                      <ul>
+                        <li onClick={() => handleMenuClick(`${ROUTER.USER.PROFILE}/${ROUTER.USER.PAYMENT}`)}>
+                          <FcCurrencyExchange />
+                          Thanh toán
+                        </li>
+                        <li onClick={() => handleMenuClick(`${ROUTER.USER.PROFILE}/${ROUTER.USER.ACCOUNT_INFO}`)}>
+                          <FcContacts />
+                          Thông tin tài khoản
+                        </li>
+                        <li onClick={() => handleMenuClick(`${ROUTER.USER.PROFILE}/${ROUTER.USER.TICKET_HISTORY}`)}>
+                          <FcBullish />
+                          Lịch sử mua vé
+                        </li>
+                        <li onClick={() => handleMenuClick(`${ROUTER.USER.PROFILE}/${ROUTER.USER.ADDRESS}`)}>
+                          <IoLocation />
+                          Địa chỉ của bạn
+                        </li>
+                        <li onClick={() => handleMenuClick(`${ROUTER.USER.PROFILE}/${ROUTER.USER.RESET_PASSWORD}`)}>
+                          <FcSynchronize />
+                          Đặt lại mật khẩu
+                        </li>
+                        <li
+                          onClick={() => {
+                            dispatch(logout());
+                            navigate(ROUTER.USER.LOGIN);
+                          }}
+                        >
+                          <FcExport />
+                          Đăng xuất
+                        </li>
+                      </ul>
+                    </div>
+                  )}
                 </div>
               ) : (
                 <button className="rounded-button">

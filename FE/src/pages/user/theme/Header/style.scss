@@ -5,7 +5,6 @@ $banner: "/assets/user/images/hero/banner.png";
 $banner1: "/assets/user/images/hero/home_banner.png";
 
 .header-top {
-
   background: url($banner1);
 
   background-size: 300% 300%;
@@ -75,12 +74,89 @@ $banner1: "/assets/user/images/hero/home_banner.png";
           margin-top: 5px;
         }
       }
+      .user-info {
+        position: relative;
+        display: inline-block;
+      }
+
+      .user-name {
+        cursor: pointer;
+        padding: 10px;
+        font-weight: bold;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+       
+
+        svg {
+          font-size: 1.5rem;
+        }
+      }
+
+      .user-dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
+        padding: 0;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        min-width: 200px;
+        z-index: 10;
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: -8px;
+          right: 20px;
+          border-width: 8px;
+          border-style: solid;
+          border-color: transparent transparent #fff transparent;
+        }
+
+        ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+
+        ul li {
+          display: flex;
+          align-items: center;
+          padding: 12px 16px;
+          cursor: pointer;
+          transition: background-color 0.3s, color 0.3s;
+          font-size: 14px;
+          color: #333;
+          font-weight: 500;
+
+          &:hover {
+            background-color: #f9f9f9;
+            color: #ff8000; 
+          }
+
+          svg {
+            margin-right: 8px;
+            font-size: 1.2rem;
+          }
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          &:not(:last-child) {
+            border-bottom: 1px solid #e0e0e0;
+          }
+        }
+      }
     }
   }
 
   .header-menu {
     width: 100%;
-  
 
     ul {
       display: flex;
