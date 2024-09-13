@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
+const multer = require("multer");
+const path = require("path");
 
 dotenv.config();
 const app = express();

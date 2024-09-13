@@ -29,3 +29,15 @@ export const registerUser = async (user, dispatch, navigate) => {
     console.error("Register failed", err);
   }
 };
+
+export const logout = (dispatch) => {
+  dispatch(loginSuccess(null));
+  localStorage.removeItem("accessToken");
+};
+
+export const updateUserAvatar = (avatar) => {
+  return (dispatch) => {
+    dispatch(loginSuccess({ avatar }));
+  };
+};
+

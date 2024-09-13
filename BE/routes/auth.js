@@ -1,9 +1,9 @@
 const authControllers = require('../controllers/authControllers');
 const middlewareControllers = require('../controllers/middlewareControllers');
-
-const routes = require('express').Router();
+const routes = require('express').Router(); 
 //REGISTER
 routes.post("/register", authControllers.registerUser);
+
 //LOGIN
 routes.post("/login", authControllers.loginUser);
 
@@ -13,4 +13,6 @@ routes.post("/refresh", authControllers.requestRefreshToken);
 //LOGOUT
 routes.post("/logout", middlewareControllers.verifyToken, authControllers.userLogout);
 
-module.exports = routes;
+// UPDATE AVATAR
+routes.put('/update-avatar', middlewareControllers.verifyToken, authControllers.updateAvatar);
+module.exports = routes; 

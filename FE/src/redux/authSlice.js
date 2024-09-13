@@ -50,10 +50,15 @@ const authSlice = createSlice({
       state.register.error = true;
       state.register.success = false;
     },
+
+    // Cập nhật avatar
+    updateUserAvatar: (state, action) => {
+      state.login.currentUser.avatar = action.payload;
+    }
   },
 });
 
-export const { loginStart, loginSuccess, loginFailed, logout, registerStart, registerSuccess, registerFailed } =
+export const { loginStart, loginSuccess, loginFailed, logout, registerStart, registerSuccess, registerFailed, updateUserAvatar } =
   authSlice.actions;
 
 export default authSlice.reducer;

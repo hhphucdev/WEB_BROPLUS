@@ -53,7 +53,10 @@ const authControllers = {
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
-      const validPassword = await bcrypt.compare(req.body.password, user.password);
+      const validPassword = await bcrypt.compare(
+        req.body.password,
+        user.password
+      );
       if (!validPassword) {
         return res.status(401).json({ message: "Wrong password" });
       }
@@ -124,6 +127,33 @@ const authControllers = {
       res.status(200).json(user);
     } catch (err) {
       res.status(500).json({ message: err.message });
+    }
+  },
+
+  // UPDATE AVATAR
+  updateAvatar: async (req, res) => {
+    try {
+      const { base64Image } = req.body; // Nhận base64 string từ client
+
+      if (!base64Image) {
+        return res.status(400).json({ message: "Không có dữ liệu ảnh" });
+      }
+
+      // Tách phần base64 header khỏi dữ liệu ảnh
+      const base64Data = base64Image.replace(/^data:image\/png;base64,/, "");
+
+      // Tạo đường dẫn lưu ảnh
+      const filePath = path.join(__dirname, "uploads", "avatar.png");
+
+      // Ghi dữ liệu base64 vào tệp
+      fs.writeFile(filePath, base64Data, "base64", (err) => {
+        if (err) {
+          return res.status(500).json({ message: "Lỗi khi lưu ảnh" });
+        }
+        res.status(200).json({ message: "Ảnh đã được cập nhật" });
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Có lỗi xảy ra" });
     }
   },
 };
