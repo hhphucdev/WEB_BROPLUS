@@ -5,7 +5,12 @@ export const loginUser = async (user, dispatch, navigate) => {
   dispatch(loginStart());
   try {
     const res = await axios.post("/auth/login", user);
+    const userData = res.data;
     dispatch(loginSuccess(res.data));
+    // Lưu token vào localStorage
+    localStorage.setItem("accessToken", userData.accessToken);
+    // Lưu user vào Redux
+    dispatch(loginSuccess(userData));
     navigate(`/${ROUTER.USER.HOME}`);
   } catch (err) {
     dispatch(loginFailed());

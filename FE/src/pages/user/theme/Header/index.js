@@ -56,7 +56,7 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [language, setLanguage] = useState("vi");
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Trạng thái mở/đóng menu
+  const [isMenuOpen, setIsMenuOpen] = useState(false); 
 
   const currentUser = useSelector((state) => state.auth.login.currentUser);
 

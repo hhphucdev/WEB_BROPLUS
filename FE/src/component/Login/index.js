@@ -13,6 +13,10 @@ const Login = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState(""); 
+  const [email, setEmail] = useState(""); 
+  const [dateOfBirth, setDateOfBirth] = useState(""); 
+  const [avatar, setAvatar] = useState(""); 
+  const [address, setAddress] = useState(""); 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoading = useSelector((state) => state.auth.isLoading);
@@ -25,6 +29,7 @@ const Login = () => {
       phone: phone,
       password: password,
     };
+    console.log("newUser", newUser);
     loginUser(newUser, dispatch, navigate);
   };
 
@@ -32,9 +37,13 @@ const Login = () => {
   const handleRegister = (e) => {
     e.preventDefault();
     const newUser = {
-      username: username,  
+      username: username,
       phone: phone,
       password: password,
+      email: email, 
+      dateOfBirth: dateOfBirth, 
+      avatar: avatar, 
+      address: address, 
     };
     registerUser(newUser, dispatch, navigate); 
     navigate("/login");
@@ -53,10 +62,6 @@ const Login = () => {
     setIsRegistering(false);
     setIsOtpSent(false);
   };
-
-  // const handleSendOtp = () => {
-  //   setIsOtpSent(true);
-  // };
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -87,7 +92,14 @@ const Login = () => {
             <h3>Khôi phục mật khẩu</h3>
             <form>
               <label htmlFor="phone">Số điện thoại:</label>
-              <input type="text" id="phone" name="phone" required />
+              <input
+                type="text"
+                id="phone"
+                name="phone"
+                required
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
               <button type="submit">Gửi liên kết khôi phục</button>
             </form>
             <button
@@ -120,6 +132,40 @@ const Login = () => {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     required
+                  />
+                  <label htmlFor="email">Email:</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                  <label htmlFor="dateOfBirth">Ngày sinh:</label>
+                  <input
+                    type="date"
+                    id="dateOfBirth"
+                    name="dateOfBirth"
+                    value={dateOfBirth}
+                    onChange={(e) => setDateOfBirth(e.target.value)}
+                    required
+                  />
+                  <label htmlFor="avatar">Avatar URL:</label>
+                  <input
+                    type="text"
+                    id="avatar"
+                    name="avatar"
+                    value={avatar}
+                    onChange={(e) => setAvatar(e.target.value)}
+                  />
+                  <label htmlFor="address">Địa chỉ:</label>
+                  <input
+                    type="text"
+                    id="address"
+                    name="address"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
                   />
                   <label htmlFor="password">Mật khẩu:</label>
                   <input

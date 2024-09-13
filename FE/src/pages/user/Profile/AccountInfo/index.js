@@ -1,32 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./style.scss";
+import { useSelector } from "react-redux";
 
 const AccountInfo = () => {
-  const [accountData, setAccountData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const currentUser = useSelector((state) => state.auth.login.currentUser);
 
-  useEffect(() => {
-    const fetchAccountInfo = async () => {
-      try {
-        const response = await fetch("/api/account-info"); 
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setAccountData(data);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchAccountInfo();
-  }, []);
-
-  if (loading) return <p className="loading">Loading...</p>;
-  if (error) return <p className="error">Error: {error}</p>;
+  if (!currentUser) {
+    return <p>Không có thông tin tài khoản</p>;
+  }
 
   return (
     <div className="account-info-container">
@@ -37,36 +18,14 @@ const AccountInfo = () => {
           <p>Dung lượng file tối đa 1 MB Định dạng: .JPEG, .PNG</p>
         </div>
         <div className="info-details">
-          {accountData ? (
-            <>
-              <div className="info-item">
-                <span className="info-label">Họ và tên:</span>
-                <span className="info-value">{accountData.fullName}</span>
-              </div>
-              <div className="info-item">
-                <span className="info-label">Số điện thoại:</span>
-                <span className="info-value">{accountData.phone}</span>
-              </div>
-              <div className="info-item">
-                <span className="info-label">Giới tính:</span>
-                <span className="info-value">{accountData.gender}</span>
-              </div>
-              <div className="info-item">
-                <span className="info-label">Email:</span>
-                <span className="info-value">{accountData.email}</span>
-              </div>
-              <div className="info-item">
-                <span className="info-label">Ngày sinh:</span>
-                <span className="info-value">{accountData.dob}</span>
-              </div>
-              <div className="info-item">
-                <span className="info-label">Địa chỉ:</span>
-                <span className="info-value">{accountData.address}</span>
-              </div>
-            </>
-          ) : (
-            <p>No account information available</p>
-          )}
+          <div className="info-item">
+            <span className="info-label">Họ và tên:</span>
+            <span className="info-value">{currentUser.username}</span>
+          </div>
+          <div className="info-item">
+            <span className="info-label">Số điện thoại:</span>
+            <span className="info-value">{currentUser.phone}</span>
+          </div>
         </div>
       </div>
     </div>
