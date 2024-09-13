@@ -3,7 +3,7 @@ import "./style.scss";
 import BannerLogin from "assets/user/images/hero/banner_login.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { loginUser, registerUser } from "../../redux/apiRequest"; 
+import { loginUser, registerUser } from "../../redux/apiRequest";
 
 const Login = () => {
   const [isRegistering, setIsRegistering] = useState(false);
@@ -42,7 +42,7 @@ const Login = () => {
       password: password,
       email: email, 
       dateOfBirth: dateOfBirth, 
-      avatar: avatar, 
+      avatar: avatar, // Đảm bảo avatar là URL hoặc base64 string
       address: address, 
     };
     registerUser(newUser, dispatch, navigate); 
@@ -78,6 +78,17 @@ const Login = () => {
       if (index > 0) {
         otpInputs.current[index - 1].focus();
       }
+    }
+  };
+
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAvatar(reader.result); // Lưu URL ảnh hoặc base64 string
+      };
+      reader.readAsDataURL(file); // Đọc tệp ảnh dưới dạng base64 string
     }
   };
 
@@ -151,14 +162,15 @@ const Login = () => {
                     onChange={(e) => setDateOfBirth(e.target.value)}
                     required
                   />
-                  <label htmlFor="avatar">Avatar URL:</label>
+                  <label htmlFor="avatar">Avatar:</label>
                   <input
-                    type="text"
+                    type="file"
                     id="avatar"
                     name="avatar"
-                    value={avatar}
-                    onChange={(e) => setAvatar(e.target.value)}
+                    accept="image/*"
+                    onChange={handleAvatarChange}
                   />
+                  {avatar && <img src={avatar} alt="Avatar Preview" className="avatar-preview" />}
                   <label htmlFor="address">Địa chỉ:</label>
                   <input
                     type="text"
@@ -254,8 +266,11 @@ const Login = () => {
             <button className="toggle-button" onClick={handleToggleForm}>
               Chưa có tài khoản? Đăng ký
             </button>
-            <button className="forgot-password" onClick={handleForgotPassword}>
-              Quên mật khẩu
+            <button
+              className="forgot-password"
+              onClick={handleForgotPassword}
+            >
+              Quên mật khẩu?
             </button>
           </div>
         )}

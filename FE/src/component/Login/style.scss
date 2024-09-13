@@ -150,3 +150,13 @@
   border-color: #007bff;
   outline: none;
 }
+.profile-container {
+  .profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+  }
+}
+
