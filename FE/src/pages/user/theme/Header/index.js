@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ROUTER } from "utils/router";
@@ -61,6 +61,10 @@ const Header = () => {
   const currentUser = useSelector((state) => state.auth.login.currentUser);
 
   const currentContent = content[language];
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location]);
 
   // Xử lý khi người dùng bấm vào tên để mở menu
   const handleUserClick = () => {
