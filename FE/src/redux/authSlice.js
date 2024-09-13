@@ -8,8 +8,14 @@ const authSlice = createSlice({
       isFetching: false,
       error: false,
     },
+    register: {
+      isFetching: false,
+      success: false,
+      error: false,
+    },
   },
   reducers: {
+    // Xử lý đăng nhập
     loginStart: (state) => {
       state.login.isFetching = true;
     },
@@ -22,12 +28,32 @@ const authSlice = createSlice({
       state.login.isFetching = false;
       state.login.error = true;
     },
+    
+    // Xử lý đăng xuất
     logout: (state) => {
       state.login.currentUser = null;
+    },
+
+    // Xử lý đăng ký
+    registerStart: (state) => {
+      state.register.isFetching = true;
+      state.register.success = false;
+      state.register.error = false;
+    },
+    registerSuccess: (state) => {
+      state.register.isFetching = false;
+      state.register.success = true;
+      state.register.error = false;
+    },
+    registerFailed: (state) => {
+      state.register.isFetching = false;
+      state.register.error = true;
+      state.register.success = false;
     },
   },
 });
 
-export const { loginStart, loginSuccess, loginFailed, logout } =
+export const { loginStart, loginSuccess, loginFailed, logout, registerStart, registerSuccess, registerFailed } =
   authSlice.actions;
+
 export default authSlice.reducer;

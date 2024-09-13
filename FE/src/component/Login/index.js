@@ -3,7 +3,7 @@ import "./style.scss";
 import BannerLogin from "assets/user/images/hero/banner_login.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../../redux/apiRequest";
+import { loginUser, registerUser } from "../../redux/apiRequest"; 
 
 const Login = () => {
   const [isRegistering, setIsRegistering] = useState(false);
@@ -12,11 +12,13 @@ const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState(""); 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoading = useSelector((state) => state.auth.isLoading);
   const error = useSelector((state) => state.auth.error);
 
+  // Đăng nhập
   const handleLogin = (e) => {
     e.preventDefault();
     const newUser = {
@@ -24,6 +26,18 @@ const Login = () => {
       password: password,
     };
     loginUser(newUser, dispatch, navigate);
+  };
+
+  // Đăng ký
+  const handleRegister = (e) => {
+    e.preventDefault();
+    const newUser = {
+      username: username,  
+      phone: phone,
+      password: password,
+    };
+    registerUser(newUser, dispatch, navigate); 
+    navigate("/login");
   };
 
   const otpInputs = useRef([]);
@@ -40,9 +54,9 @@ const Login = () => {
     setIsOtpSent(false);
   };
 
-  const handleSendOtp = () => {
-    setIsOtpSent(true);
-  };
+  // const handleSendOtp = () => {
+  //   setIsOtpSent(true);
+  // };
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -88,12 +102,35 @@ const Login = () => {
             <h3>Đăng ký tài khoản</h3>
             {!isOtpSent ? (
               <div>
-                <form>
+                <form onSubmit={handleRegister}>
+                  <label htmlFor="username">Họ và tên:</label>
+                  <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)} 
+                    required
+                  />
                   <label htmlFor="phone">Số điện thoại:</label>
-                  <input type="text" id="phone" name="phone" required />
-                  <button type="button" onClick={handleSendOtp}>
-                    Gửi mã OTP
-                  </button>
+                  <input
+                    type="text"
+                    id="phone"
+                    name="phone"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                  />
+                  <label htmlFor="password">Mật khẩu:</label>
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                  <button type="submit">Đăng ký</button>
                 </form>
                 <button className="toggle-button" onClick={handleToggleForm}>
                   Đã có tài khoản? Đăng nhập
@@ -142,6 +179,7 @@ const Login = () => {
                 type="text"
                 id="phone"
                 name="phone"
+                value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 required
               />
@@ -151,6 +189,7 @@ const Login = () => {
                   type={passwordVisible ? "text" : "password"}
                   id="password"
                   name="password"
+                  value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <button
@@ -163,7 +202,7 @@ const Login = () => {
               </div>
               {error && (
                 <p style={{ color: "red" }}>Sai thông tin đăng nhập!</p>
-              )}{" "}
+              )}
               <button type="submit">Đăng nhập</button>
             </form>
             <button className="toggle-button" onClick={handleToggleForm}>
