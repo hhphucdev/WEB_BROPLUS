@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./style.scss";
-import { FaEye, FaEyeSlash } from "react-icons/fa"; 
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const ResetPassword = () => {
   const [oldPassword, setOldPassword] = useState("");
@@ -8,6 +9,7 @@ const ResetPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  const currentUser = useSelector((state) => state.auth.login.currentUser);
 
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -28,14 +30,17 @@ const ResetPassword = () => {
   return (
     <div className="reset-password-container">
       <h2>Đặt lại mật khẩu</h2>
-      <p>Để bảo mật tài khoản, vui lòng không chia sẻ mật khẩu cho người khác.</p>
+      <p>
+        Để bảo mật tài khoản, vui lòng không chia sẻ mật khẩu cho người khác.
+      </p>
+      <p>(+84) {currentUser.phone}</p>
       <form onSubmit={handleSubmit} className="reset-password-form">
         {/* Mật khẩu cũ */}
         <div className="form-group">
           <label htmlFor="oldPassword">Mật khẩu cũ:</label>
           <div className="password-input-container">
             <input
-              type={showOldPassword ? "text" : "password"} 
+              type={showOldPassword ? "text" : "password"}
               id="oldPassword"
               value={oldPassword}
               onChange={(e) => setOldPassword(e.target.value)}
@@ -45,7 +50,7 @@ const ResetPassword = () => {
               className="password-toggle-icon"
               onClick={() => setShowOldPassword(!showOldPassword)}
             >
-              {showOldPassword ? <FaEye /> : <FaEyeSlash />} 
+              {showOldPassword ? <FaEye /> : <FaEyeSlash />}
             </span>
           </div>
         </div>
@@ -65,7 +70,7 @@ const ResetPassword = () => {
               className="password-toggle-icon"
               onClick={() => setShowNewPassword(!showNewPassword)}
             >
-              {showNewPassword ? <FaEye /> : <FaEyeSlash />} 
+              {showNewPassword ? <FaEye /> : <FaEyeSlash />}
             </span>
           </div>
         </div>
@@ -85,13 +90,17 @@ const ResetPassword = () => {
               className="password-toggle-icon"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
             >
-              {showConfirmPassword ? <FaEye /> : <FaEyeSlash />} 
+              {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
             </span>
           </div>
         </div>
 
         {error && <p className="error-message">{error}</p>}
-        {success && <p className="success-message">Mật khẩu đã được đặt lại thành công!</p>}
+        {success && (
+          <p className="success-message">
+            Mật khẩu đã được đặt lại thành công!
+          </p>
+        )}
         <button type="submit" className="btn-submit">
           Đặt lại mật khẩu
         </button>
