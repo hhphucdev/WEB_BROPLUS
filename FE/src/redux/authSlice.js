@@ -28,7 +28,7 @@ const authSlice = createSlice({
       state.login.isFetching = false;
       state.login.error = true;
     },
-    
+
     // Xử lý đăng xuất
     logout: (state) => {
       state.login.currentUser = null;
@@ -54,11 +54,25 @@ const authSlice = createSlice({
     // Cập nhật avatar
     updateUserAvatar: (state, action) => {
       state.login.currentUser.avatar = action.payload;
-    }
+    },
+
+    // RESET PASSWORD
+    resetPassword: (state, action) => {
+      state.login.currentUser.password = action.payload;
+    },
   },
 });
 
-export const { loginStart, loginSuccess, loginFailed, logout, registerStart, registerSuccess, registerFailed, updateUserAvatar } =
-  authSlice.actions;
+export const {
+  loginStart,
+  loginSuccess,
+  loginFailed,
+  logout,
+  registerStart,
+  registerSuccess,
+  registerFailed,
+  updateUserAvatar,
+  resetPassword,
+} = authSlice.actions;
 
 export default authSlice.reducer;

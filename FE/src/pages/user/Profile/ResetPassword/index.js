@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "./style.scss";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useSelector } from "react-redux";
@@ -15,15 +16,37 @@ const ResetPassword = () => {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (newPassword !== confirmPassword) {
       setError("Mật khẩu không khớp. Vui lòng thử lại.");
       setSuccess(false);
-    } else {
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "/auth/reset-password",
+        {
+          oldPassword,
+          newPassword,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${currentUser.accessToken}`,
+          },
+        }
+      );
+
       setError("");
       setSuccess(true);
-      // Thêm logic xử lý gửi yêu cầu reset mật khẩu ở đây
+      console.log(response.data);
+    } catch (err) {
+      setError(
+        err.response?.data?.message || "Có lỗi xảy ra, vui lòng thử lại."
+      );
+      setSuccess(false);
     }
   };
 

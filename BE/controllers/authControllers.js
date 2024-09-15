@@ -130,6 +130,34 @@ const authControllers = {
     }
   },
 
+  // RESET PASSWORD
+  resetPassword: async (req, res) => {
+    try {
+      const user = await User.findById(req.user.id);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      const validPassword = await bcrypt.compare(
+        req.body.oldPassword,
+        user.password
+      );
+      if (!validPassword) {
+        return res.status(401).json({ message: "Wrong password" });
+      }
+
+      const salt = await bcrypt.genSalt(10);
+      const hashed = await bcrypt.hash(req.body.newPassword, salt);
+
+      await User.findByIdAndUpdate(req.user.id, { password: hashed });
+      return res.status(200).json({ message: "Password has been updated" });
+    } catch (err) {
+      if (!res.headersSent) {
+        return res.status(500).json({ message: err.message });
+      }
+    }
+  },
+
   // UPDATE AVATAR
   updateAvatar: async (req, res) => {
     try {

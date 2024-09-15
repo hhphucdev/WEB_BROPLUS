@@ -13,6 +13,9 @@ routes.post("/refresh", authControllers.requestRefreshToken);
 //LOGOUT
 routes.post("/logout", middlewareControllers.verifyToken, authControllers.userLogout);
 
+// RESET PASSWORD
+routes.post("/reset-password", middlewareControllers.verifyToken, authControllers.resetPassword);
+
 // UPDATE AVATAR
 routes.put('/update-avatar', middlewareControllers.verifyToken, authControllers.updateAvatar);
 module.exports = routes; 
