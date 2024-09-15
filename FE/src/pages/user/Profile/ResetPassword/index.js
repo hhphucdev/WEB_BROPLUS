@@ -18,13 +18,19 @@ const ResetPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (newPassword !== confirmPassword) {
-      setError("Mật khẩu không khớp. Vui lòng thử lại.");
+      alert("Mật khẩu không khớp. Vui lòng thử lại.");
       setSuccess(false);
       return;
     }
-
+  
+    if (!newPassword) {
+      alert("Vui lòng nhập mật khẩu mới.");
+      setSuccess(false);
+      return;
+    }
+  
     try {
       const response = await axios.post(
         "/auth/reset-password",
@@ -38,17 +44,17 @@ const ResetPassword = () => {
           },
         }
       );
-
-      setError("");
+  
+      setError({});
       setSuccess(true);
+      alert("Mật khẩu đã được đặt lại thành công!");
       console.log(response.data);
     } catch (err) {
-      setError(
-        err.response?.data?.message || "Có lỗi xảy ra, vui lòng thử lại."
-      );
+      alert(err.response?.data?.message || "Có lỗi xảy ra, vui lòng thử lại.");
       setSuccess(false);
     }
   };
+  
 
   return (
     <div className="reset-password-container">
