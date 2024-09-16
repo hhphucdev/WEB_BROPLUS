@@ -31,22 +31,22 @@ const Profile = () => {
       <div className="user-profile-menu">
         <ul>
           <li className={activeMenu === "payment" ? "active" : ""} onClick={() => handleMenuClick("payment")}>
-            <Link to="payment"><FcCurrencyExchange /> Payment</Link>
+            <Link to="payment"><FcCurrencyExchange /> Thanh toán</Link>
           </li>
           <li className={activeMenu === "account-info" ? "active" : ""} onClick={() => handleMenuClick("account-info")}>
-            <Link to="account-info"><FcContacts /> Account Info</Link>
+            <Link to="account-info"><FcContacts /> Thông tin cá nhân</Link>
           </li>
           <li className={activeMenu === "ticket-history" ? "active" : ""} onClick={() => handleMenuClick("ticket-history")}>
-            <Link to="ticket-history"><FcBullish /> Ticket History</Link>
+            <Link to="ticket-history"><FcBullish /> Lịch sử mua vé</Link>
           </li>
           <li className={activeMenu === "address" ? "active" : ""} onClick={() => handleMenuClick("address")}>
-            <Link to="address"><IoLocation /> Your Address</Link>
+            <Link to="address"><IoLocation /> Địa chỉ của bạn</Link>
           </li>
           <li className={activeMenu === "reset-password" ? "active" : ""} onClick={() => handleMenuClick("reset-password")}>
-            <Link to="reset-password"><FcSynchronize /> Reset Password</Link>
+            <Link to="reset-password"><FcSynchronize /> Đặt lại mật khẩu</Link>
           </li>
           <li onClick={handleLogout}>
-            <FcExport /> Logout
+            <FcExport /> Đăng xuất
           </li>
         </ul>
       </div>

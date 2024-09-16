@@ -5,12 +5,12 @@ import { useSelector } from "react-redux";
 const AccountInfo = () => {
   const currentUser = useSelector((state) => state.auth.login.currentUser);
   const [uploading, setUploading] = useState(false);
-  const [isEditing, setIsEditing] = useState(false); 
+  const [isEditing, setIsEditing] = useState(false);
   const [userInfo, setUserInfo] = useState({
     username: currentUser?.username,
     email: currentUser?.email,
     dateOfBirth: currentUser?.dateOfBirth,
-    address: currentUser?.address
+    address: currentUser?.address,
   });
 
   if (!currentUser) {
@@ -32,21 +32,21 @@ const AccountInfo = () => {
     };
 
     reader.onerror = (error) => {
-      console.error('Lỗi khi đọc file:', error);
+      console.error("Lỗi khi đọc file:", error);
     };
 
-    reader.readAsDataURL(file); 
+    reader.readAsDataURL(file);
   };
 
   const handleUpload = async (base64Image) => {
     try {
-      const response = await fetch('/auth/update-avatar', {
-        method: 'PUT',
+      const response = await fetch("/auth/update-avatar", {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
-        body: JSON.stringify({ base64Image })
+        body: JSON.stringify({ base64Image }),
       });
       const result = await response.json();
       if (response.ok) {
@@ -55,19 +55,19 @@ const AccountInfo = () => {
         console.error(result.message);
       }
     } catch (error) {
-      console.error('Lỗi khi gửi yêu cầu:', error);
+      console.error("Lỗi khi gửi yêu cầu:", error);
     }
   };
 
   const handleEditClick = () => {
-    setIsEditing(!isEditing); 
+    setIsEditing(!isEditing);
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserInfo((prevInfo) => ({
       ...prevInfo,
-      [name]: value
+      [name]: value,
     }));
   };
 
