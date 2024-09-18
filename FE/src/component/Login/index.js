@@ -12,15 +12,30 @@ const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState(""); 
-  const [email, setEmail] = useState(""); 
-  const [dateOfBirth, setDateOfBirth] = useState(""); 
-  const [avatar, setAvatar] = useState(""); 
-  const [address, setAddress] = useState(""); 
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [avatar, setAvatar] = useState("");
+  const [address, setAddress] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoading = useSelector((state) => state.auth.isLoading);
   const error = useSelector((state) => state.auth.error);
+
+  // Helper function to check if the user is at least 15 years old
+  const isAgeValid = (dob) => {
+    const today = new Date();
+    const birthDate = new Date(dob);
+    const age = today.getFullYear() - birthDate.getFullYear();
+    const monthDifference = today.getMonth() - birthDate.getMonth();
+
+    // Adjust age if the birth month and day haven't occurred yet this year
+    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+      return age - 1 >= 15;
+    }
+
+    return age >= 15;
+  };
 
   // Đăng nhập
   const handleLogin = (e) => {
@@ -36,16 +51,22 @@ const Login = () => {
   // Đăng ký
   const handleRegister = (e) => {
     e.preventDefault();
+    
+    if (!isAgeValid(dateOfBirth)) {
+      alert("Bạn phải ít nhất 15 tuổi để đăng ký.");
+      return;
+    }
+
     const newUser = {
       username: username,
       phone: phone,
       password: password,
-      email: email, 
-      dateOfBirth: dateOfBirth, 
+      email: email,
+      dateOfBirth: dateOfBirth,
       avatar: avatar, // Đảm bảo avatar là URL hoặc base64 string
-      address: address, 
+      address: address,
     };
-    registerUser(newUser, dispatch, navigate); 
+    registerUser(newUser, dispatch, navigate);
     navigate("/login");
   };
 
@@ -86,9 +107,9 @@ const Login = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setAvatar(reader.result); // Lưu URL ảnh hoặc base64 string
+        setAvatar(reader.result);
       };
-      reader.readAsDataURL(file); // Đọc tệp ảnh dưới dạng base64 string
+      reader.readAsDataURL(file);
     }
   };
 
@@ -132,7 +153,7 @@ const Login = () => {
                     id="username"
                     name="username"
                     value={username}
-                    onChange={(e) => setUsername(e.target.value)} 
+                    onChange={(e) => setUsername(e.target.value)}
                     required
                   />
                   <label htmlFor="phone">Số điện thoại:</label>
@@ -170,7 +191,13 @@ const Login = () => {
                     accept="image/*"
                     onChange={handleAvatarChange}
                   />
-                  {avatar && <img src={avatar} alt="Avatar Preview" className="avatar-preview" />}
+                  {avatar && (
+                    <img
+                      src={avatar}
+                      alt="Avatar Preview"
+                      className="avatar-preview"
+                    />
+                  )}
                   <label htmlFor="address">Địa chỉ:</label>
                   <input
                     type="text"
@@ -266,10 +293,7 @@ const Login = () => {
             <button className="toggle-button" onClick={handleToggleForm}>
               Chưa có tài khoản? Đăng ký
             </button>
-            <button
-              className="forgot-password"
-              onClick={handleForgotPassword}
-            >
+            <button className="forgot-password" onClick={handleForgotPassword}>
               Quên mật khẩu?
             </button>
           </div>

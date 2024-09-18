@@ -22,6 +22,19 @@ const AccountInfo = () => {
     return <p>Không có thông tin tài khoản</p>;
   }
 
+  const isAgeValid = (dob) => {
+    const today = new Date();
+    const birthDate = new Date(dob);
+    const age = today.getFullYear() - birthDate.getFullYear();
+    const monthDifference = today.getMonth() - birthDate.getMonth();
+
+    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+      return age - 1 >= 15;
+    }
+
+    return age >= 15;
+  };
+
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
@@ -40,7 +53,6 @@ const AccountInfo = () => {
 
   const handleEditClick = () => {
     setIsEditing(!isEditing);
-    // Nếu đang ở chế độ chỉnh sửa, tắt chế độ chỉnh sửa khi nhấn nút "Cập nhật thông tin"
     if (isEditing) {
       setSaveSuccess(false);
     }
@@ -61,9 +73,13 @@ const AccountInfo = () => {
   };
 
   const handleSave = async () => {
+    if (!isAgeValid(userInfo.dateOfBirth)) {
+      alert("Bạn phải ít nhất 15 tuổi để cập nhật thông tin.");
+      return;
+    }
+
     try {
       setIsSaving(true);
-      // Tạo một bản sao của userInfo để loại bỏ các thuộc tính không cần thiết
       const cleanUserInfo = {
         username: userInfo.username,
         email: userInfo.email,
@@ -71,15 +87,9 @@ const AccountInfo = () => {
         address: userInfo.address,
       };
 
-      // Gọi API để cập nhật thông tin người dùng
       await updateUserInfo(cleanUserInfo, dispatch);
-
-      // Cập nhật trạng thái của Redux với thông tin đã thay đổi
       dispatch(updateUserInfoSuccess(cleanUserInfo));
-
-      // Cập nhật trạng thái lưu thành công
       setSaveSuccess(true);
-      // Tắt chế độ chỉnh sửa sau khi lưu thành công
       setIsEditing(false);
     } catch (error) {
       console.error("Lỗi khi lưu thông tin:", error);
