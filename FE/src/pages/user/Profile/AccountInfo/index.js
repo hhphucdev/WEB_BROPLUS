@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import "./style.scss";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { updateUserAvatar, updateUserInfo } from "../../../../redux/apiRequest";
+
 
 const AccountInfo = () => {
+  const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.login.currentUser);
   const [uploading, setUploading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [userInfo, setUserInfo] = useState({
-    username: currentUser?.username,
-    email: currentUser?.email,
-    dateOfBirth: currentUser?.dateOfBirth,
-    address: currentUser?.address,
+    username: currentUser?.username || "",
+    email: currentUser?.email || "",
+    dateOfBirth: currentUser?.dateOfBirth || "",
+    address: currentUser?.address || "",
   });
 
   if (!currentUser) {
@@ -19,44 +22,18 @@ const AccountInfo = () => {
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
-    if (!file) {
-      return;
-    }
+    if (!file) return;
 
     const reader = new FileReader();
-
     reader.onloadend = async () => {
       setUploading(true);
-      await handleUpload(reader.result);
+      await dispatch(updateUserAvatar(reader.result));
       setUploading(false);
     };
-
     reader.onerror = (error) => {
       console.error("Lỗi khi đọc file:", error);
     };
-
     reader.readAsDataURL(file);
-  };
-
-  const handleUpload = async (base64Image) => {
-    try {
-      const response = await fetch("/auth/update-avatar", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-        body: JSON.stringify({ base64Image }),
-      });
-      const result = await response.json();
-      if (response.ok) {
-        console.log(result.message);
-      } else {
-        console.error(result.message);
-      }
-    } catch (error) {
-      console.error("Lỗi khi gửi yêu cầu:", error);
-    }
   };
 
   const handleEditClick = () => {
@@ -71,6 +48,21 @@ const AccountInfo = () => {
     }));
   };
 
+  const formatDate = (dateString) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0];
+  };
+
+  const handleSave = () => {
+    dispatch(updateUserInfo(userInfo));
+    setIsEditing(false);
+  };
+  
+
+
+
+  
   return (
     <div className="account-info-container">
       <div className="content">
@@ -79,9 +71,7 @@ const AccountInfo = () => {
         <div className="avatar-container">
           <div className="avatar">
             <img
-              src={
-                currentUser.avatar || "https://picsum.photos/100/100?random=1"
-              }
+              src={currentUser.avatar || "https://picsum.photos/100/100?random=1"}
               alt="Avatar"
             />
           </div>
@@ -135,11 +125,11 @@ const AccountInfo = () => {
               <input
                 type="date"
                 name="dateOfBirth"
-                value={userInfo.dateOfBirth}
+                value={formatDate(userInfo.dateOfBirth)}
                 onChange={handleChange}
               />
             ) : (
-              <span className="info-value">{currentUser.dateOfBirth}</span>
+              <span className="info-value">{formatDate(currentUser.dateOfBirth)}</span>
             )}
           </div>
           <div className="info-item">
@@ -155,7 +145,7 @@ const AccountInfo = () => {
               <span className="info-value">{currentUser.address}</span>
             )}
           </div>
-          <button className="btn-update" onClick={handleEditClick}>
+          <button className="btn-update" onClick={isEditing ? handleSave : handleEditClick}>
             {isEditing ? "Lưu thông tin" : "Cập nhật thông tin"}
           </button>
         </div>

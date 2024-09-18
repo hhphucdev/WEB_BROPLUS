@@ -1,16 +1,21 @@
 import axios from "axios";
-import { loginStart, loginSuccess, loginFailed, updateUserInfoSuccess, updateUserInfoFailed, updateUserInfoStart } from "./authSlice";
+import {
+  loginStart,
+  loginSuccess,
+  loginFailed,
+  updateUserInfoStart,
+  updateUserInfoSuccess,
+  updateUserInfoFailed,
+} from "./authSlice";
 import { ROUTER } from "utils/router";
+
 export const loginUser = async (user, dispatch, navigate) => {
   dispatch(loginStart());
   try {
     const res = await axios.post("/auth/login", user);
     const userData = res.data;
-    dispatch(loginSuccess(res.data));
-    // Lưu token vào localStorage
-    localStorage.setItem("accessToken", userData.accessToken);
-    // Lưu user vào Redux
     dispatch(loginSuccess(userData));
+    localStorage.setItem("accessToken", userData.accessToken);
     navigate(`/${ROUTER.USER.HOME}`);
   } catch (err) {
     dispatch(loginFailed());
@@ -36,34 +41,37 @@ export const logout = (dispatch) => {
 };
 
 export const updateUserInfo = async (user, dispatch) => {
+  dispatch(updateUserInfoStart());
   try {
-    dispatch(updateUserInfoStart());
-    const res = await fetch("/auth/update-info", {
-      method: "PUT",
+    const response = await axios.patch("/auth/update-info", user, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-      body: JSON.stringify(user),
     });
-    const data = await res.json();
-    if (res.ok) {
-      dispatch(updateUserInfoSuccess());
-      dispatch(loginSuccess(data)); // Cập nhật thông tin user trong store
-    } else {
-      dispatch(updateUserInfoFailed());
-      console.error(data.message);
-    }
+    dispatch(updateUserInfoSuccess());
+    dispatch(loginSuccess(response.data)); // Cập nhật thông tin user trong store
   } catch (err) {
     dispatch(updateUserInfoFailed());
     console.error("Cập nhật thông tin thất bại", err);
   }
 };
 
-
-export const updateUserAvatar = (avatar) => {
-  return (dispatch) => {
-    dispatch(loginSuccess({ avatar }));
-  };
+export const updateUserAvatar = async (base64Image, dispatch) => {
+  try {
+    const response = await axios.patch(
+      "/auth/update-avatar",
+      { base64Image },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    );
+    dispatch(loginSuccess({ avatar: response.data.avatar }));
+    console.log("Avatar updated successfully");
+  } catch (err) {
+    console.error("Lỗi khi cập nhật ảnh đại diện:", err);
+  }
 };
-

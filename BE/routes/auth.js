@@ -20,6 +20,6 @@ routes.post("/reset-password", middlewareControllers.verifyToken, authController
 routes.put('/update-info', middlewareControllers.verifyToken, authControllers.updateUserInfo);
 
 // UPDATE AVATAR
-routes.put('/update-avatar', middlewareControllers.verifyToken, authControllers.updateAvatar);
+routes.post('/update-avatar', middlewareControllers.verifyToken, authControllers.updateAvatar);
 
 module.exports = routes; 
