@@ -158,6 +158,18 @@ const authControllers = {
     }
   },
 
+  // UPDATE USER INFO
+  updateUserInfo: async (req, res) => {
+    try {
+      await User.findByIdAndUpdate(req.user.id, req.body);
+      return res.status(200).json({ message: "User info has been updated" });
+    } catch (err) {
+      if (!res.headersSent) {
+        return res.status(500).json({ message: err.message });
+      }
+    }
+  },
+
   // UPDATE AVATAR
   updateAvatar: async (req, res) => {
     try {

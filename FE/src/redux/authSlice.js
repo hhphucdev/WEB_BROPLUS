@@ -13,6 +13,11 @@ const authSlice = createSlice({
       success: false,
       error: false,
     },
+    updateUserInfo: {
+      isFetching: false,
+      success: false,
+      error: false,
+    },
   },
   reducers: {
     // Xử lý đăng nhập
@@ -51,6 +56,25 @@ const authSlice = createSlice({
       state.register.success = false;
     },
 
+    // Cập nhật thông tin người dùng
+    updateUserInfoStart: (state) => {
+      state.updateUserInfo.isFetching = true;
+      state.updateUserInfo.success = false;
+      state.updateUserInfo.error = false;
+    },
+
+    updateUserInfoSuccess: (state) => {
+      state.updateUserInfo.isFetching = false;
+      state.updateUserInfo.success = true;
+      state.updateUserInfo.error = false;
+    },
+
+    updateUserInfoFailed: (state) => {
+      state.updateUserInfo.isFetching = false;
+      state.updateUserInfo.error = true;
+      state.updateUserInfo.success = false;
+    },
+
     // Cập nhật avatar
     updateUserAvatar: (state, action) => {
       state.login.currentUser.avatar = action.payload;
@@ -73,6 +97,9 @@ export const {
   registerFailed,
   updateUserAvatar,
   resetPassword,
+  updateUserInfoStart,
+  updateUserInfoSuccess,
+  updateUserInfoFailed,
 } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -16,6 +16,9 @@ routes.post("/logout", middlewareControllers.verifyToken, authControllers.userLo
 // RESET PASSWORD
 routes.post("/reset-password", middlewareControllers.verifyToken, authControllers.resetPassword);
 
+// UPDATE USER
+routes.put('/update-info', middlewareControllers.verifyToken, authControllers.updateUserInfo);
+
 // UPDATE AVATAR
 routes.put('/update-avatar', middlewareControllers.verifyToken, authControllers.updateAvatar);
 

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { loginStart, loginSuccess, loginFailed } from "./authSlice";
+import { loginStart, loginSuccess, loginFailed, updateUserInfoSuccess, updateUserInfoFailed, updateUserInfoStart } from "./authSlice";
 import { ROUTER } from "utils/router";
 export const loginUser = async (user, dispatch, navigate) => {
   dispatch(loginStart());
@@ -34,6 +34,32 @@ export const logout = (dispatch) => {
   dispatch(loginSuccess(null));
   localStorage.removeItem("accessToken");
 };
+
+export const updateUserInfo = async (user, dispatch) => {
+  try {
+    dispatch(updateUserInfoStart());
+    const res = await fetch("/auth/update-info", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+      body: JSON.stringify(user),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      dispatch(updateUserInfoSuccess());
+      dispatch(loginSuccess(data)); // Cập nhật thông tin user trong store
+    } else {
+      dispatch(updateUserInfoFailed());
+      console.error(data.message);
+    }
+  } catch (err) {
+    dispatch(updateUserInfoFailed());
+    console.error("Cập nhật thông tin thất bại", err);
+  }
+};
+
 
 export const updateUserAvatar = (avatar) => {
   return (dispatch) => {
