@@ -1,3 +1,5 @@
+// apiRequest.js
+
 import axios from "axios";
 import {
   loginStart,
@@ -9,6 +11,7 @@ import {
 } from "./authSlice";
 import { ROUTER } from "utils/router";
 
+// Đăng nhập
 export const loginUser = async (user, dispatch, navigate) => {
   dispatch(loginStart());
   try {
@@ -23,6 +26,7 @@ export const loginUser = async (user, dispatch, navigate) => {
   }
 };
 
+// Đăng ký
 export const registerUser = async (user, dispatch, navigate) => {
   dispatch(loginStart());
   try {
@@ -35,28 +39,34 @@ export const registerUser = async (user, dispatch, navigate) => {
   }
 };
 
+// Đăng xuất
 export const logout = (dispatch) => {
-  dispatch(loginSuccess(null));
+  dispatch(logout());
   localStorage.removeItem("accessToken");
 };
 
-export const updateUserInfo = async (user, dispatch) => {
+// Cập nhật thông tin người dùng
+export const updateUserInfo = async (userInfo, dispatch) => {
   dispatch(updateUserInfoStart());
   try {
-    const response = await axios.patch("/auth/update-info", user, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    });
-    dispatch(updateUserInfoSuccess());
-    dispatch(loginSuccess(response.data)); // Cập nhật thông tin user trong store
+    const response = await axios.put(
+      "/auth/update-info",
+      userInfo,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    );
+    dispatch(updateUserInfoSuccess(response.data));
+    console.log("User info updated successfully");
   } catch (err) {
     dispatch(updateUserInfoFailed());
-    console.error("Cập nhật thông tin thất bại", err);
+    console.error("Lỗi khi cập nhật thông tin:", err);
   }
 };
 
+// Cập nhật avatar
 export const updateUserAvatar = async (base64Image, dispatch) => {
   try {
     const response = await axios.patch(
@@ -69,7 +79,7 @@ export const updateUserAvatar = async (base64Image, dispatch) => {
         },
       }
     );
-    dispatch(loginSuccess({ avatar: response.data.avatar }));
+    dispatch(updateUserAvatar(response.data.avatar));
     console.log("Avatar updated successfully");
   } catch (err) {
     console.error("Lỗi khi cập nhật ảnh đại diện:", err);

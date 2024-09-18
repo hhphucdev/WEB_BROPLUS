@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import "./style.scss";
-import { useSelector, useDispatch } from "react-redux";
-import { updateUserAvatar, updateUserInfo } from "../../../../redux/apiRequest";
-
+import { useDispatch, useSelector } from "react-redux";
+import { updateUserInfo } from "../../../../redux/apiRequest";
+import { updateUserInfoSuccess } from "../../../../redux/authSlice";
 
 const AccountInfo = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.login.currentUser);
   const [uploading, setUploading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState(false);
   const [userInfo, setUserInfo] = useState({
     username: currentUser?.username || "",
     email: currentUser?.email || "",
@@ -27,7 +29,7 @@ const AccountInfo = () => {
     const reader = new FileReader();
     reader.onloadend = async () => {
       setUploading(true);
-      await dispatch(updateUserAvatar(reader.result));
+      // await dispatch(updateUserAvatar(reader.result));
       setUploading(false);
     };
     reader.onerror = (error) => {
@@ -38,6 +40,10 @@ const AccountInfo = () => {
 
   const handleEditClick = () => {
     setIsEditing(!isEditing);
+    // Nếu đang ở chế độ chỉnh sửa, tắt chế độ chỉnh sửa khi nhấn nút "Cập nhật thông tin"
+    if (isEditing) {
+      setSaveSuccess(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -49,20 +55,39 @@ const AccountInfo = () => {
   };
 
   const formatDate = (dateString) => {
-    if (!dateString) return '';
+    if (!dateString) return "";
     const date = new Date(dateString);
-    return date.toISOString().split('T')[0];
+    return date.toISOString().split("T")[0];
   };
 
-  const handleSave = () => {
-    dispatch(updateUserInfo(userInfo));
-    setIsEditing(false);
+  const handleSave = async () => {
+    try {
+      setIsSaving(true);
+      // Tạo một bản sao của userInfo để loại bỏ các thuộc tính không cần thiết
+      const cleanUserInfo = {
+        username: userInfo.username,
+        email: userInfo.email,
+        dateOfBirth: userInfo.dateOfBirth,
+        address: userInfo.address,
+      };
+
+      // Gọi API để cập nhật thông tin người dùng
+      await updateUserInfo(cleanUserInfo, dispatch);
+
+      // Cập nhật trạng thái của Redux với thông tin đã thay đổi
+      dispatch(updateUserInfoSuccess(cleanUserInfo));
+
+      // Cập nhật trạng thái lưu thành công
+      setSaveSuccess(true);
+      // Tắt chế độ chỉnh sửa sau khi lưu thành công
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Lỗi khi lưu thông tin:", error);
+    } finally {
+      setIsSaving(false);
+    }
   };
-  
 
-
-
-  
   return (
     <div className="account-info-container">
       <div className="content">
@@ -71,7 +96,9 @@ const AccountInfo = () => {
         <div className="avatar-container">
           <div className="avatar">
             <img
-              src={currentUser.avatar || "https://picsum.photos/100/100?random=1"}
+              src={
+                currentUser.avatar || "https://picsum.photos/100/100?random=1"
+              }
               alt="Avatar"
             />
           </div>
@@ -129,7 +156,9 @@ const AccountInfo = () => {
                 onChange={handleChange}
               />
             ) : (
-              <span className="info-value">{formatDate(currentUser.dateOfBirth)}</span>
+              <span className="info-value">
+                {formatDate(currentUser.dateOfBirth)}
+              </span>
             )}
           </div>
           <div className="info-item">
@@ -145,9 +174,19 @@ const AccountInfo = () => {
               <span className="info-value">{currentUser.address}</span>
             )}
           </div>
-          <button className="btn-update" onClick={isEditing ? handleSave : handleEditClick}>
-            {isEditing ? "Lưu thông tin" : "Cập nhật thông tin"}
+          <button
+            className="btn-update"
+            onClick={isEditing ? handleSave : handleEditClick}
+          >
+            {isEditing
+              ? isSaving
+                ? "Đang lưu..."
+                : "Lưu thông tin"
+              : "Cập nhật thông tin"}
           </button>
+          {saveSuccess && !isEditing && (
+            <p className="update-success">Cập nhật thành công!</p>
+          )}
         </div>
       </div>
     </div>

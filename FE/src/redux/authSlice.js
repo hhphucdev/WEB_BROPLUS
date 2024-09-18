@@ -1,3 +1,5 @@
+// authSlice.js
+
 import { createSlice } from "@reduxjs/toolkit";
 
 const authSlice = createSlice({
@@ -20,7 +22,7 @@ const authSlice = createSlice({
     },
   },
   reducers: {
-    // Xử lý đăng nhập
+    // Đăng nhập
     loginStart: (state) => {
       state.login.isFetching = true;
     },
@@ -34,12 +36,12 @@ const authSlice = createSlice({
       state.login.error = true;
     },
 
-    // Xử lý đăng xuất
+    // Đăng xuất
     logout: (state) => {
       state.login.currentUser = null;
     },
 
-    // Xử lý đăng ký
+    // Đăng ký
     registerStart: (state) => {
       state.register.isFetching = true;
       state.register.success = false;
@@ -62,13 +64,15 @@ const authSlice = createSlice({
       state.updateUserInfo.success = false;
       state.updateUserInfo.error = false;
     },
-
-    updateUserInfoSuccess: (state) => {
+    updateUserInfoSuccess: (state, action) => {
       state.updateUserInfo.isFetching = false;
       state.updateUserInfo.success = true;
       state.updateUserInfo.error = false;
+      state.login.currentUser = {
+        ...state.login.currentUser,
+        ...action.payload,
+      };
     },
-
     updateUserInfoFailed: (state) => {
       state.updateUserInfo.isFetching = false;
       state.updateUserInfo.error = true;
@@ -77,12 +81,22 @@ const authSlice = createSlice({
 
     // Cập nhật avatar
     updateUserAvatar: (state, action) => {
-      state.login.currentUser.avatar = action.payload;
+      if (state.login.currentUser) {
+        state.login.currentUser = {
+          ...state.login.currentUser,
+          avatar: action.payload,
+        };
+      }
     },
 
-    // RESET PASSWORD
+    // Reset Password
     resetPassword: (state, action) => {
-      state.login.currentUser.password = action.payload;
+      if (state.login.currentUser) {
+        state.login.currentUser = {
+          ...state.login.currentUser,
+          password: action.payload,
+        };
+      }
     },
   },
 });
