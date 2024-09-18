@@ -4,11 +4,14 @@ import "./style.scss";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
 const ResetPassword = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [errorField, setErrorField] = useState("");
   const [success, setSuccess] = useState(false);
   const currentUser = useSelector((state) => state.auth.login.currentUser);
 
@@ -16,21 +19,36 @@ const ResetPassword = () => {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  const validatePassword = (password) => {
+    return passwordRegex.test(password);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    
+    setErrorField("");
+
     if (newPassword !== confirmPassword) {
-      alert("Mật khẩu không khớp. Vui lòng thử lại.");
+      setError("Mật khẩu không khớp. Vui lòng thử lại.");
+      setErrorField("confirmPassword");
       setSuccess(false);
       return;
     }
-  
+
     if (!newPassword) {
-      alert("Vui lòng nhập mật khẩu mới.");
+      setError("Vui lòng nhập mật khẩu mới.");
+      setErrorField("newPassword");
       setSuccess(false);
       return;
     }
-  
+
+    if (!validatePassword(newPassword)) {
+      setError("Mật khẩu không đáp ứng yêu cầu bảo mật: ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt.");
+      setErrorField("newPassword");
+      setSuccess(false);
+      return;
+    }
+
     try {
       const response = await axios.post(
         "/auth/reset-password",
@@ -44,8 +62,8 @@ const ResetPassword = () => {
           },
         }
       );
-  
-      setError({});
+
+      setError("");
       setSuccess(true);
       alert("Mật khẩu đã được đặt lại thành công!");
       console.log(response.data);
@@ -54,7 +72,10 @@ const ResetPassword = () => {
       setSuccess(false);
     }
   };
-  
+
+  const getInputClassName = (field) => {
+    return field === errorField ? "password-input-container error" : "password-input-container";
+  };
 
   return (
     <div className="reset-password-container">
@@ -67,7 +88,7 @@ const ResetPassword = () => {
         {/* Mật khẩu cũ */}
         <div className="form-group">
           <label htmlFor="oldPassword">Mật khẩu cũ:</label>
-          <div className="password-input-container">
+          <div className={getInputClassName("oldPassword")}>
             <input
               type={showOldPassword ? "text" : "password"}
               id="oldPassword"
@@ -87,7 +108,7 @@ const ResetPassword = () => {
         {/* Mật khẩu mới */}
         <div className="form-group">
           <label htmlFor="newPassword">Mật khẩu mới:</label>
-          <div className="password-input-container">
+          <div className={getInputClassName("newPassword")}>
             <input
               type={showNewPassword ? "text" : "password"}
               id="newPassword"
@@ -107,7 +128,7 @@ const ResetPassword = () => {
         {/* Xác nhận mật khẩu */}
         <div className="form-group">
           <label htmlFor="confirmPassword">Xác nhận mật khẩu mới:</label>
-          <div className="password-input-container">
+          <div className={getInputClassName("confirmPassword")}>
             <input
               type={showConfirmPassword ? "text" : "password"}
               id="confirmPassword"

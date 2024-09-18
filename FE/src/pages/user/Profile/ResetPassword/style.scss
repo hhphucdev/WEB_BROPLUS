@@ -34,6 +34,25 @@
     align-items: center;
     position: relative;
   }
+  .password-input-container.error {
+    border: 1px solid red;
+    border-radius: 10px;
+  }
+
+  .password-input-container input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+
+  .password-toggle-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
 
   input {
     width: 100%;
