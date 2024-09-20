@@ -31,7 +31,7 @@ const content = {
       { name: "TRA CỨU VÉ", path: ROUTER.USER.TICKET_SEARCH },
       { name: "Liên hệ", path: ROUTER.USER.CONTACT },
       { name: "Tin tức", path: "" },
-      { name: "Hướng dẫn", path: "" },
+      { name: "Hướng dẫn", path: ROUTER.USER.GUIDE },
     ],
   },
   en: {
@@ -46,7 +46,7 @@ const content = {
       { name: "TICKET INQUIRY", path: ROUTER.USER.TICKET_SEARCH },
       { name: "Contact", path: ROUTER.USER.CONTACT },
       { name: "News", path: "" },
-      { name: "Guide", path: "" },
+      { name: "Guide", path: ROUTER.USER.GUIDE },
     ],
   },
 };

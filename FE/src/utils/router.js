@@ -14,5 +14,6 @@ export const ROUTER = {
     ACCOUNT_INFO: "account-info",
     ADDRESS: "address",
     RESET_PASSWORD: "reset-password",
+    GUIDE: "guide",
   },
 };

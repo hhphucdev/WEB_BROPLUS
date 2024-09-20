@@ -15,7 +15,7 @@ import AccountInfo from "pages/user/Profile/AccountInfo";
 import TicketHistory from "pages/user/Profile/TicketHistory";
 import Address from "pages/user/Profile/Address";
 import ResetPassword from "pages/user/Profile/ResetPassword";
-
+import Guide from "pages/user/Guide";
 const UserRoutes = () => (
   <MasterLayout>
     <Routes>
@@ -26,6 +26,7 @@ const UserRoutes = () => (
       <Route path={ROUTER.USER.SCHEDULE} element={<Schedule />} />
       <Route path={ROUTER.USER.LOGIN} element={<Login />} />
       <Route path={ROUTER.USER.BOOK_TICKET} element={<BookTicket />} />
+      <Route path={ROUTER.USER.GUIDE} element={<Guide />} />
       
       {/* Profile và các chức năng con */}
       <Route path={ROUTER.USER.PROFILE} element={<Profile />}>
