@@ -33,7 +33,7 @@ const authControllers = {
   // GENERATE NEW ACCESS TOKEN
   generateAccessToken: (user) => {
     return jwt.sign({ id: user._id, admin: user.admin }, process.env.MYSECRET, {
-      expiresIn: "20s",
+      expiresIn: "15m",
     });
   },
 

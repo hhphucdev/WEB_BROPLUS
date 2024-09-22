@@ -51,7 +51,7 @@ const Footer = () => {
                   <Link to={ROUTER.USER.SCHEDULE}>Lịch trình</Link>
                 </li>
                 <li>
-                  <Link to={ROUTER.USER.GUIDE}>Hướng dẫn</Link>
+                  <Link to={ROUTER.USER.GUIDE }>Hướng dẫn</Link>
                 </li>
 
                 <li>
