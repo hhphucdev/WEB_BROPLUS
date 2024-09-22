@@ -49,15 +49,11 @@ export const logout = (dispatch) => {
 export const updateUserInfo = async (userInfo, dispatch) => {
   dispatch(updateUserInfoStart());
   try {
-    const response = await axios.put(
-      "/auth/update-info",
-      userInfo,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }
-    );
+    const response = await axios.put("/auth/update-info", userInfo, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    });
     dispatch(updateUserInfoSuccess(response.data));
     console.log("User info updated successfully");
   } catch (err) {
@@ -68,20 +64,22 @@ export const updateUserInfo = async (userInfo, dispatch) => {
 
 // Cập nhật avatar
 export const updateUserAvatar = async (base64Image, dispatch) => {
+  dispatch(updateUserInfoStart());
   try {
-    const response = await axios.patch(
+    const response = await axios.put(
       "/auth/update-avatar",
-      { base64Image },
+      { avatar: base64Image },
       {
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       }
     );
-    dispatch(updateUserAvatar(response.data.avatar));
+    dispatch(updateUserInfoSuccess(response.data));
     console.log("Avatar updated successfully");
   } catch (err) {
-    console.error("Lỗi khi cập nhật ảnh đại diện:", err);
+    dispatch(updateUserInfoFailed());
+    console.error("Lỗi khi cập nhật avatar:", err.response ? err.response.data : err.message);
   }
+  
 };

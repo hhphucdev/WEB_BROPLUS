@@ -7,7 +7,6 @@ import { updateUserInfoSuccess } from "../../../../redux/authSlice";
 const AccountInfo = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.login.currentUser);
-  const [uploading, setUploading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
@@ -17,6 +16,7 @@ const AccountInfo = () => {
     dateOfBirth: currentUser?.dateOfBirth || "",
     address: currentUser?.address || "",
   });
+  const [selectedFile, setSelectedFile] = useState(null);
 
   if (!currentUser) {
     return <p>Không có thông tin tài khoản</p>;
@@ -28,22 +28,32 @@ const AccountInfo = () => {
     const age = today.getFullYear() - birthDate.getFullYear();
     const monthDifference = today.getMonth() - birthDate.getMonth();
 
-    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+    if (
+      monthDifference < 0 ||
+      (monthDifference === 0 && today.getDate() < birthDate.getDate())
+    ) {
       return age - 1 >= 15;
     }
 
     return age >= 15;
   };
 
-  const handleFileChange = async (event) => {
+  const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (!file) return;
 
+    const maxSize = 1 * 1024 * 1024; // 1MB
+    if (file.size > maxSize) {
+      alert("File phải nhỏ hơn 1MB.");
+      return;
+    }
+
     const reader = new FileReader();
     reader.onloadend = async () => {
-      setUploading(true);
-      // await dispatch(updateUserAvatar(reader.result));
-      setUploading(false);
+      setSelectedFile(reader.result);
+      await updateUserInfo({ avatar: reader.result }, dispatch);
+      dispatch(updateUserInfoSuccess({ avatar: reader.result }));
+      alert("Cập nhật thành công ảnh đại diện!");
     };
     reader.onerror = (error) => {
       console.error("Lỗi khi đọc file:", error);
@@ -102,29 +112,30 @@ const AccountInfo = () => {
     <div className="account-info-container">
       <div className="content">
         <h2>Thông tin tài khoản</h2>
-        <p>Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
         <div className="avatar-container">
           <div className="avatar">
             <img
               src={
-                currentUser.avatar || "https://picsum.photos/100/100?random=1"
+                selectedFile ||
+                currentUser.avatar ||
+                "https://picsum.photos/100/100?random=1"
               }
               alt="Avatar"
             />
           </div>
-          <p className="avatar-upload">Cập nhật ảnh đại diện</p>
         </div>
         <div className="file-upload">
-          <input
-            type="file"
-            accept=".jpeg,.jpg,.png"
-            onChange={handleFileChange}
-          />
-          <button type="button" className="btn-upload" disabled={uploading}>
-            {uploading ? "Đang tải lên..." : "Tải lên"}
-          </button>
+          <label className="file-upload-label">
+            Chọn ảnh
+            <input
+              type="file"
+              accept=".jpeg,.jpg,.png"
+              onChange={handleFileChange}
+            />
+          </label>
           <p>Dung lượng file tối đa 1 MB Định dạng: .JPEG, .PNG</p>
         </div>
+
         <div className="info-details">
           <div className="info-item">
             <span className="info-label">Họ và tên:</span>
