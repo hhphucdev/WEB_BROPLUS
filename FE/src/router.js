@@ -17,6 +17,7 @@ import Address from "pages/user/Profile/Address";
 import ResetPassword from "pages/user/Profile/ResetPassword";
 import Guide from "pages/user/Guide";
 import HomePageAdmin from "pages/admin/HomePageAdmin";
+import AddTrip from "pages/admin/AddTrip";
 
 const UserRoutes = () => (
   <Routes>
@@ -41,6 +42,9 @@ const UserRoutes = () => (
 
     {/* Route Admin không có MasterLayout */}
     <Route path={ROUTER.ADMIN.HOMEADMIN} element={<HomePageAdmin />} />
+    <Route path={ROUTER.ADMIN.ADDTRIP} element={<AddTrip />} />
+
+
 
     {/* Route fallback cho các đường dẫn không khớp */}
     <Route path="*" element={<MasterLayout><HomePage /></MasterLayout>} />
