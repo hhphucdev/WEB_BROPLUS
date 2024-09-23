@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
+const tripRoutes = require("./routes/trip");
 const multer = require("multer");
 const path = require("path");
 
@@ -30,6 +31,7 @@ app.use(express.json());
 //Routes
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
+app.use("/trips", tripRoutes);
 
 
 app.listen(8000, () => {
