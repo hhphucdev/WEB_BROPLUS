@@ -16,4 +16,7 @@ export const ROUTER = {
     RESET_PASSWORD: "reset-password",
     GUIDE: "guide",
   },
+  ADMIN: {
+    HOMEADMIN: "admin",
+  },
 };

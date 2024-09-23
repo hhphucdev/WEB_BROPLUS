@@ -127,7 +127,7 @@ const HomePage = () => {
   //     seats: "8 chỗ trống",
   //     price: "150.000đ",
   //   }
-   
+
   // ];
 
   const [hasSearched, setHasSearched] = useState(false);
@@ -141,7 +141,6 @@ const HomePage = () => {
     };
     fetchTrips();
   }, []);
-
 
   const handleSearch = () => {
     if (!hasSearched) {

@@ -1,0 +1,36 @@
+.admin-home {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .admin-dashboard {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .dashboard-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    width: 30%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dashboard-item h2 {
+    margin-bottom: 10px;
+  }
+  
+  .dashboard-item p {
+    margin-bottom: 15px;
+  }
+  
+  .dashboard-item a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .dashboard-item a:hover {
+    text-decoration: underline;
+  }
+  

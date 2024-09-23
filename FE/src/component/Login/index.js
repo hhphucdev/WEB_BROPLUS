@@ -30,7 +30,10 @@ const Login = () => {
     const monthDifference = today.getMonth() - birthDate.getMonth();
 
     // Adjust age if the birth month and day haven't occurred yet this year
-    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+    if (
+      monthDifference < 0 ||
+      (monthDifference === 0 && today.getDate() < birthDate.getDate())
+    ) {
       return age - 1 >= 15;
     }
 
@@ -45,13 +48,19 @@ const Login = () => {
       password: password,
     };
     console.log("newUser", newUser);
-    loginUser(newUser, dispatch, navigate);
+
+    const adminPhone = "admin";
+    if (phone === adminPhone) {
+      navigate("/admin");
+    } else {
+      loginUser(newUser, dispatch, navigate);
+    }
   };
 
   // Đăng ký
   const handleRegister = (e) => {
     e.preventDefault();
-    
+
     if (!isAgeValid(dateOfBirth)) {
       alert("Bạn phải ít nhất 15 tuổi để đăng ký.");
       return;
@@ -63,7 +72,7 @@ const Login = () => {
       password: password,
       email: email,
       dateOfBirth: dateOfBirth,
-      avatar: avatar, // Đảm bảo avatar là URL hoặc base64 string
+      avatar: avatar, 
       address: address,
     };
     registerUser(newUser, dispatch, navigate);

@@ -16,31 +16,35 @@ import TicketHistory from "pages/user/Profile/TicketHistory";
 import Address from "pages/user/Profile/Address";
 import ResetPassword from "pages/user/Profile/ResetPassword";
 import Guide from "pages/user/Guide";
-const UserRoutes = () => (
-  <MasterLayout>
-    <Routes>
-      <Route path={ROUTER.USER.HOME} element={<HomePage />} />
-      <Route path={ROUTER.USER.TICKET_SEARCH} element={<TicketSearch />} />
-      <Route path={ROUTER.USER.INTRODUCE} element={<Introduce />} />
-      <Route path={ROUTER.USER.CONTACT} element={<Contact />} />
-      <Route path={ROUTER.USER.SCHEDULE} element={<Schedule />} />
-      <Route path={ROUTER.USER.LOGIN} element={<Login />} />
-      <Route path={ROUTER.USER.BOOK_TICKET} element={<BookTicket />} />
-      <Route path={ROUTER.USER.GUIDE} element={<Guide />} />
-      
-      {/* Profile và các chức năng con */}
-      <Route path={ROUTER.USER.PROFILE} element={<Profile />}>
-        <Route path={ROUTER.USER.PAYMENT} element={<Payment />} />
-        <Route path={ROUTER.USER.ACCOUNT_INFO} element={<AccountInfo />} />
-        <Route path={ROUTER.USER.TICKET_HISTORY} element={<TicketHistory />} />
-        <Route path={ROUTER.USER.ADDRESS} element={<Address />} />
-        <Route path={ROUTER.USER.RESET_PASSWORD} element={<ResetPassword />} />
-      </Route>
+import HomePageAdmin from "pages/admin/HomePageAdmin";
 
-      {/* Route fallback cho các đường dẫn không khớp */}
-      <Route path="*" element={<HomePage />} />
-    </Routes>
-  </MasterLayout>
+const UserRoutes = () => (
+  <Routes>
+    {/* Các route người dùng */}
+    <Route path={ROUTER.USER.HOME} element={<MasterLayout><HomePage /></MasterLayout>} />
+    <Route path={ROUTER.USER.TICKET_SEARCH} element={<MasterLayout><TicketSearch /></MasterLayout>} />
+    <Route path={ROUTER.USER.INTRODUCE} element={<MasterLayout><Introduce /></MasterLayout>} />
+    <Route path={ROUTER.USER.CONTACT} element={<MasterLayout><Contact /></MasterLayout>} />
+    <Route path={ROUTER.USER.SCHEDULE} element={<MasterLayout><Schedule /></MasterLayout>} />
+    <Route path={ROUTER.USER.LOGIN} element={<MasterLayout><Login /></MasterLayout>} />
+    <Route path={ROUTER.USER.BOOK_TICKET} element={<MasterLayout><BookTicket /></MasterLayout>} />
+    <Route path={ROUTER.USER.GUIDE} element={<MasterLayout><Guide /></MasterLayout>} />
+
+    {/* Profile và các chức năng con */}
+    <Route path={ROUTER.USER.PROFILE} element={<MasterLayout><Profile /></MasterLayout>}>
+      <Route path={ROUTER.USER.PAYMENT} element={<Payment />} />
+      <Route path={ROUTER.USER.ACCOUNT_INFO} element={<AccountInfo />} />
+      <Route path={ROUTER.USER.TICKET_HISTORY} element={<TicketHistory />} />
+      <Route path={ROUTER.USER.ADDRESS} element={<Address />} />
+      <Route path={ROUTER.USER.RESET_PASSWORD} element={<ResetPassword />} />
+    </Route>
+
+    {/* Route Admin không có MasterLayout */}
+    <Route path={ROUTER.ADMIN.HOMEADMIN} element={<HomePageAdmin />} />
+
+    {/* Route fallback cho các đường dẫn không khớp */}
+    <Route path="*" element={<MasterLayout><HomePage /></MasterLayout>} />
+  </Routes>
 );
 
 export default UserRoutes;
