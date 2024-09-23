@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import "react-multi-carousel/lib/styles.css";
 import Carousel from "react-multi-carousel";
 import category from "assets/user/images/categories/khuyenmai1.png";
@@ -116,120 +116,32 @@ const HomePage = () => {
     },
   ];
 
-  const searchData = [
-    {
-      formTime: "12:30",
-      toTime: "16:30",
-      duration: "4 giờ",
-      form: "Bến Xe Miền Đông",
-      to: "Bến Xe Cần Thơ",
-      busType: "Giường",
-      seats: "8 chỗ trống",
-      price: "150.000đ",
-    },
-    {
-      departureTime: "12:30",
-      pickup: "pickup",
-      duration: "5 giờ",
-      station: "16:00 Bến Xe Cần Thơ - Bến Xe Miền Tây",
-      busType: "Ghế",
-      seats: "10 chỗ trống",
-      price: "200.000đ",
-      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"],
-    },
-    {
-      departureTime: "12:30",
-      pickup: "pickup",
-      duration: "5 giờ (Asian/Ho Chi Minh)",
-      station: "16:00 Bến Xe Cần Thơ - Bến Xe Miền Tây",
-      busType: "Ghế",
-      seats: "10 chỗ trống",
-      price: "200.000đ",
-      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"],
-    },
-    {
-      departureTime: "12:30",
-      pickup: "pickup",
-      duration: "5 giờ (Asian/Ho Chi Minh)",
-      station: "16:00 Bến Xe Cần Thơ - Bến Xe Miền Tây",
-      busType: "Ghế",
-      seats: "10 chỗ trống",
-      price: "200.000đ",
-      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"],
-    },
-    {
-      departureTime: "12:30",
-      pickup: "pickup",
-      duration: "5 giờ (Asian/Ho Chi Minh)",
-      station: "16:00 Bến Xe Cần Thơ - Bến Xe Miền Tây",
-      busType: "Ghế",
-      seats: "10 chỗ trống",
-      price: "200.000đ",
-      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"],
-    },
-    {
-      departureTime: "12:30",
-      pickup: "pickup",
-      duration: "5 giờ (Asian/Ho Chi Minh)",
-      station: "16:00 Bến Xe Cần Thơ - Bến Xe Miền Tây",
-      busType: "Ghế",
-      seats: "10 chỗ trống",
-      price: "200.000đ",
-      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"],
-    },
-    {
-      departureTime: "12:30",
-      pickup: "pickup",
-      duration: "5 giờ (Asian/Ho Chi Minh)",
-      station: "16:00 Bến Xe Cần Thơ - Bến Xe Miền Tây",
-      busType: "Ghế",
-      seats: "10 chỗ trống",
-      price: "200.000đ",
-      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"],
-    },
-    {
-      departureTime: "12:30",
-      pickup: "pickup",
-      duration: "5 giờ (Asian/Ho Chi Minh)",
-      station: "16:00 Bến Xe Cần Thơ - Bến Xe Miền Tây",
-      busType: "Ghế",
-      seats: "10 chỗ trống",
-      price: "200.000đ",
-      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"],
-    },
-    {
-      departureTime: "12:30",
-      pickup: "pickup",
-      duration: "5 giờ (Asian/Ho Chi Minh)",
-      station: "16:00 Bến Xe Cần Thơ - Bến Xe Miền Tây",
-      busType: "Ghế",
-      seats: "10 chỗ trống",
-      price: "200.000đ",
-      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"],
-    },
-    {
-      departureTime: "12:30",
-      pickup: "pickup",
-      duration: "5 giờ (Asian/Ho Chi Minh)",
-      station: "16:00 Bến Xe Cần Thơ - Bến Xe Miền Tây",
-      busType: "Ghế",
-      seats: "10 chỗ trống",
-      price: "200.000đ",
-      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"],
-    },
-    {
-      departureTime: "12:30",
-      pickup: "pickup",
-      duration: "5 giờ (Asian/Ho Chi Minh)",
-      station: "16:00 Bến Xe Cần Thơ - Bến Xe Miền Tây",
-      busType: "Ghế",
-      seats: "10 chỗ trống",
-      price: "200.000đ",
-      icons: ["iconGiá rẻ bất ngờ", "iconGhế trống"],
-    },
-  ];
+  // const searchData = [
+  //   {
+  //     formTime: "12:30",
+  //     toTime: "16:30",
+  //     duration: "4 giờ",
+  //     form: "Bến Xe Miền Đông",
+  //     to: "Bến Xe Cần Thơ",
+  //     busType: "Giường",
+  //     seats: "8 chỗ trống",
+  //     price: "150.000đ",
+  //   }
+   
+  // ];
 
   const [hasSearched, setHasSearched] = useState(false);
+  const [trip, setTrip] = useState({});
+
+  useEffect(() => {
+    const fetchTrips = async () => {
+      const response = await fetch("http://localhost:8000/trip");
+      const data = await response.json();
+      setTrip(data);
+    };
+    fetchTrips();
+  }, []);
+
 
   const handleSearch = () => {
     if (!hasSearched) {
@@ -562,10 +474,8 @@ const HomePage = () => {
           </div>
 
           <div className="search-results">
-            <h3>KẾT QUẢ TÌM KIẾM ({searchData.length})</h3>
-            {searchData.length === 0 && <div>Không tìm thấy kết quả</div>}
-
-            {searchData.map((item, index) => (
+            <h3>KẾT QUẢ TÌM KIẾM (0)</h3>
+            {trip.map((item, index) => (
               <div className="search-result-item" key={index}>
                 <div className="result-info">
                   <div className="result-details">
@@ -581,7 +491,7 @@ const HomePage = () => {
                     <div className="to-time">{item.toTime}</div>
                     <div className="bus-type">{item.busType}</div>
                     <div className="seats">{item.seats}</div>
-                    <div className="from">{item.form}</div>
+                    <div className="from">{item.from}</div>
                     <div className="to">{item.to}</div>
                     <div className="price">{item.price}</div>
                   </div>

@@ -1,15 +1,15 @@
 const middlewareControllers = require("../controllers/middlewareControllers");
-const tripController = require('../controllers/tripController');
+const tripController = require("../controllers/tripController");
 
-const router = require('express').Router();
+const router = require("express").Router();
 
 //GET ALL TRIPS
-router.get('/', middlewareControllers.verifyToken, tripController.getAllTrips);
+router.get('/', tripController.getAllTrips);
 
 //CREATE TRIP
-router.post('/', middlewareControllers.verifyToken, tripController.createTrip);
+router.post("/create",  tripController.createTrip);
 
 //DELETE TRIP
-router.delete('/:id', middlewareControllers.verifyToken, tripController.deleteTrip);
+router.delete('/:id', tripController.deleteTrip);
 
 module.exports = router;

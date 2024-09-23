@@ -31,7 +31,7 @@ app.use(express.json());
 //Routes
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
-app.use("/trips", tripRoutes);
+app.use("/trip", tripRoutes);
 
 
 app.listen(8000, () => {
