@@ -24,10 +24,8 @@ const AddTrip = () => {
     try {
       const response = await axios.post('/trip/create', tripData);
       console.log('Chuyến đi đã được thêm:', response.data);
-      // Có thể chuyển hướng hoặc hiển thị thông báo thành công ở đây
     } catch (error) {
       console.error('Lỗi khi thêm chuyến đi:', error);
-      // Xử lý lỗi
     }
   };
 
