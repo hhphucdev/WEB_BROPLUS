@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './style.scss'; 
+import AdminLayout from '../AdminLayout';
 
 const AddTrip = () => {
   const [tripData, setTripData] = useState({
@@ -30,6 +31,7 @@ const AddTrip = () => {
   };
 
   return (
+    <AdminLayout>
     <div className="add-trip-container">
       <h2>Thêm Chuyến Đi</h2>
       <form className="add-trip-form" onSubmit={handleSubmit}>
@@ -76,6 +78,7 @@ const AddTrip = () => {
         <button type="submit" className="submit-button">Thêm Chuyến Đi</button>
       </form>
     </div>
+    </AdminLayout>
   );
 };
 
