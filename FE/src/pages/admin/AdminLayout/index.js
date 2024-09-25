@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaBus, FaUsers, FaChartBar } from "react-icons/fa"; // Sử dụng icon
+import { FaBus, FaUsers, FaChartBar } from "react-icons/fa";
 import "./style.scss";
 
 const AdminLayout = ({ children }) => {
@@ -9,6 +9,11 @@ const AdminLayout = ({ children }) => {
       <aside className="admin-sidebar">
         <h2>Menu Quản Trị</h2>
         <ul>
+          <li>
+            <Link to="/admin">
+              <FaBus className="menu-icon" /> Trang Chủ
+            </Link>
+          </li>
           <li>
             <Link to="/admin/add-trip">
               <FaBus className="menu-icon" /> Chuyến Đi
@@ -26,9 +31,7 @@ const AdminLayout = ({ children }) => {
           </li>
         </ul>
       </aside>
-      <main className="admin-content">
-        {children} {/* Đây là nơi nội dung các trang con sẽ được hiển thị */}
-      </main>
+      <main className="admin-content">{children}</main>
     </div>
   );
 };
