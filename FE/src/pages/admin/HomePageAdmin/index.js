@@ -21,10 +21,10 @@ const HomePageAdmin = () => {
           </div>
           <div className="dashboard-item">
             <FaUsers className="dashboard-icon" />
-            <h2>Người Dùng</h2>
-            <p>Quản lý người dùng và thông tin tài khoản.</p>
-            <Link to="/admin/manage-users" className="link-button">
-              Quản Lý Người Dùng
+            <h2>Chuyến đi</h2>
+            <p>Quản lý chuyến đi của bạn.</p>
+            <Link to="/admin/manage-trips" className="link-button">
+              Quản Lý Chuyến Đi
             </Link>
           </div>
           <div className="dashboard-item">

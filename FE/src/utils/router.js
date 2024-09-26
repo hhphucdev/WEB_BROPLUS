@@ -19,5 +19,6 @@ export const ROUTER = {
   ADMIN: {
     HOMEADMIN: "admin",
     ADDTRIP: "/admin/add-trip",
+    MANAGETRIPS: "/admin/manage-trips",
   },
 };

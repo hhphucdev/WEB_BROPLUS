@@ -18,6 +18,7 @@ import ResetPassword from "pages/user/Profile/ResetPassword";
 import Guide from "pages/user/Guide";
 import HomePageAdmin from "pages/admin/HomePageAdmin";
 import AddTrip from "pages/admin/AddTrip";
+import ManageTrips from "pages/admin/ManageTrips";
 
 const UserRoutes = () => (
   <Routes>
@@ -43,6 +44,7 @@ const UserRoutes = () => (
     {/* Route Admin không có MasterLayout */}
     <Route path={ROUTER.ADMIN.HOMEADMIN} element={<HomePageAdmin />} />
     <Route path={ROUTER.ADMIN.ADDTRIP} element={<AddTrip />} />
+    <Route path={ROUTER.ADMIN.MANAGETRIPS} element={<ManageTrips />} />
 
 
 
