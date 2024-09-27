@@ -28,6 +28,14 @@ const HomePageAdmin = () => {
             </Link>
           </div>
           <div className="dashboard-item">
+            <FaUsers className="dashboard-icon" />
+            <h2>Người Dùng</h2>
+            <p>Quản lý người dùng của bạn.</p>
+            <Link to="/admin/manage-users" className="link-button">
+              Quản Lý Người Dùng
+            </Link>
+          </div>
+          <div className="dashboard-item">
             <FaChartBar className="dashboard-icon" />
             <h2>Thống Kê</h2>
             <p>Xem thống kê về chuyến đi và người dùng.</p>

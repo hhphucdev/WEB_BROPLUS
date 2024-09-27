@@ -15,8 +15,14 @@ const AdminLayout = ({ children }) => {
             </Link>
           </li>
           <li>
+            <Link to="/admin/manage-trips">
+              <FaBus className="menu-icon" /> Quản Lý Chuyến Đi
+            </Link>
+          </li>
+
+          <li>
             <Link to="/admin/add-trip">
-              <FaBus className="menu-icon" /> Chuyến Đi
+              <FaBus className="menu-icon" /> Thêm Chuyến Đi
             </Link>
           </li>
           <li>

@@ -12,4 +12,7 @@ router.post("/create",  tripController.createTrip);
 //DELETE TRIP
 router.delete('/:id', tripController.deleteTrip);
 
+//UPDATE TRIP
+router.put('/updatetrips/:id', tripController.updateTrip);
+
 module.exports = router;

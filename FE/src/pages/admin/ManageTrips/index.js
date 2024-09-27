@@ -52,7 +52,7 @@ const ManageTrips = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`/trip/${editingTrip}`, tripData);
+      await axios.put(`/trip/updatetrips/${editingTrip}`, tripData);
       setEditingTrip(null);
       const response = await axios.get("/trip");
       setTrips(response.data);
