@@ -5,6 +5,7 @@ import AdminLayout from '../AdminLayout';
 
 const AddTrip = () => {
   const [tripData, setTripData] = useState({
+    id: '',
     from: '',
     to: '',
     formTime: '',
@@ -35,6 +36,11 @@ const AddTrip = () => {
     <div className="add-trip-container">
       <h2>Thêm Chuyến Đi</h2>
       <form className="add-trip-form" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="id">ID:</label>
+          <input type="text" id="id" name="id" value={tripData.id} onChange={handleChange} required />
+        </div>
+        
         <div className="form-group">
           <label htmlFor="from">Từ:</label>
           <input type="text" id="from" name="from" value={tripData.from} onChange={handleChange} required />

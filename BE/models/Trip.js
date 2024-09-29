@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 
 const tripSchema = new mongoose.Schema(
   {
+    id: {
+      type: String,
+      required: [true, "Please provide an id"],
+      unique: true,
+    },
     from: {
       type: String,
       ref: "Station",

@@ -7,6 +7,7 @@ const ManageTrips = () => {
   const [trips, setTrips] = useState([]);
   const [editingTrip, setEditingTrip] = useState(null);
   const [tripData, setTripData] = useState({
+    id: "",
     from: "",
     to: "",
     formTime: "",
@@ -79,6 +80,17 @@ const ManageTrips = () => {
           <div key={trip._id} className="trip-item">
             {editingTrip === trip._id ? (
               <form className="edit-trip-form" onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <label htmlFor="id">ID:</label>
+                  <input
+                    type="text"
+                    id="id"
+                    name="id"
+                    value={tripData.id}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
                 <div className="form-group">
                   <label htmlFor="from">Từ:</label>
                   <input

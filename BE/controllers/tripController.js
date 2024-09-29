@@ -14,10 +14,11 @@ const tripController = {
   //CREATE TRIP
   createTrip: async (req, res) => {
     try {
-      const { from, to, formTime, toTime, duration, price, seats, busType } =
+      const {id, from, to, formTime, toTime, duration, price, seats, busType } =
         req.body;
 
       if (
+        !id ||
         !from ||
         !to ||
         !formTime ||
@@ -33,6 +34,7 @@ const tripController = {
       }
 
       const newTrip = new Trip({
+        id,
         from,
         to,
         formTime,
@@ -56,10 +58,11 @@ const tripController = {
   // UPDATE TRIP
   updateTrip: async (req, res) => {
     try {
-      const { from, to, formTime, toTime, duration, price, seats, busType } =
+      const {id, from, to, formTime, toTime, duration, price, seats, busType } =
         req.body;
 
       if (
+        !id ||
         !from ||
         !to ||
         !formTime ||
@@ -80,6 +83,7 @@ const tripController = {
         return res.status(404).json({ message: "Không tìm thấy chuyến đi." });
       }
 
+      trip.id = id;
       trip.from = from;
       trip.to = to;
       trip.formTime = formTime;

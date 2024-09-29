@@ -6,6 +6,8 @@ const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const tripRoutes = require("./routes/trip");
+const invoiceRoutes = require("./routes/invoice");
+const invoiceDetailRoutes = require("./routes/invoicedetail");
 const multer = require("multer");
 const path = require("path");
 
@@ -32,6 +34,8 @@ app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/trip", tripRoutes);
+app.use("/invoice", invoiceRoutes);
+app.use("/invoiceDetail", invoiceDetailRoutes);
 
 
 app.listen(8000, () => {
