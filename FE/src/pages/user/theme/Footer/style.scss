@@ -70,12 +70,12 @@
           border-radius: 5px;
           font-size: 16px;
           color: map.get($theme-colors, "normal-text");
-  
+
           &::placeholder {
             color: map.get($theme-colors, "normal-text");
           }
         }
-  
+
         button {
           padding: 0 26px;
           height: 46px;
@@ -89,10 +89,8 @@
           &:hover {
             background: darken(map.get($theme-colors, "main"), 10%);
           }
-          
         }
       }
-
     }
 
     .footer-widget-social {
@@ -100,15 +98,14 @@
       align-items: center;
       column-gap: 10px;
 
-      div{
+      div {
         :hover {
           background: map.get($theme-colors, "main");
           color: white;
           border-color: white;
-
         }
 
-        svg{
+        svg {
           font-size: 20px;
           color: #404040;
           padding: 10px;
@@ -116,7 +113,6 @@
           transition: all 0.3s;
           background: #f3f6fa;
         }
-        
       }
     }
   }
@@ -136,5 +132,4 @@
       color: map.get($theme-colors, "normal-text");
     }
   }
-  
 }

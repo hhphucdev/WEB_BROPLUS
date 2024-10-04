@@ -38,6 +38,12 @@ const invoiceSchema = new mongoose.Schema(
     notes: {
       type: String,
     },
+    invoiceDetails: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "InvoiceDetail",
+      },
+    ],
   },
   { timestamps: true }
 );

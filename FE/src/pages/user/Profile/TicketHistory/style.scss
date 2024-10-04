@@ -1,0 +1,65 @@
+.ticket-history {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+
+  h2 {
+    text-align: center;
+    color: #000000;
+    margin-bottom: 15px;
+  }
+
+  p {
+    text-align: center;
+    color: #777;
+    margin-bottom: 20px;
+  }
+
+  table {
+    border-collapse: collapse;
+    margin-bottom: 20px;
+
+    th,
+    td {
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #ddd;
+      vertical-align: middle;
+    }
+
+    th {
+      background-color: #f58236;
+      color: white;
+      font-weight: bold;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    td {
+      color: #555;
+
+      &:nth-child(5),
+      &:nth-child(6) {
+        text-align: right;
+      }
+    }
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+
+  th,
+  td {
+    padding: 8px;
+  }
+}
