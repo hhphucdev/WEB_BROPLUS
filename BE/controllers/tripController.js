@@ -11,11 +11,33 @@ const tripController = {
     }
   },
 
+  // GET TRIP BY CUSTOM ID (id field)
+  getTripById: async (req, res) => {
+    try {
+      const trip = await Trip.findOne({ id: req.params.id }); 
+      if (!trip) {
+        return res.status(404).json({ message: "Trip not found" });
+      }
+      res.status(200).json(trip);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  },
+
   //CREATE TRIP
   createTrip: async (req, res) => {
     try {
-      const {id, from, to, formTime, toTime, duration, price, seats, busType } =
-        req.body;
+      const {
+        id,
+        from,
+        to,
+        formTime,
+        toTime,
+        duration,
+        price,
+        seats,
+        busType,
+      } = req.body;
 
       if (
         !id ||
@@ -58,8 +80,17 @@ const tripController = {
   // UPDATE TRIP
   updateTrip: async (req, res) => {
     try {
-      const {id, from, to, formTime, toTime, duration, price, seats, busType } =
-        req.body;
+      const {
+        id,
+        from,
+        to,
+        formTime,
+        toTime,
+        duration,
+        price,
+        seats,
+        busType,
+      } = req.body;
 
       if (
         !id ||

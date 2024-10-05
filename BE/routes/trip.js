@@ -15,4 +15,7 @@ router.delete('/:id', tripController.deleteTrip);
 //UPDATE TRIP
 router.put('/updatetrips/:id', tripController.updateTrip);
 
+//GET TRIP BY ID
+router.get('/:id', tripController.getTripById);
+
 module.exports = router;
