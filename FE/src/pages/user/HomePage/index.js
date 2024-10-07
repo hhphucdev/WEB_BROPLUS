@@ -65,6 +65,18 @@ const HomePage = () => {
     });
   };
 
+  const formatDate = (isoString) => {
+    const date = new Date(isoString);
+    return date.toLocaleString("vi-VN", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+  
+
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -115,20 +127,6 @@ const HomePage = () => {
       content: "305km - 8 giờ",
     },
   ];
-
-  // const searchData = [
-  //   {
-  //     formTime: "12:30",
-  //     toTime: "16:30",
-  //     duration: "4 giờ",
-  //     form: "Bến Xe Miền Đông",
-  //     to: "Bến Xe Cần Thơ",
-  //     busType: "Giường",
-  //     seats: "8 chỗ trống",
-  //     price: "150.000đ",
-  //   }
-
-  // ];
 
   const [hasSearched, setHasSearched] = useState(false);
   const [trip, setTrip] = useState({});
@@ -204,19 +202,6 @@ const HomePage = () => {
       { id: "B17", status: "available" },
     ],
   };
-
-  const schedule = [
-    {
-      time: "12:30",
-      station: "Bến Xe Miền Đông",
-      address: "292 Đinh Bộ Lĩnh, P.26, Q. Bình Thạnh, TP. Hồ Chí Minh",
-    },
-    {
-      time: "16:30",
-      station: "Bến Xe Cần Thơ",
-      address: "292 Đinh Bộ Lĩnh, P.26, Q. Bình Thạnh, TP. Hồ Chí Minh",
-    },
-  ];
 
   return (
     <>
@@ -478,7 +463,7 @@ const HomePage = () => {
               <div className="search-result-item" key={index}>
                 <div className="result-info">
                   <div className="result-details">
-                    <div className="form-time">{item.formTime}</div>
+                    <div className="form-time">{formatDate(item.formTime)}</div>
                     <div className="duration">
                       <MdMyLocation className="icon icon-left" />
                       ........
@@ -487,7 +472,7 @@ const HomePage = () => {
                       <GrLocation className="icon icon-right" />
                     </div>
 
-                    <div className="to-time">{item.toTime}</div>
+                    <div className="to-time">{formatDate(item.toTime)}</div>
                     <div className="bus-type">{item.busType}</div>
                     <div className="seats">{item.seats}</div>
                     <div className="from">{item.from}</div>
@@ -516,7 +501,8 @@ const HomePage = () => {
                 <div className="result-content">
                   {activeSection[index] === "seats" && (
                     <div className="seat-selection">
-                      <div className="seat-legend">
+                      <div className="seat-legend">hoangphucktpm
+                      Định dạng lại cách hiển 
                         <div className="seat sold">Đã bán</div>
                         <div className="seat available">Còn trống</div>
                         <div className="seat selected">Đang chọn</div>
@@ -556,15 +542,14 @@ const HomePage = () => {
 
                   {activeSection[index] === "schedule" && (
                     <div className="schedule-info">
-                      <ul>
-                        {schedule.map((item, key) => (
-                          <li key={key}>
-                            <span className="time">{item.time}</span>
-                            <span className="station">{item.station}</span>
-                            <span className="address">{item.address}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      <br />
+                      <h3>Lịch trình</h3>
+                      <p>
+                        - Thời gian khởi hành: {formatDate(item.formTime)}
+                        <br />- Thời gian đến: {formatDate(item.toTime)}
+                        <br />- Thời gian di chuyển: {item.duration}
+                      </p>
+
                       <p>
                         Lưu ý
                         <br />

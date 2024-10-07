@@ -1,4 +1,15 @@
 const mongoose = require("mongoose");
+const Seat = require("./Seat");
+
+// Hàm tạo số ghế
+function generateSeats(seatsCount, prefix) {
+  const seats = [];
+  for (let i = 1; i <= seatsCount; i++) {
+    const seatId = `${prefix}${i.toString().padStart(2, "0")}`;
+    seats.push({ id: seatId, status: "available" });
+  }
+  return seats;
+}
 
 const tripSchema = new mongoose.Schema(
   {
@@ -33,13 +44,13 @@ const tripSchema = new mongoose.Schema(
       type: Number,
       required: [true, "Please provide a price"],
     },
-    seats: {
-      type: Number,
-      required: [true, "Please provide the number of seats"],
-    },
     busType: {
       type: String,
       required: [true, "Please provide a bus type"],
+    },
+    seats: {
+      tangDuoi: [Seat.schema],
+      tangTren: [Seat.schema],
     },
   },
   { timestamps: true }

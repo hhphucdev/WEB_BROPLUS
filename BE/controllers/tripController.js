@@ -24,7 +24,7 @@ const tripController = {
     }
   },
 
-  //CREATE TRIP
+  // CREATE TRIP
   createTrip: async (req, res) => {
     try {
       const {
@@ -35,26 +35,23 @@ const tripController = {
         toTime,
         duration,
         price,
-        seats,
         busType,
       } = req.body;
-
-      if (
-        !id ||
-        !from ||
-        !to ||
-        !formTime ||
-        !toTime ||
-        !duration ||
-        !price ||
-        !seats ||
-        !busType
-      ) {
-        return res
-          .status(400)
-          .json({ message: "Vui lòng cung cấp đầy đủ thông tin chuyến đi." });
+  
+      if (!id || !from || !to || !formTime || !toTime || !duration || !price || !busType) {
+        return res.status(400).json({ message: "Vui lòng cung cấp đầy đủ thông tin chuyến đi." });
       }
-
+  
+      const numberOfSeats = {
+        tangDuoi: 17, 
+        tangTren: 17, 
+      };
+  
+      const seats = {
+        tangDuoi: generateSeats(numberOfSeats.tangDuoi, "A"), 
+        tangTren: generateSeats(numberOfSeats.tangTren, "B"), 
+      };
+  
       const newTrip = new Trip({
         id,
         from,
@@ -66,16 +63,15 @@ const tripController = {
         seats,
         busType,
       });
-
+  
       const trip = await newTrip.save();
-
+  
       return res.status(201).json(trip);
     } catch (err) {
-      return res
-        .status(500)
-        .json({ message: `Lỗi khi tạo chuyến đi: ${err.message}` });
+      return res.status(500).json({ message: `Lỗi khi tạo chuyến đi: ${err.message}` });
     }
   },
+  
 
   // UPDATE TRIP
   updateTrip: async (req, res) => {

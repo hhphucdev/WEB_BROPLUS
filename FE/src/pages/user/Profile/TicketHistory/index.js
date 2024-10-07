@@ -28,9 +28,13 @@ const TicketHistory = () => {
         setTicketHistory(data);
 
         // Lấy danh sách các tripId duy nhất từ dữ liệu
-        const uniqueTripIds = [...new Set(data.flatMap(ticket =>
-          ticket.invoiceDetails.map(detail => detail.trip)
-        ))]; 
+        const uniqueTripIds = [
+          ...new Set(
+            data.flatMap((ticket) =>
+              ticket.invoiceDetails.map((detail) => detail.trip)
+            )
+          ),
+        ];
         await fetchTripDetails(uniqueTripIds);
       } catch (error) {
         console.error("Lỗi khi tải lịch sử vé:", error);
@@ -40,8 +44,8 @@ const TicketHistory = () => {
     const fetchTripDetails = async (tripIds) => {
       try {
         const tripResponses = await Promise.all(
-          tripIds.map(id =>
-            fetch(`http://localhost:8000/trip/${id}`).then(res => res.json())
+          tripIds.map((id) =>
+            fetch(`http://localhost:8000/trip/${id}`).then((res) => res.json())
           )
         );
 
@@ -92,7 +96,9 @@ const TicketHistory = () => {
                   <td>{ticket.user}</td>
                   <td>
                     {tripDetails[detail.trip]
-                      ? ` ${tripDetails[detail.trip].from} - ${tripDetails[detail.trip].to}`
+                      ? ` ${tripDetails[detail.trip].from} - ${
+                          tripDetails[detail.trip].to
+                        }`
                       : "Thông tin tuyến đường chưa có"}
                   </td>
                   <td>{detail.unitPrice.toLocaleString()} VND</td>
