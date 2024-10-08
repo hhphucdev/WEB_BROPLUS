@@ -1,15 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MdEventSeat } from "react-icons/md";
 import "./style.scss";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const SEAT_PRICE = 100000;
 
-const BookTicket = ({ trip }) => {
+const BookTicket = ({ trips }) => {
+  const { tripId } = useParams(); // Lấy tripId từ URL
   const navigate = useNavigate();
+  const [trip, setTrip] = useState(null); // State để lưu thông tin chuyến đi
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [isTermsDialogOpen, setIsTermsDialogOpen] = useState(false);
+
+  useEffect(() => {
+    if (trips && Array.isArray(trips)) {
+      console.log("Available trips:", trips); // Kiểm tra mảng trips
+      const selectedTrip = trips.find((trip) => trip._id === tripId);
+      console.log("Selected trip:", selectedTrip); // Kiểm tra chuyến đi được chọn
+      setTrip(selectedTrip || null);
+    } else {
+      console.error("Trips data is not available or is not an array.");
+    }
+  }, [tripId, trips]);
 
   const handleSeatClick = (seat) => {
     if (selectedSeats.includes(seat.name)) {
@@ -31,11 +44,17 @@ const BookTicket = ({ trip }) => {
 
   const Payment = () => {
     alert("Thanh toán thành công");
+    // Có thể thêm logic thanh toán ở đây
   };
 
   const CancelPayment = () => {
     navigate(-1);
   };
+
+  // Kiểm tra trip trước khi sử dụng
+  if (!trip) {
+    return <div>Không có thông tin chuyến đi.</div>; // Hiển thị thông báo nếu không có thông tin chuyến đi
+  }
 
   return (
     <div className="book-ticket-page">
@@ -47,10 +66,12 @@ const BookTicket = ({ trip }) => {
               <div className="seat-section">
                 <h4>Tầng dưới</h4>
                 <div className="seats">
-                  {trip[0].seats.tangDuoi.map((seat) => (
+                  {trip.seats.tangDuoi.map((seat) => (
                     <div
                       key={seat._id}
-                      className={`seat ${selectedSeats.includes(seat.name) ? "selected" : ""}`}
+                      className={`seat ${
+                        selectedSeats.includes(seat.name) ? "selected" : ""
+                      }`}
                       onClick={() => handleSeatClick(seat)}
                     >
                       <MdEventSeat className="seat-icon" />
@@ -62,10 +83,12 @@ const BookTicket = ({ trip }) => {
               <div className="seat-section">
                 <h4>Tầng trên</h4>
                 <div className="seats">
-                  {trip[0].seats.tangTren.map((seat) => (
+                  {trip.seats.tangTren.map((seat) => (
                     <div
                       key={seat._id}
-                      className={`seat ${selectedSeats.includes(seat.name) ? "selected" : ""}`}
+                      className={`seat ${
+                        selectedSeats.includes(seat.name) ? "selected" : ""
+                      }`}
                       onClick={() => handleSeatClick(seat)}
                     >
                       <MdEventSeat className="seat-icon" />
@@ -86,11 +109,11 @@ const BookTicket = ({ trip }) => {
         <div className="right-column">
           <section className="trip-info">
             <h2>Thông tin lượt đi</h2>
-            <p>Tuyến xe: {trip[0].route}</p>
-            <p>Thời gian xuất bến: {trip[0].departureTime}</p>
+            <p>Tuyến xe: {trip.route}</p>
+            <p>Thời gian xuất bến: {trip.departureTime}</p>
             <p>Số lượng ghế: {selectedSeats.length} Ghế</p>
             <p>Số ghế: {selectedSeats.join(", ")}</p>
-            <p>Điểm trả khách: {trip[0].dropOffLocation}</p>
+            <p>Điểm trả khách: {trip.dropOffLocation}</p>
             <p>Tổng tiền lượt đi: {totalPrice.toLocaleString("vi-VN")}đ</p>
           </section>
           <section className="price-details">
@@ -124,7 +147,11 @@ const BookTicket = ({ trip }) => {
                   <input type="checkbox" id="agreeTerms" required />
                   <label htmlFor="agreeTerms">
                     Tôi đồng ý với{" "}
-                    <button type="button" className="link-button" onClick={handleOpenDialog}>
+                    <button
+                      type="button"
+                      className="link-button"
+                      onClick={handleOpenDialog}
+                    >
                       điều khoản
                     </button>{" "}
                     của chúng tôi
@@ -193,10 +220,10 @@ const BookTicket = ({ trip }) => {
       {isTermsDialogOpen && (
         <div className="dialog">
           <div className="dialog-content">
-            <h2>Điều khoản</h2>
+            <h2>Điều khoản sử dụng</h2>
             <p>
               Khi đặt vé, quý khách đồng ý với các điều khoản của chúng tôi. Vui
-              lòng kiểm tra thông tin trước khi xác nhận.
+              lòng kiểm tra kỹ thông tin trước khi xác nhận.
             </p>
             <button onClick={handleCloseTermsDialog}>Đóng</button>
           </div>

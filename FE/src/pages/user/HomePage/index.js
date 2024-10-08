@@ -456,7 +456,7 @@ const HomePage = () => {
                   <button onClick={() => handleButtonClick("policy", index)}>
                     Chính sách
                   </button>
-                  <button className="align-right" onClick={() => handleBookTicket(trip[0].id)}>
+                  <button className="align-right" onClick={() => handleBookTicket(item._id)}>
                     Chọn chuyến
                   </button>
                 </div>
