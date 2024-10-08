@@ -44,7 +44,7 @@ const BookTicket = () => {
   const handleSeatClick = (seat) => {
     if (seat.status === "sold") {
       alert("Ghế này đã được bán.");
-      return; 
+      return;
     }
 
     if (selectedSeats.includes(seat.id)) {
@@ -95,7 +95,7 @@ const BookTicket = () => {
                       onClick={() => handleSeatClick(seat)}
                     >
                       <MdEventSeat className="seat-icon" />
-                      {seat.id} 
+                      {seat.id}
                     </div>
                   ))}
                 </div>
@@ -112,7 +112,7 @@ const BookTicket = () => {
                       onClick={() => handleSeatClick(seat)}
                     >
                       <MdEventSeat className="seat-icon" />
-                      {seat.id} 
+                      {seat.id}
                     </div>
                   ))}
                 </div>
@@ -193,7 +193,9 @@ const BookTicket = () => {
                     onChange={(e) => setPaymentMethod(e.target.value)}
                   >
                     <option value="credit">Thẻ tín dụng</option>
-                    <option value="bank_transfer">Chuyển khoản ngân hàng</option>
+                    <option value="bank_transfer">
+                      Chuyển khoản ngân hàng
+                    </option>
                     <option value="cash">Tiền mặt</option>
                   </select>
                 </label>
@@ -238,7 +240,7 @@ const BookTicket = () => {
               </select>
               <p>Trước 21:45 29/08/2024</p>
             </div>
-            <div className="dropoff-point">
+            <div className="drop-off-point">
               <h3>Điểm trả</h3>
               <select>
                 <option value="ben-xe-mien-tay">Bến xe Miền Tây</option>
@@ -250,18 +252,30 @@ const BookTicket = () => {
           </div>
         </section>
 
-        <div className="button-group">
-          <button onClick={handleCancelPayment}>Hủy</button>
-          <button onClick={handlePayment}>Xác nhận đặt vé</button>
-        </div>
+        <section className="payment">
+          <div className="payment-content">
+            <div className="total-amount">
+              <h3>Tổng số tiền thanh toán:</h3>
+              <p>{totalPrice.toLocaleString("vi-VN")}đ</p>
+            </div>
+            <div className="payment-buttons">
+              <button className="cancel-button" onClick={handleCancelPayment}>
+                Hủy
+              </button>
+              <button className="pay-button" onClick={handlePayment}>
+                Thanh toán
+              </button>
+            </div>
+          </div>
+        </section>
 
         {isTermsDialogOpen && (
           <div className="dialog-overlay">
             <div className="dialog">
               <h2>Điều khoản và điều kiện</h2>
               <p>
-                Các điều khoản và điều kiện khi đặt vé. Vui lòng đọc kỹ trước khi
-                tiếp tục.
+                Các điều khoản và điều kiện khi đặt vé. Vui lòng đọc kỹ trước
+                khi tiếp tục.
               </p>
               <button onClick={handleCloseTermsDialog}>Đóng</button>
             </div>
