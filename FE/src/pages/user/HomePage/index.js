@@ -130,8 +130,6 @@ const HomePage = () => {
   const [hasSearched, setHasSearched] = useState(false);
   const [trip, setTrip] = useState({});
 
-  console.log("trip:", trip);
-
   useEffect(() => {
     const fetchTrips = async () => {
       const response = await fetch("http://localhost:8000/trip");
@@ -159,9 +157,11 @@ const HomePage = () => {
   };
   const navigate = useNavigate();
 
-  const handleBookTicket = () => {
-    navigate(ROUTER.USER.BOOK_TICKET);
+  const handleBookTicket = (tripId) => {
+    navigate(`${ROUTER.USER.BOOK_TICKET}/${tripId}`);
   };
+  
+  
 
   return (
     <>
@@ -456,7 +456,7 @@ const HomePage = () => {
                   <button onClick={() => handleButtonClick("policy", index)}>
                     Chính sách
                   </button>
-                  <button className="align-right" onClick={handleBookTicket}>
+                  <button className="align-right" onClick={() => handleBookTicket(trip[0].id)}>
                     Chọn chuyến
                   </button>
                 </div>

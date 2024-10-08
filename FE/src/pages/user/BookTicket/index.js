@@ -3,68 +3,23 @@ import { MdEventSeat } from "react-icons/md";
 import "./style.scss";
 import { useNavigate } from "react-router-dom";
 
-const seatData = {
-  "tang-duoi": [
-    "A01",
-    "A02",
-    "A03",
-    "A04",
-    "A05",
-    "A06",
-    "A07",
-    "A08",
-    "A09",
-    "A10",
-    "A11",
-    "A12",
-    "A13",
-    "A14",
-    "A15",
-    "A16",
-    "A17",
-  ],
-  "tang-tren": [
-    "B01",
-    "B02",
-    "B03",
-    "B04",
-    "B05",
-    "B06",
-    "B07",
-    "B08",
-    "B09",
-    "B10",
-    "B11",
-    "B12",
-    "B13",
-    "B14",
-    "B15",
-    "B16",
-    "B17",
-  ],
-};
-
 const SEAT_PRICE = 100000;
 
-const BookTicket = () => {
+const BookTicket = ({ trip }) => {
   const navigate = useNavigate();
-
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [isTermsDialogOpen, setIsTermsDialogOpen] = useState(false);
 
   const handleSeatClick = (seat) => {
-    if (selectedSeats.includes(seat)) {
-      setSelectedSeats(selectedSeats.filter((s) => s !== seat));
+    if (selectedSeats.includes(seat.name)) {
+      setSelectedSeats(selectedSeats.filter((s) => s !== seat.name));
       setTotalPrice(totalPrice - SEAT_PRICE);
     } else {
-      setSelectedSeats([...selectedSeats, seat]);
+      setSelectedSeats([...selectedSeats, seat.name]);
       setTotalPrice(totalPrice + SEAT_PRICE);
     }
   };
-
-  const [isTermsDialogOpen, setIsTermsDialogOpen] = useState(false);
-  const [isGeneralTermsDialogOpen, setIsGeneralTermsDialogOpen] =
-    useState(false);
 
   const handleOpenDialog = () => {
     setIsTermsDialogOpen(true);
@@ -72,10 +27,6 @@ const BookTicket = () => {
 
   const handleCloseTermsDialog = () => {
     setIsTermsDialogOpen(false);
-  };
-
-  const handleCloseGeneralTermsDialog = () => {
-    setIsGeneralTermsDialogOpen(false);
   };
 
   const Payment = () => {
@@ -96,16 +47,14 @@ const BookTicket = () => {
               <div className="seat-section">
                 <h4>Tầng dưới</h4>
                 <div className="seats">
-                  {seatData["tang-duoi"].map((seat) => (
+                  {trip[0].seats.tangDuoi.map((seat) => (
                     <div
-                      key={seat}
-                      className={`seat ${
-                        selectedSeats.includes(seat) ? "selected" : ""
-                      }`}
+                      key={seat._id}
+                      className={`seat ${selectedSeats.includes(seat.name) ? "selected" : ""}`}
                       onClick={() => handleSeatClick(seat)}
                     >
                       <MdEventSeat className="seat-icon" />
-                      {seat}
+                      {seat.name}
                     </div>
                   ))}
                 </div>
@@ -113,16 +62,14 @@ const BookTicket = () => {
               <div className="seat-section">
                 <h4>Tầng trên</h4>
                 <div className="seats">
-                  {seatData["tang-tren"].map((seat) => (
+                  {trip[0].seats.tangTren.map((seat) => (
                     <div
-                      key={seat}
-                      className={`seat ${
-                        selectedSeats.includes(seat) ? "selected" : ""
-                      }`}
+                      key={seat._id}
+                      className={`seat ${selectedSeats.includes(seat.name) ? "selected" : ""}`}
                       onClick={() => handleSeatClick(seat)}
                     >
                       <MdEventSeat className="seat-icon" />
-                      {seat}
+                      {seat.name}
                     </div>
                   ))}
                 </div>
@@ -139,11 +86,11 @@ const BookTicket = () => {
         <div className="right-column">
           <section className="trip-info">
             <h2>Thông tin lượt đi</h2>
-            <p>Tuyến xe: Miền Tây - Trà Vinh</p>
-            <p>Thời gian xuất bến: 22:00 29/08/2024</p>
+            <p>Tuyến xe: {trip[0].route}</p>
+            <p>Thời gian xuất bến: {trip[0].departureTime}</p>
             <p>Số lượng ghế: {selectedSeats.length} Ghế</p>
             <p>Số ghế: {selectedSeats.join(", ")}</p>
-            <p>Điểm trả khách: Trà Vinh</p>
+            <p>Điểm trả khách: {trip[0].dropOffLocation}</p>
             <p>Tổng tiền lượt đi: {totalPrice.toLocaleString("vi-VN")}đ</p>
           </section>
           <section className="price-details">
@@ -174,10 +121,10 @@ const BookTicket = () => {
                   <input type="email" required />
                 </label>
                 <div className="checkbox-container">
-                  <input type="checkbox" id="agreeTerms2" required />
-                  <label htmlFor="agreeTerms2">
+                  <input type="checkbox" id="agreeTerms" required />
+                  <label htmlFor="agreeTerms">
                     Tôi đồng ý với{" "}
-                    <button className="link-button" onClick={handleOpenDialog}>
+                    <button type="button" className="link-button" onClick={handleOpenDialog}>
                       điều khoản
                     </button>{" "}
                     của chúng tôi
@@ -252,19 +199,6 @@ const BookTicket = () => {
               lòng kiểm tra thông tin trước khi xác nhận.
             </p>
             <button onClick={handleCloseTermsDialog}>Đóng</button>
-          </div>
-        </div>
-      )}
-
-      {isGeneralTermsDialogOpen && (
-        <div className="dialog">
-          <div className="dialog-content">
-            <h2>Điều khoản chung</h2>
-            <p>
-              Đây là điều khoản chung của chúng tôi. Vui lòng đọc kỹ trước khi
-              sử dụng dịch vụ.
-            </p>
-            <button onClick={handleCloseGeneralTermsDialog}>Đóng</button>
           </div>
         </div>
       )}

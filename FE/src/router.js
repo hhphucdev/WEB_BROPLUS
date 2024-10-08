@@ -30,7 +30,7 @@ const UserRoutes = () => (
     <Route path={ROUTER.USER.CONTACT} element={<MasterLayout><Contact /></MasterLayout>} />
     <Route path={ROUTER.USER.SCHEDULE} element={<MasterLayout><Schedule /></MasterLayout>} />
     <Route path={ROUTER.USER.LOGIN} element={<MasterLayout><Login /></MasterLayout>} />
-    <Route path={ROUTER.USER.BOOK_TICKET} element={<MasterLayout><BookTicket /></MasterLayout>} />
+    <Route path={`${ROUTER.USER.BOOK_TICKET}/:tripId`} element={<MasterLayout><BookTicket /></MasterLayout>} />
     <Route path={ROUTER.USER.GUIDE} element={<MasterLayout><Guide /></MasterLayout>} />
 
     {/* Profile và các chức năng con */}
