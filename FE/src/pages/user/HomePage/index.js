@@ -75,7 +75,6 @@ const HomePage = () => {
       minute: "2-digit",
     });
   };
-  
 
   const responsive = {
     superLargeDesktop: {
@@ -131,6 +130,8 @@ const HomePage = () => {
   const [hasSearched, setHasSearched] = useState(false);
   const [trip, setTrip] = useState({});
 
+  console.log("trip:", trip);
+
   useEffect(() => {
     const fetchTrips = async () => {
       const response = await fetch("http://localhost:8000/trip");
@@ -160,47 +161,6 @@ const HomePage = () => {
 
   const handleBookTicket = () => {
     navigate(ROUTER.USER.BOOK_TICKET);
-  };
-
-  const seats = {
-    "tang-duoi": [
-      { id: "A01", status: "available" },
-      { id: "A02", status: "sold" },
-      { id: "A03", status: "selected" },
-      { id: "A04", status: "available" },
-      { id: "A05", status: "available" },
-      { id: "A06", status: "available" },
-      { id: "A07", status: "available" },
-      { id: "A08", status: "sold" },
-      { id: "A09", status: "available" },
-      { id: "A10", status: "available" },
-      { id: "A11", status: "available" },
-      { id: "A12", status: "available" },
-      { id: "A13", status: "available" },
-      { id: "A14", status: "available" },
-      { id: "A15", status: "available" },
-      { id: "A16", status: "available" },
-      { id: "A17", status: "available" },
-    ],
-    "tang-tren": [
-      { id: "B01", status: "available" },
-      { id: "B02", status: "available" },
-      { id: "B03", status: "sold" },
-      { id: "B04", status: "available" },
-      { id: "B05", status: "available" },
-      { id: "B06", status: "available" },
-      { id: "B07", status: "available" },
-      { id: "B08", status: "available" },
-      { id: "B09", status: "available" },
-      { id: "B10", status: "sold" },
-      { id: "B11", status: "available" },
-      { id: "B12", status: "available" },
-      { id: "B13", status: "available" },
-      { id: "B14", status: "available" },
-      { id: "B15", status: "available" },
-      { id: "B16", status: "available" },
-      { id: "B17", status: "available" },
-    ],
   };
 
   return (
@@ -474,7 +434,10 @@ const HomePage = () => {
 
                     <div className="to-time">{formatDate(item.toTime)}</div>
                     <div className="bus-type">{item.busType}</div>
-                    <div className="seats">{item.seats}</div>
+                    <div className="seats">
+                      {item.seats.tangDuoi.length + item.seats.tangTren.length}{" "}
+                      ghế
+                    </div>
                     <div className="from">{item.from}</div>
                     <div className="to">{item.to}</div>
                     <div className="price">{item.price}</div>
@@ -501,41 +464,46 @@ const HomePage = () => {
                 <div className="result-content">
                   {activeSection[index] === "seats" && (
                     <div className="seat-selection">
-                      <div className="seat-legend">hoangphucktpm
-                      Định dạng lại cách hiển 
+                      <div className="seat-legend">
                         <div className="seat sold">Đã bán</div>
                         <div className="seat available">Còn trống</div>
                         <div className="seat selected">Đang chọn</div>
                       </div>
                       <div className="seat-sections">
-                        <div className="seat-section">
-                          <h3>Tầng dưới</h3>
-                          <div className="seats">
-                            {seats["tang-duoi"].map((seat) => (
-                              <div
-                                key={seat.id}
-                                className={`seat ${seat.status}`}
-                              >
-                                <MdEventSeat style={{ fontSize: "24px" }} />
-                                <span>{seat.id}</span>
+                        {trip && trip.length > 0 && trip[0].seats ? (
+                          <>
+                            <div className="seat-section">
+                              <h3>Tầng dưới</h3>
+                              <div className="seats">
+                                {trip[0].seats.tangDuoi.map((seat) => (
+                                  <div
+                                    key={seat._id}
+                                    className={`seat ${seat.status}`}
+                                  >
+                                    <MdEventSeat style={{ fontSize: "24px" }} />
+                                    <span>{seat.id}</span>
+                                  </div>
+                                ))}
                               </div>
-                            ))}
-                          </div>
-                        </div>
-                        <div className="seat-section">
-                          <h3>Tầng trên</h3>
-                          <div className="seats">
-                            {seats["tang-tren"].map((seat) => (
-                              <div
-                                key={seat.id}
-                                className={`seat ${seat.status}`}
-                              >
-                                <MdEventSeat style={{ fontSize: "24px" }} />
-                                <span>{seat.id}</span>
+                            </div>
+                            <div className="seat-section">
+                              <h3>Tầng trên</h3>
+                              <div className="seats">
+                                {trip[0].seats.tangTren.map((seat) => (
+                                  <div
+                                    key={seat._id}
+                                    className={`seat ${seat.status}`}
+                                  >
+                                    <MdEventSeat style={{ fontSize: "24px" }} />
+                                    <span>{seat.id}</span>
+                                  </div>
+                                ))}
                               </div>
-                            ))}
-                          </div>
-                        </div>
+                            </div>
+                          </>
+                        ) : (
+                          <p>Đang tải dữ liệu ghế...</p>
+                        )}
                       </div>
                     </div>
                   )}

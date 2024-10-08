@@ -1,5 +1,16 @@
 const Trip = require("../models/Trip");
 
+
+// Hàm tạo số ghế
+function generateSeats(seatsCount, prefix) {
+  const seats = [];
+  for (let i = 1; i <= seatsCount; i++) {
+    const seatId = `${prefix}${i.toString().padStart(2, "0")}`;
+    seats.push({ id: seatId, status: "available" });
+  }
+  return seats;
+}
+
 const tripController = {
   //GET ALL TRIPS
   getAllTrips: async (req, res) => {
