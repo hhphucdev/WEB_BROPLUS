@@ -8,9 +8,9 @@ const SEAT_PRICE = 100000;
 const BookTicket = () => {
   const { tripId } = useParams();
   const navigate = useNavigate();
-  
+
   const [trip, setTrip] = useState(null);
-  const [selectedSeats, setSelectedSeats] = useState([]);
+  const [selectedSeats, setSelectedSeats] = useState([]); // Giữ ID ghế đã chọn
   const [totalPrice, setTotalPrice] = useState(0);
   const [isTermsDialogOpen, setIsTermsDialogOpen] = useState(false);
   const [customerInfo, setCustomerInfo] = useState({
@@ -18,8 +18,8 @@ const BookTicket = () => {
     phone: "",
     email: "",
   });
+  const [paymentMethod, setPaymentMethod] = useState("credit");
 
-  // Fetch trip details when component mounts
   useEffect(() => {
     const fetchTripDetails = async () => {
       try {
@@ -37,29 +37,22 @@ const BookTicket = () => {
     fetchTripDetails();
   }, [tripId]);
 
-  // Calculate total price whenever selected seats change
   useEffect(() => {
     setTotalPrice(selectedSeats.length * SEAT_PRICE);
   }, [selectedSeats]);
 
   const handleSeatClick = (seat) => {
-    // Kiểm tra xem ghế đã được bán chưa
     if (seat.status === "sold") {
       alert("Ghế này đã được bán.");
-      return; // Không cho phép chọn ghế đã bán
+      return; 
     }
-  
-    // Kiểm tra xem ghế đã được chọn hay chưa
-    if (selectedSeats.includes(seat.name)) {
-      // Nếu đã chọn thì bỏ chọn
-      setSelectedSeats((prevSeats) => prevSeats.filter((s) => s !== seat.name));
+
+    if (selectedSeats.includes(seat.id)) {
+      setSelectedSeats((prevSeats) => prevSeats.filter((s) => s !== seat.id));
     } else {
-      // Nếu chưa chọn thì thêm vào danh sách ghế đã chọn
-      setSelectedSeats((prevSeats) => [...prevSeats, seat.name]);
+      setSelectedSeats((prevSeats) => [...prevSeats, seat.id]);
     }
   };
-  
-  
 
   const handleOpenDialog = () => setIsTermsDialogOpen(true);
   const handleCloseTermsDialog = () => setIsTermsDialogOpen(false);
@@ -74,8 +67,7 @@ const BookTicket = () => {
       alert("Vui lòng chọn ít nhất một ghế.");
       return;
     }
-    alert("Thanh toán thành công");
-    // Logic thanh toán có thể được thêm vào đây
+    alert("Thanh toán thành công với phương thức: " + paymentMethod);
   };
 
   const handleCancelPayment = () => navigate(-1);
@@ -96,12 +88,14 @@ const BookTicket = () => {
                 <div className="seats">
                   {trip.seats.tangDuoi.map((seat) => (
                     <div
-                      key={seat._id}
-                      className={`seat ${selectedSeats.includes(seat.name) ? "selected" : ""}`}
+                      key={seat.id}
+                      className={`seat ${
+                        selectedSeats.includes(seat.id) ? "selected" : ""
+                      }`}
                       onClick={() => handleSeatClick(seat)}
                     >
                       <MdEventSeat className="seat-icon" />
-                      {seat.name}
+                      {seat.id} 
                     </div>
                   ))}
                 </div>
@@ -111,12 +105,14 @@ const BookTicket = () => {
                 <div className="seats">
                   {trip.seats.tangTren.map((seat) => (
                     <div
-                      key={seat._id}
-                      className={`seat ${selectedSeats.includes(seat.name) ? "selected" : ""}`}
+                      key={seat.id}
+                      className={`seat ${
+                        selectedSeats.includes(seat.id) ? "selected" : ""
+                      }`}
                       onClick={() => handleSeatClick(seat)}
                     >
                       <MdEventSeat className="seat-icon" />
-                      {seat.name}
+                      {seat.id} 
                     </div>
                   ))}
                 </div>
@@ -133,8 +129,13 @@ const BookTicket = () => {
         <div className="right-column">
           <section className="trip-info">
             <h2>Thông tin chuyến đi</h2>
-            <p>Tuyến xe: {trip.from} - {trip.to}</p>
-            <p>Thời gian xuất bến: {new Date(trip.departureTime).toLocaleString('vi-VN')}</p>
+            <p>
+              Tuyến xe: {trip.from} - {trip.to}
+            </p>
+            <p>
+              Thời gian xuất bến:{" "}
+              {new Date(trip.departureTime).toLocaleString("vi-VN")}
+            </p>
             <p>Số lượng ghế: {selectedSeats.length} Ghế</p>
             <p>Số ghế: {selectedSeats.join(", ")}</p>
             <p>Điểm trả khách: {trip.dropOffLocation}</p>
@@ -185,6 +186,17 @@ const BookTicket = () => {
                     required
                   />
                 </label>
+                <label>
+                  Phương thức thanh toán
+                  <select
+                    value={paymentMethod}
+                    onChange={(e) => setPaymentMethod(e.target.value)}
+                  >
+                    <option value="credit">Thẻ tín dụng</option>
+                    <option value="bank_transfer">Chuyển khoản ngân hàng</option>
+                    <option value="cash">Tiền mặt</option>
+                  </select>
+                </label>
                 <div className="checkbox-container">
                   <input type="checkbox" id="agreeTerms" required />
                   <label htmlFor="agreeTerms">
@@ -195,8 +207,8 @@ const BookTicket = () => {
                       onClick={handleOpenDialog}
                     >
                       điều khoản
-                    </button>
-                    {" "}của chúng tôi
+                    </button>{" "}
+                    của chúng tôi
                   </label>
                 </div>
               </form>
@@ -224,55 +236,38 @@ const BookTicket = () => {
                 <option value="ben-xe-an-suong">Bến xe An Sương</option>
                 <option value="ben-xe-mien-dong">Bến xe Miền Đông</option>
               </select>
-              <p>
-                Trước 21:45 29/08/2024 để được trung chuyển hoặc kiểm tra thông
-                tin trước khi lên xe.
-              </p>
+              <p>Trước 21:45 29/08/2024</p>
             </div>
-            <div className="drop-off-point">
+            <div className="dropoff-point">
               <h3>Điểm trả</h3>
               <select>
-                <option value="tra-vinh">Trà Vinh</option>
-                <option value="can-tho">Cần Thơ</option>
-                <option value="soc-trang">Sóc Trăng</option>
+                <option value="ben-xe-mien-tay">Bến xe Miền Tây</option>
+                <option value="ben-xe-an-suong">Bến xe An Sương</option>
+                <option value="ben-xe-mien-dong">Bến xe Miền Đông</option>
               </select>
+              <p>Trước 21:45 29/08/2024</p>
             </div>
           </div>
         </section>
 
-        <section className="payment">
-          <div className="payment-content">
-            <div className="total-amount">
-              <h3>Tổng số tiền thanh toán:</h3>
-              <p>{totalPrice.toLocaleString("vi-VN")}đ</p>
-            </div>
-            <div className="payment-buttons">
-              <button className="cancel-button" onClick={handleCancelPayment}>
-                Hủy
-              </button>
-              <button className="pay-button" onClick={handlePayment}>
-                Thanh toán
-              </button>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      {/* Dialog cho các điều khoản */}
-      {isTermsDialogOpen && (
-        <div className="dialog">
-          <div className="dialog-content">
-            <h3>Điều khoản dịch vụ</h3>
-            <p>
-              Đây là điều khoản dịch vụ của chúng tôi. Bạn phải đồng ý để tiếp
-              tục.
-            </p>
-            <button className="close-dialog" onClick={handleCloseTermsDialog}>
-              Đóng
-            </button>
-          </div>
+        <div className="button-group">
+          <button onClick={handleCancelPayment}>Hủy</button>
+          <button onClick={handlePayment}>Xác nhận đặt vé</button>
         </div>
-      )}
+
+        {isTermsDialogOpen && (
+          <div className="dialog-overlay">
+            <div className="dialog">
+              <h2>Điều khoản và điều kiện</h2>
+              <p>
+                Các điều khoản và điều kiện khi đặt vé. Vui lòng đọc kỹ trước khi
+                tiếp tục.
+              </p>
+              <button onClick={handleCloseTermsDialog}>Đóng</button>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
