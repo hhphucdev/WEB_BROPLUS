@@ -134,11 +134,11 @@ const BookTicket = () => {
             </p>
             <p>
               Thời gian xuất bến:{" "}
-              {new Date(trip.departureTime).toLocaleString("vi-VN")}
+              {new Date(trip.formTime).toLocaleString("vi-VN")}
             </p>
             <p>Số lượng ghế: {selectedSeats.length} Ghế</p>
             <p>Số ghế: {selectedSeats.join(", ")}</p>
-            <p>Điểm trả khách: {trip.dropOffLocation}</p>
+            <p>Điểm trả khách: {trip.to}</p>
             <p>Tổng tiền: {totalPrice.toLocaleString("vi-VN")}đ</p>
           </section>
           <section className="price-details">
