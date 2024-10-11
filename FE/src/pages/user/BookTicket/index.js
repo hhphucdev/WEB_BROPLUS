@@ -10,7 +10,7 @@ const BookTicket = () => {
   const navigate = useNavigate();
 
   const [trip, setTrip] = useState(null);
-  const [selectedSeats, setSelectedSeats] = useState([]); // Giữ ID ghế đã chọn
+  const [selectedSeats, setSelectedSeats] = useState([]); 
   const [totalPrice, setTotalPrice] = useState(0);
   const [isTermsDialogOpen, setIsTermsDialogOpen] = useState(false);
   const [customerInfo, setCustomerInfo] = useState({
@@ -67,6 +67,8 @@ const BookTicket = () => {
       alert("Vui lòng chọn ít nhất một ghế.");
       return;
     }
+    // gọi API để thanh toán: 
+    
     alert("Thanh toán thành công với phương thức: " + paymentMethod);
   };
 

@@ -14,7 +14,10 @@ const ManageTrips = () => {
     toTime: "",
     duration: "",
     price: "",
-    seats: "",
+    seats: {
+      tangDuoi: [],
+      tangTren: [],
+    },
     busType: "",
   });
 
@@ -27,18 +30,17 @@ const ManageTrips = () => {
         console.error("Error fetching trips", error);
       }
     };
-
     fetchTrips();
   }, []);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setTripData({ ...tripData, [name]: value });
-  };
 
   const formatDateTimeForInput = (dateTime) => {
     const date = new Date(dateTime);
     return date.toISOString().slice(0, 16);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setTripData({ ...tripData, [name]: value });
   };
 
   const handleEditClick = (trip) => {
@@ -53,6 +55,12 @@ const ManageTrips = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Check if formTime is before toTime
+      if (new Date(tripData.formTime) >= new Date(tripData.toTime)) {
+        alert("Thời gian khởi hành phải trước thời gian đến.");
+        return;
+      }
+
       await axios.put(`/trip/updatetrips/${editingTrip}`, tripData);
       setEditingTrip(null);
       const response = await axios.get("/trip");
@@ -72,6 +80,10 @@ const ManageTrips = () => {
     }
   };
 
+  const renderSeats = (seats) => {
+    return seats.length > 0 ? seats.map(seat => seat.id).join(", ") : "Chưa có ghế";
+  };
+
   return (
     <AdminLayout>
       <div className="all-trips-container">
@@ -80,6 +92,7 @@ const ManageTrips = () => {
           <div key={trip._id} className="trip-item">
             {editingTrip === trip._id ? (
               <form className="edit-trip-form" onSubmit={handleSubmit}>
+                {/* Form inputs */}
                 <div className="form-group">
                   <label htmlFor="id">ID:</label>
                   <input
@@ -102,7 +115,6 @@ const ManageTrips = () => {
                     required
                   />
                 </div>
-
                 <div className="form-group">
                   <label htmlFor="to">Đến:</label>
                   <input
@@ -114,7 +126,6 @@ const ManageTrips = () => {
                     required
                   />
                 </div>
-
                 <div className="form-group">
                   <label htmlFor="formTime">Thời gian khởi hành:</label>
                   <input
@@ -126,7 +137,6 @@ const ManageTrips = () => {
                     required
                   />
                 </div>
-
                 <div className="form-group">
                   <label htmlFor="toTime">Thời gian đến:</label>
                   <input
@@ -138,7 +148,6 @@ const ManageTrips = () => {
                     required
                   />
                 </div>
-
                 <div className="form-group">
                   <label htmlFor="duration">Thời gian:</label>
                   <input
@@ -150,7 +159,6 @@ const ManageTrips = () => {
                     required
                   />
                 </div>
-
                 <div className="form-group">
                   <label htmlFor="price">Giá:</label>
                   <input
@@ -164,13 +172,51 @@ const ManageTrips = () => {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="seats">Số ghế:</label>
+                  <label htmlFor="seatsTangDuoi">Ghế Tầng Dưới:</label>
                   <input
-                    type="number"
-                    id="seats"
-                    name="seats"
-                    value={tripData.seats}
-                    onChange={handleChange}
+                    type="text"
+                    id="seatsTangDuoi"
+                    name="seatsTangDuoi"
+                    value={tripData.seats.tangDuoi
+                      .map((seat) => seat.id)
+                      .join(", ")}
+                    onChange={(e) =>
+                      setTripData({
+                        ...tripData,
+                        seats: {
+                          ...tripData.seats,
+                          tangDuoi: e.target.value.split(",").map((id) => ({
+                            id: id.trim(),
+                            status: "available",
+                          })),
+                        },
+                      })
+                    }
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="seatsTangTren">Ghế Tầng Trên:</label>
+                  <input
+                    type="text"
+                    id="seatsTangTren"
+                    name="seatsTangTren"
+                    value={tripData.seats.tangTren
+                      .map((seat) => seat.id)
+                      .join(", ")}
+                    onChange={(e) =>
+                      setTripData({
+                        ...tripData,
+                        seats: {
+                          ...tripData.seats,
+                          tangTren: e.target.value.split(",").map((id) => ({
+                            id: id.trim(),
+                            status: "available",
+                          })),
+                        },
+                      })
+                    }
                     required
                   />
                 </div>
@@ -204,7 +250,8 @@ const ManageTrips = () => {
                 </p>
                 <p>Thời gian đi: {trip.duration}</p>
                 <p>Giá: {trip.price} VND</p>
-                <p>Số ghế: {trip.seats}</p>
+                <p>Số ghế tầng dưới: {renderSeats(trip.seats.tangDuoi)}</p>
+                <p>Số ghế tầng trên: {renderSeats(trip.seats.tangTren)}</p>
                 <p>Loại xe: {trip.busType}</p>
 
                 <button
