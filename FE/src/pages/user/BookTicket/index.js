@@ -2,23 +2,23 @@ import React, { useState, useEffect } from "react";
 import { MdEventSeat } from "react-icons/md";
 import "./style.scss";
 import { useNavigate, useParams } from "react-router-dom";
-
-const SEAT_PRICE = 100000;
+import { useSelector } from "react-redux";
 
 const BookTicket = () => {
   const { tripId } = useParams();
   const navigate = useNavigate();
 
   const [trip, setTrip] = useState(null);
-  const [selectedSeats, setSelectedSeats] = useState([]); 
+  const [selectedSeats, setSelectedSeats] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [isTermsDialogOpen, setIsTermsDialogOpen] = useState(false);
+  const currentUser = useSelector((state) => state.auth.login.currentUser);
+
   const [customerInfo, setCustomerInfo] = useState({
-    name: "",
-    phone: "",
-    email: "",
+    username: currentUser?.username || "",
+    phone: currentUser?.phone || "",
+    email: currentUser?.email || "",
   });
-  const [paymentMethod, setPaymentMethod] = useState("credit");
 
   useEffect(() => {
     const fetchTripDetails = async () => {
@@ -38,8 +38,8 @@ const BookTicket = () => {
   }, [tripId]);
 
   useEffect(() => {
-    setTotalPrice(selectedSeats.length * SEAT_PRICE);
-  }, [selectedSeats]);
+    setTotalPrice(selectedSeats.length * trip?.price);
+  }, [selectedSeats, trip]);
 
   const handleSeatClick = (seat) => {
     if (seat.status === "sold") {
@@ -67,9 +67,8 @@ const BookTicket = () => {
       alert("Vui lòng chọn ít nhất một ghế.");
       return;
     }
-    // gọi API để thanh toán: 
-    
-    alert("Thanh toán thành công với phương thức: " + paymentMethod);
+    // gọi API để thanh toán:
+
   };
 
   const handleCancelPayment = () => navigate(-1);
@@ -145,7 +144,7 @@ const BookTicket = () => {
           </section>
           <section className="price-details">
             <h2>Chi tiết giá</h2>
-            <p>Giá vé: {SEAT_PRICE.toLocaleString("vi-VN")}đ</p>
+            <p>Giá vé: {trip.price.toLocaleString("vi-VN")}đ</p>
             <p>Phí thanh toán: 0đ</p>
             <p>Tổng tiền: {totalPrice.toLocaleString("vi-VN")}đ</p>
           </section>
@@ -163,7 +162,7 @@ const BookTicket = () => {
                   <input
                     type="text"
                     name="name"
-                    value={customerInfo.name}
+                    value={customerInfo.username}
                     onChange={handleInputChange}
                     required
                   />
@@ -188,19 +187,7 @@ const BookTicket = () => {
                     required
                   />
                 </label>
-                <label>
-                  Phương thức thanh toán
-                  <select
-                    value={paymentMethod}
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                  >
-                    <option value="credit">Thẻ tín dụng</option>
-                    <option value="bank_transfer">
-                      Chuyển khoản ngân hàng
-                    </option>
-                    <option value="cash">Tiền mặt</option>
-                  </select>
-                </label>
+
                 <div className="checkbox-container">
                   <input type="checkbox" id="agreeTerms" required />
                   <label htmlFor="agreeTerms">

@@ -92,7 +92,6 @@ const ManageTrips = () => {
           <div key={trip._id} className="trip-item">
             {editingTrip === trip._id ? (
               <form className="edit-trip-form" onSubmit={handleSubmit}>
-                {/* Form inputs */}
                 <div className="form-group">
                   <label htmlFor="id">ID:</label>
                   <input
