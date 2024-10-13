@@ -18,4 +18,7 @@ router.put('/updatetrips/:id', tripController.updateTrip);
 //GET TRIP BY ID
 router.get('/:id', tripController.getTripById);
 
+//GET TRIP BY FROM AND TO
+router.get('/fromto/:from/:to', tripController.getTripByFromTo);
+
 module.exports = router;

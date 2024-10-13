@@ -1,6 +1,5 @@
 const Trip = require("../models/Trip");
 
-
 // Hàm tạo số ghế
 function generateSeats(seatsCount, prefix) {
   const seats = [];
@@ -25,7 +24,7 @@ const tripController = {
   // GET TRIP BY CUSTOM ID (id field)
   getTripById: async (req, res) => {
     try {
-      const trip = await Trip.findOne({ id: req.params.id }); 
+      const trip = await Trip.findOne({ id: req.params.id });
       if (!trip) {
         return res.status(404).json({ message: "Trip not found" });
       }
@@ -38,31 +37,34 @@ const tripController = {
   // CREATE TRIP
   createTrip: async (req, res) => {
     try {
-      const {
-        id,
-        from,
-        to,
-        formTime,
-        toTime,
-        duration,
-        price,
-        busType,
-      } = req.body;
-  
-      if (!id || !from || !to || !formTime || !toTime || !duration || !price || !busType) {
-        return res.status(400).json({ message: "Vui lòng cung cấp đầy đủ thông tin chuyến đi." });
+      const { id, from, to, formTime, toTime, duration, price, busType } =
+        req.body;
+
+      if (
+        !id ||
+        !from ||
+        !to ||
+        !formTime ||
+        !toTime ||
+        !duration ||
+        !price ||
+        !busType
+      ) {
+        return res
+          .status(400)
+          .json({ message: "Vui lòng cung cấp đầy đủ thông tin chuyến đi." });
       }
-  
+
       const numberOfSeats = {
-        tangDuoi: 17, 
-        tangTren: 17, 
+        tangDuoi: 17,
+        tangTren: 17,
       };
-  
+
       const seats = {
-        tangDuoi: generateSeats(numberOfSeats.tangDuoi, "A"), 
-        tangTren: generateSeats(numberOfSeats.tangTren, "B"), 
+        tangDuoi: generateSeats(numberOfSeats.tangDuoi, "A"),
+        tangTren: generateSeats(numberOfSeats.tangTren, "B"),
       };
-  
+
       const newTrip = new Trip({
         id,
         from,
@@ -74,15 +76,16 @@ const tripController = {
         seats,
         busType,
       });
-  
+
       const trip = await newTrip.save();
-  
+
       return res.status(201).json(trip);
     } catch (err) {
-      return res.status(500).json({ message: `Lỗi khi tạo chuyến đi: ${err.message}` });
+      return res
+        .status(500)
+        .json({ message: `Lỗi khi tạo chuyến đi: ${err.message}` });
     }
   },
-  
 
   // UPDATE TRIP
   updateTrip: async (req, res) => {
@@ -148,6 +151,29 @@ const tripController = {
       res.status(200).json("Trip deleted");
     } catch (err) {
       res.status(500).json({ message: err.message });
+    }
+  },
+
+  // Tìm trip theo địa điểm đi và đến từ URL params
+  getTripByFromTo: async (req, res) => {
+    try {
+      const { from, to } = req.params;
+
+      if (!from || !to) {
+        return res.status(400).json({
+          message: "Vui lòng cung cấp đầy đủ thông tin 'from' và 'to'.",
+        });
+      }
+      const trips = await Trip.find({ from, to });
+      if (trips.length === 0) {
+        return res
+          .status(404)
+          .json({ message: "Không tìm thấy chuyến xe phù hợp." });
+      }
+
+      res.status(200).json(trips);
+    } catch (err) {
+      res.status(500).json({ message: `Lỗi server: ${err.message}` });
     }
   },
 };

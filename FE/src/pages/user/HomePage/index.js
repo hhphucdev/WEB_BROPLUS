@@ -76,6 +76,9 @@ const HomePage = () => {
     });
   };
 
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -140,11 +143,17 @@ const HomePage = () => {
   }, []);
 
   const handleSearch = () => {
-    if (!hasSearched) {
-      setHasSearched(true);
-    } else {
-      setHasSearched(false);
-    }
+    setHasSearched(true);
+
+    const fetchTrips = async () => {
+      const response = await fetch(
+        `http://localhost:8000/trip/fromto/${from}/${to}`
+      );
+      const data = await response.json();
+      setTrip(data);
+    };
+
+    fetchTrips();
   };
 
   const [activeSection, setActiveSection] = useState({});
@@ -160,8 +169,6 @@ const HomePage = () => {
   const handleBookTicket = (tripId) => {
     navigate(`${ROUTER.USER.BOOK_TICKET}/${tripId}`);
   };
-  
-  
 
   return (
     <>
@@ -195,11 +202,21 @@ const HomePage = () => {
             <div className="box-content_left_top">
               <div className="box-content_left_top_item">
                 <h6>Điểm đi</h6>
-                <input type="text" placeholder="Nơi đi" />
+                <input
+                  type="text"
+                  placeholder="Nơi đi"
+                  value={from}
+                  onChange={(e) => setFrom(e.target.value)}
+                />
               </div>
               <div className="box-content_left_top_item">
                 <h6>Điểm đến</h6>
-                <input type="text" placeholder="Nơi đến" />
+                <input
+                  type="text"
+                  placeholder="Nơi đến"
+                  value={to}
+                  onChange={(e) => setTo(e.target.value)}
+                />
               </div>
               <div className="box-content_left_top_item">
                 <h6>Ngày đi</h6>
@@ -456,7 +473,10 @@ const HomePage = () => {
                   <button onClick={() => handleButtonClick("policy", index)}>
                     Chính sách
                   </button>
-                  <button className="align-right" onClick={() => handleBookTicket(item.id)}>
+                  <button
+                    className="align-right"
+                    onClick={() => handleBookTicket(item.id)}
+                  >
                     Chọn chuyến
                   </button>
                 </div>
