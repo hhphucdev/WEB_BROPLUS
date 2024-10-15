@@ -176,6 +176,49 @@ const tripController = {
       res.status(500).json({ message: `Lỗi server: ${err.message}` });
     }
   },
+
+  // Update seat status
+  // Update seat status
+  updateSeatStatus: async (req, res) => {
+    try {
+      const { seatId, status } = req.body;
+      const tripId = req.params.id; // Lấy ID chuyến đi từ tham số URL
+  
+      if (!seatId || !status) {
+        return res
+          .status(400)
+          .json({ message: "Vui lòng cung cấp đầy đủ thông tin ghế." });
+      }
+  
+      // Tìm chuyến đi có ID
+      const trip = await Trip.findOne({ id: tripId });
+  
+      if (!trip) {
+        return res.status(404).json({ message: "Không tìm thấy chuyến đi." });
+      }
+  
+      // Kiểm tra cả hai tầng ghế
+      const seat = trip.seats.tangDuoi.find((seat) => seat.id === seatId) || 
+                   trip.seats.tangTren.find((seat) => seat.id === seatId);
+      
+      if (!seat) {
+        return res.status(404).json({ message: "Không tìm thấy ghế." });
+      }
+  
+      // Cập nhật trạng thái ghế
+      seat.status = status;
+  
+      console.log("Updated Seat:", seat);
+      const updatedTrip = await trip.save();
+  
+      return res.status(200).json(updatedTrip);
+    } catch (err) {
+      return res
+        .status(500)
+        .json({ message: `Lỗi khi cập nhật trạng thái ghế: ${err.message}` });
+    }
+  },
+  
 };
 
 module.exports = tripController;

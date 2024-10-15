@@ -38,7 +38,7 @@ const BookTicket = () => {
   }, [tripId]);
 
   useEffect(() => {
-    setTotalPrice(selectedSeats.length * trip?.price);
+    setTotalPrice(selectedSeats.length * (trip?.price || 0));
   }, [selectedSeats, trip]);
 
   const handleSeatClick = (seat) => {
@@ -47,11 +47,11 @@ const BookTicket = () => {
       return;
     }
 
-    if (selectedSeats.includes(seat.id)) {
-      setSelectedSeats((prevSeats) => prevSeats.filter((s) => s !== seat.id));
-    } else {
-      setSelectedSeats((prevSeats) => [...prevSeats, seat.id]);
-    }
+    setSelectedSeats((prevSeats) =>
+      prevSeats.includes(seat.id)
+        ? prevSeats.filter((s) => s !== seat.id)
+        : [...prevSeats, seat.id]
+    );
   };
 
   const handleOpenDialog = () => setIsTermsDialogOpen(true);
@@ -69,7 +69,6 @@ const BookTicket = () => {
     }
 
     try {
-      // Dữ liệu thanh toán
       const paymentData = {
         user: customerInfo.phone,
         trip: tripId,
@@ -98,8 +97,26 @@ const BookTicket = () => {
         throw new Error(errorData.message || "Thanh toán thất bại");
       }
 
+      for (const seatId of selectedSeats) {
+        const updateResponse = await fetch(
+          `http://localhost:8000/trip/updateSeatStatus/${seatId}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ seatId, status: "sold" }),
+          }
+        );
+
+        if (!updateResponse.ok) {
+          const errorData = await updateResponse.json();
+          console.error(
+            `Lỗi cập nhật trạng thái ghế ${seatId}: ${errorData.message}`
+          );
+        }
+      }
+
       alert("Thanh toán thành công!");
-      // navigate("/invoice");
+      navigate("/invoice");
     } catch (error) {
       console.error("Lỗi thanh toán:", error);
       alert(`Thanh toán thất bại: ${error.message}`);
@@ -125,7 +142,7 @@ const BookTicket = () => {
                   {trip.seats.tangDuoi.map((seat) => (
                     <div
                       key={seat.id}
-                      className={`seat ${
+                      className={`seat ${seat.status} ${
                         selectedSeats.includes(seat.id) ? "selected" : ""
                       }`}
                       onClick={() => handleSeatClick(seat)}
@@ -142,7 +159,7 @@ const BookTicket = () => {
                   {trip.seats.tangTren.map((seat) => (
                     <div
                       key={seat.id}
-                      className={`seat ${
+                      className={`seat ${seat.status} ${
                         selectedSeats.includes(seat.id) ? "selected" : ""
                       }`}
                       onClick={() => handleSeatClick(seat)}
@@ -196,7 +213,7 @@ const BookTicket = () => {
                   Họ và tên
                   <input
                     type="text"
-                    name="name"
+                    name="username"
                     value={customerInfo.username}
                     onChange={handleInputChange}
                     required
