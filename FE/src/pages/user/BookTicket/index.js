@@ -71,7 +71,7 @@ const BookTicket = () => {
     try {
       const paymentData = {
         user: customerInfo.phone,
-        trip: tripId,
+        trip: tripId, // ID của chuyến đi
         totalAmount: totalPrice,
         status: "PENDING",
         paymentMethod: "CASH",
@@ -97,26 +97,28 @@ const BookTicket = () => {
         throw new Error(errorData.message || "Thanh toán thất bại");
       }
 
-      for (const seatId of selectedSeats) {
-        const updateResponse = await fetch(
-          `http://localhost:8000/trip/updateSeatStatus/${seatId}`,
-          {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ seatId, status: "sold" }),
-          }
-        );
+      // Cập nhật trạng thái ghế cho chuyến đi cụ thể
+      const updateSeatPromises = selectedSeats.map((seatId) => {
+        return fetch(`http://localhost:8000/trip/updateSeatStatus/${tripId}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ seatId, status: "sold" }),
+        });
+      });
 
+      const updateResponses = await Promise.all(updateSeatPromises);
+
+      // Kiểm tra các phản hồi cập nhật ghế
+      updateResponses.forEach((updateResponse, index) => {
         if (!updateResponse.ok) {
-          const errorData = await updateResponse.json();
           console.error(
-            `Lỗi cập nhật trạng thái ghế ${seatId}: ${errorData.message}`
+            `Lỗi cập nhật trạng thái ghế ${selectedSeats[index]} cho chuyến đi ${tripId}: ${updateResponse.statusText}`
           );
         }
-      }
+      });
 
       alert("Thanh toán thành công!");
-      navigate("/invoice");
+      window.location.reload();
     } catch (error) {
       console.error("Lỗi thanh toán:", error);
       alert(`Thanh toán thất bại: ${error.message}`);
