@@ -11,4 +11,7 @@ router.post("/create", invoiceDetailController.createInvoiceDetail);
 // Get invoice detail by invoice id
 router.get("/:id", invoiceDetailController.getInvoiceDetailByInvoiceId);
 
+// Tăng id tự động cho invoice khi tạo mới theo dạng INV + Ngày tháng năm + số thứ tự
+router.get("/generateInvoiceDetailNumber", invoiceDetailController.generateInvoiceDetailNumber);
+
 module.exports = router;

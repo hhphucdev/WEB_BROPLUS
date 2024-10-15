@@ -62,14 +62,71 @@ const BookTicket = () => {
     setCustomerInfo((prevInfo) => ({ ...prevInfo, [name]: value }));
   };
 
-  const handlePayment = () => {
+  const handlePayment = async () => {
     if (selectedSeats.length === 0) {
       alert("Vui lòng chọn ít nhất một ghế.");
       return;
     }
-    // gọi API để thanh toán:
+  
+    try {
+      // Lấy số hóa đơn
+      const invoiceNumberResponse = await fetch("http://localhost:8000/invoice/generateInvoiceNumber");
+      const invoiceNumberData = await invoiceNumberResponse.json();
+      console.log("Invoice Number Response:", invoiceNumberData); // Kiểm tra phản hồi
+      const invoiceNumber = invoiceNumberData.invoiceNumber; 
 
+      // Lấy số chi tiết hóa đơn
+      const invoiceDetailNumberResponse = await fetch("http://localhost:8000/invoiceDetail/generateInvoiceDetailNumber");
+      const invoiceDetailNumberData = await invoiceDetailNumberResponse.json();
+      console.log("Invoice Detail Number Response:", invoiceDetailNumberData); // Kiểm tra phản hồi
+      const invoiceDetailNumber = invoiceDetailNumberData.invoiceNumber; 
+
+      // Dữ liệu thanh toán
+      const paymentData = {
+        invoiceNumber: invoiceNumber,
+        user: customerInfo.phone, 
+        trip: tripId, 
+        totalAmount: totalPrice, 
+        status: "PENDING", 
+        paymentMethod: "CASH",
+        notes: "Thank you for your purchase!", 
+        invoiceDetails: [
+          {
+            invoice: invoiceDetailNumber, 
+            trip: tripId, 
+            quantity: selectedSeats.length, 
+            unitPrice: totalPrice / selectedSeats.length, 
+            totalPrice: totalPrice, 
+          },
+        ],
+      };
+  
+      console.log("paymentData", paymentData);
+  
+      // Gửi dữ liệu thanh toán
+      const response = await fetch(
+        "http://localhost:8000/invoice/create",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(paymentData),
+        }
+      );
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Thanh toán thất bại");
+      }
+  
+      alert("Thanh toán thành công!");
+      // navigate("/invoice");
+    } catch (error) {
+      console.error("Lỗi thanh toán:", error);
+      alert(`Thanh toán thất bại: ${error.message}`);
+    }
   };
+
+  
 
   const handleCancelPayment = () => navigate(-1);
 
