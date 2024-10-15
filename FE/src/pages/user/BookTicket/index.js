@@ -87,9 +87,6 @@ const BookTicket = () => {
         ],
       };
 
-      console.log("paymentData", paymentData);
-
-      // Gửi dữ liệu thanh toán và tạo hóa đơn
       const response = await fetch("http://localhost:8000/invoice/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

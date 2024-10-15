@@ -14,5 +14,4 @@ router.get('/:id', invoiceController.getInvoiceByTripId);
 //GET INVOICE BY USER ID
 router.get('/user/:id', invoiceController.getInvoiceByUserId);
 
-
 module.exports = router;
