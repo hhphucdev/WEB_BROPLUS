@@ -16,5 +16,5 @@ router.get('/user/:id', invoiceController.getInvoiceByUserId);
 
 // GET INVOICE BY INVOICE NUMBER AND USER PHONE
 // getInvoiceByInvoiceNumberAndPhone
-router.get('/invoiceandphone/:invoiceNumber/:phone', invoiceController.getInvoiceByInvoiceNumberAndPhone);
+router.get('/invoiceandphone/:invoiceNumber/:phoneNumber', invoiceController.getInvoiceByInvoiceNumberAndPhone);
 module.exports = router;
