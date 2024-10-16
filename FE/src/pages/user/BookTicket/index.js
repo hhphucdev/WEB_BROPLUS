@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MdEventSeat } from "react-icons/md";
+import jsPDF from "jspdf"; 
+import "jspdf-autotable"; 
 import "./style.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -24,16 +26,13 @@ const BookTicket = () => {
     const fetchTripDetails = async () => {
       try {
         const response = await fetch(`http://localhost:8000/trip/${tripId}`);
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
+        if (!response.ok) throw new Error("Network response was not ok");
         const data = await response.json();
         setTrip(data);
       } catch (error) {
         console.error("Failed to fetch trip:", error);
       }
     };
-
     fetchTripDetails();
   }, [tripId]);
 
@@ -46,7 +45,6 @@ const BookTicket = () => {
       alert("Ghế này đã được bán.");
       return;
     }
-
     setSelectedSeats((prevSeats) =>
       prevSeats.includes(seat.id)
         ? prevSeats.filter((s) => s !== seat.id)
@@ -62,6 +60,40 @@ const BookTicket = () => {
     setCustomerInfo((prevInfo) => ({ ...prevInfo, [name]: value }));
   };
 
+  const generateInvoicePDF = () => {
+    const doc = new jsPDF();
+    doc.text("HÓA ĐƠN THANH TOÁN", 20, 20);
+    doc.text(`Khách hàng: ${customerInfo.username}`, 20, 30);
+    doc.text(`Số điện thoại: ${customerInfo.phone}`, 20, 40);
+    doc.text(`Email: ${customerInfo.email}`, 20, 50);
+    doc.text(`Tuyến xe: ${trip.from} - ${trip.to}`, 20, 60);
+    doc.text(
+      `Thời gian: ${new Date(trip.formTime).toLocaleString("vi-VN")}`,
+      20,
+      70
+    );
+    doc.text(`Số ghế: ${selectedSeats.join(", ")}`, 20, 80);
+    doc.text(`Tổng tiền: ${totalPrice.toLocaleString("vi-VN")}đ`, 20, 90);
+
+    doc.autoTable({
+      startY: 100,
+      head: [["STT", "Ghế", "Đơn giá", "Thành tiền"]],
+      body: selectedSeats.map((seatId, index) => [
+        index + 1,
+        seatId,
+        `${trip.price.toLocaleString("vi-VN")}đ`,
+        `${trip.price.toLocaleString("vi-VN")}đ`,
+      ]),
+    });
+
+    doc.text(
+      `Cảm ơn quý khách đã sử dụng dịch vụ của chúng tôi!`,
+      20,
+      doc.lastAutoTable.finalY + 20
+    );
+    doc.save("hoa_don_thanh_toan.pdf");
+  };
+
   const handlePayment = async () => {
     if (selectedSeats.length === 0) {
       alert("Vui lòng chọn ít nhất một ghế.");
@@ -71,7 +103,7 @@ const BookTicket = () => {
     try {
       const paymentData = {
         user: customerInfo.phone,
-        trip: tripId, // ID của chuyến đi
+        trip: tripId,
         totalAmount: totalPrice,
         status: "PENDING",
         paymentMethod: "CASH",
@@ -92,32 +124,20 @@ const BookTicket = () => {
         body: JSON.stringify(paymentData),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Thanh toán thất bại");
-      }
+      if (!response.ok) throw new Error("Thanh toán thất bại");
 
-      // Cập nhật trạng thái ghế cho chuyến đi cụ thể
-      const updateSeatPromises = selectedSeats.map((seatId) => {
-        return fetch(`http://localhost:8000/trip/updateSeatStatus/${tripId}`, {
+      const updateSeatPromises = selectedSeats.map((seatId) =>
+        fetch(`http://localhost:8000/trip/updateSeatStatus/${tripId}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ seatId, status: "sold" }),
-        });
-      });
+        })
+      );
 
-      const updateResponses = await Promise.all(updateSeatPromises);
-
-      // Kiểm tra các phản hồi cập nhật ghế
-      updateResponses.forEach((updateResponse, index) => {
-        if (!updateResponse.ok) {
-          console.error(
-            `Lỗi cập nhật trạng thái ghế ${selectedSeats[index]} cho chuyến đi ${tripId}: ${updateResponse.statusText}`
-          );
-        }
-      });
+      await Promise.all(updateSeatPromises);
 
       alert("Thanh toán thành công!");
+      generateInvoicePDF(); // Tạo và tải hóa đơn PDF
       window.location.reload();
     } catch (error) {
       console.error("Lỗi thanh toán:", error);
