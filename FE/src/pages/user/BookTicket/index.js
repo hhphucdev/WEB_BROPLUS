@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MdEventSeat } from "react-icons/md";
-import jsPDF from "jspdf"; 
-import "jspdf-autotable"; 
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 import "./style.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -62,6 +62,7 @@ const BookTicket = () => {
 
   const generateInvoicePDF = () => {
     const doc = new jsPDF();
+    doc.setFont("Bahnschrift", "normal");
     doc.text("HÓA ĐƠN THANH TOÁN", 20, 20);
     doc.text(`Khách hàng: ${customerInfo.username}`, 20, 30);
     doc.text(`Số điện thoại: ${customerInfo.phone}`, 20, 40);
@@ -91,7 +92,19 @@ const BookTicket = () => {
       20,
       doc.lastAutoTable.finalY + 20
     );
-    doc.save("hoa_don_thanh_toan.pdf");
+
+    // Tạo Blob từ dữ liệu PDF
+    const pdfBlob = doc.output("blob");
+    const url = URL.createObjectURL(pdfBlob);
+
+    // Tạo một liên kết và mô phỏng nhấp chuột để tải xuống
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "hoa_don_thanh_toan.pdf";
+    link.click();
+
+    // Giải phóng bộ nhớ của URL
+    URL.revokeObjectURL(url);
   };
 
   const handlePayment = async () => {
@@ -137,8 +150,8 @@ const BookTicket = () => {
       await Promise.all(updateSeatPromises);
 
       alert("Thanh toán thành công!");
-      generateInvoicePDF(); // Tạo và tải hóa đơn PDF
-      window.location.reload();
+      generateInvoicePDF();
+      navigate(-1);
     } catch (error) {
       console.error("Lỗi thanh toán:", error);
       alert(`Thanh toán thất bại: ${error.message}`);
