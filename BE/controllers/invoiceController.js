@@ -67,7 +67,6 @@ const invoiceController = {
         notes,
       });
 
-
       await newInvoice.save();
 
       const updatedInvoiceDetails = invoiceDetails.map((detail) => ({
@@ -116,6 +115,24 @@ const invoiceController = {
     try {
       const invoices = await Invoice.find({ trip: req.params.id });
       res.status(200).json(invoices);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  },
+
+  // Get invoice by invoice number and phone number
+  getInvoiceByInvoiceNumberAndPhone: async (req, res) => {
+    try {
+      const { invoiceNumber, phoneNumber } = req.params;
+      const invoice = await Invoice.findOne({
+        invoiceNumber,
+        user: phoneNumber,
+      });
+
+      if (!invoice) {
+        return res.status(404).json({ message: "Invoice not found." });
+      }
+      res.status(200).json(invoice);
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
