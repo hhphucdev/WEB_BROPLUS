@@ -5,8 +5,8 @@ import "./style.scss";
 const TicketHistory = () => {
   const currentUser = useSelector((state) => state.auth.login.currentUser);
   const [ticketHistory, setTicketHistory] = useState([]);
-  const [tripDetails, setTripDetails] = useState({}); // Lưu thông tin chi tiết về các tuyến đường
-  const [isLoading, setIsLoading] = useState(true); // Quản lý trạng thái tải dữ liệu
+  const [tripDetails, setTripDetails] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchTicketHistory = async () => {
@@ -14,8 +14,8 @@ const TicketHistory = () => {
         console.error("User ID is not defined or is empty:", currentUser);
         return;
       }
+
       try {
-        console.log("User ID received:", currentUser.phone);
         const response = await fetch(
           `http://localhost:8000/invoice/user/${currentUser.phone}`
         );
@@ -27,7 +27,6 @@ const TicketHistory = () => {
         const data = await response.json();
         setTicketHistory(data);
 
-        // Lấy danh sách các tripId duy nhất từ dữ liệu
         const uniqueTripIds = [
           ...new Set(
             data.flatMap((ticket) =>
@@ -35,6 +34,7 @@ const TicketHistory = () => {
             )
           ),
         ];
+
         await fetchTripDetails(uniqueTripIds);
       } catch (error) {
         console.error("Lỗi khi tải lịch sử vé:", error);
@@ -50,15 +50,15 @@ const TicketHistory = () => {
         );
 
         const tripData = tripResponses.reduce((acc, trip) => {
-          acc[trip.id] = trip; // Lưu mỗi trip theo trip._id
+          acc[trip.id] = trip;
           return acc;
         }, {});
 
         setTripDetails(tripData);
-        setIsLoading(false); // Dữ liệu đã được tải xong
+        setIsLoading(false);
       } catch (error) {
         console.error("Lỗi khi tải thông tin tuyến đường:", error);
-        setIsLoading(false); // Ngay cả khi lỗi, dừng trạng thái tải
+        setIsLoading(false);
       }
     };
 
@@ -71,48 +71,44 @@ const TicketHistory = () => {
 
   return (
     <div className="ticket-history">
-      <h2>Lịch sử mua vé</h2>
-      <p>Theo dõi và quản lý quá trình lịch sử mua vé của bạn</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Mã hóa đơn</th>
-            <th>Số điện thoại</th>
-            <th>Tuyến đường</th>
-            <th>Đơn giá</th>
-            <th>Tổng tiền</th>
-            <th>Trạng thái</th>
-            <th>Phương thức thanh toán</th>
-            <th>Ghi chú</th>
-            <th>Ngày phát hành</th>
-          </tr>
-        </thead>
-        <tbody>
-          {ticketHistory.map((ticket) => (
-            <React.Fragment key={ticket._id}>
+      <h2>Lịch sử Mua Vé</h2>
+      <p>Theo dõi và quản lý quá trình mua vé của bạn.</p>
+
+      {ticketHistory.map((ticket) => (
+        <div className="invoice-detail" key={ticket._id}>
+          <div className="title">Mã hóa đơn: {ticket.invoiceNumber}</div>
+          <div className="info">
+            <span>Điện thoại: {ticket.user}</span>
+            <span>Ngày phát hành: {new Date(ticket.issueDate).toLocaleDateString()}</span>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Tuyến đường</th>
+                <th>Đơn giá</th>
+                <th>Tổng tiền</th>
+                <th>Trạng thái</th>
+                <th>Thanh toán</th>
+              </tr>
+            </thead>
+            <tbody>
               {ticket.invoiceDetails.map((detail) => (
                 <tr key={detail._id}>
-                  <td>{ticket.invoiceNumber}</td>
-                  <td>{ticket.user}</td>
                   <td>
                     {tripDetails[detail.trip]
-                      ? ` ${tripDetails[detail.trip].from} - ${
-                          tripDetails[detail.trip].to
-                        }`
-                      : "Thông tin tuyến đường chưa có"}
+                      ? `${tripDetails[detail.trip].from} - ${tripDetails[detail.trip].to}`
+                      : "Chưa có thông tin"}
                   </td>
                   <td>{detail.unitPrice.toLocaleString()} VND</td>
                   <td>{detail.totalPrice.toLocaleString()} VND</td>
                   <td>{ticket.status}</td>
                   <td>{ticket.paymentMethod}</td>
-                  <td>{ticket.notes}</td>
-                  <td>{new Date(ticket.issueDate).toLocaleDateString()}</td>
                 </tr>
               ))}
-            </React.Fragment>
-          ))}
-        </tbody>
-      </table>
+            </tbody>
+          </table>
+        </div>
+      ))}
     </div>
   );
 };

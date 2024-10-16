@@ -93,17 +93,14 @@ const BookTicket = () => {
       doc.lastAutoTable.finalY + 20
     );
 
-    // Tạo Blob từ dữ liệu PDF
     const pdfBlob = doc.output("blob");
     const url = URL.createObjectURL(pdfBlob);
 
-    // Tạo một liên kết và mô phỏng nhấp chuột để tải xuống
     const link = document.createElement("a");
     link.href = url;
     link.download = "hoa_don_thanh_toan.pdf";
     link.click();
 
-    // Giải phóng bộ nhớ của URL
     URL.revokeObjectURL(url);
   };
 
