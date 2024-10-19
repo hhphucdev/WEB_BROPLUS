@@ -1,0 +1,26 @@
+.statistics-container {
+    padding: 20px;
+    background-color: #f4f4f4;
+    min-height: 100vh;
+  
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+  
+    .chart-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+  
+      .bar-chart, .pie-chart {
+        width: 45%;
+        padding: 10px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+    }
+  }
+  

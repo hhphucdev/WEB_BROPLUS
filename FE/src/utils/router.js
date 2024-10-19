@@ -21,5 +21,6 @@ export const ROUTER = {
     ADDTRIP: "/admin/add-trip",
     MANAGETRIPS: "/admin/manage-trips",
     MANAGEUSERS: "/admin/manage-users",
+    STATISTICS: "/admin/statistics",
   },
 };

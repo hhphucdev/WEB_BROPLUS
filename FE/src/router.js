@@ -20,6 +20,7 @@ import HomePageAdmin from "pages/admin/HomePageAdmin";
 import AddTrip from "pages/admin/AddTrip";
 import ManageTrips from "pages/admin/ManageTrips";
 import ManageUsers from "pages/admin/ManageUsers";
+import Statistics from "pages/admin/Statistics";
 
 const UserRoutes = () => (
   <Routes>
@@ -47,6 +48,7 @@ const UserRoutes = () => (
     <Route path={ROUTER.ADMIN.ADDTRIP} element={<AddTrip />} />
     <Route path={ROUTER.ADMIN.MANAGETRIPS} element={<ManageTrips />} />
     <Route path={ROUTER.ADMIN.MANAGEUSERS} element={<ManageUsers />} />
+    <Route path={ROUTER.ADMIN.STATISTICS} element={<Statistics />} />
 
 
 
