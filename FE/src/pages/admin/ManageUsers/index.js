@@ -39,7 +39,7 @@ const ManageUsers = () => {
     setEditingUser(user._id);
     setUserData({
       ...user,
-      dateOfBirth: new Date(user.dateOfBirth).toISOString().split("T")[0], // Định dạng lại ngày sinh cho input
+      dateOfBirth: new Date(user.dateOfBirth).toISOString().split("T")[0], 
     });
   };
 
