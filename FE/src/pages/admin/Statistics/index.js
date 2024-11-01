@@ -48,7 +48,6 @@ const Statistics = () => {
     ],
   };
 
-  // Cấu hình biểu đồ vé bán ra (Pie Chart)
   const ticketChart = {
     labels: ticketData.map((item) => item.route),
     datasets: [
