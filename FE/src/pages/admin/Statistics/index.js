@@ -12,14 +12,12 @@ import {
 } from "chart.js";
 import "./style.scss";
 
-// Đăng ký các thành phần Chart.js
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement);
 
 const Statistics = () => {
   const [revenueData, setRevenueData] = useState([]);
   const [ticketData, setTicketData] = useState([]);
 
-  // Lấy dữ liệu thống kê từ API
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -36,7 +34,6 @@ const Statistics = () => {
     fetchData();
   }, []);
 
-  // Cấu hình biểu đồ doanh thu (Bar Chart)
   const revenueChart = {
     labels: revenueData.map((item) => item.month),
     datasets: [
