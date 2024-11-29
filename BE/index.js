@@ -8,6 +8,7 @@ const userRoutes = require("./routes/user");
 const tripRoutes = require("./routes/trip");
 const invoiceRoutes = require("./routes/invoice");
 const invoiceDetailRoutes = require("./routes/invoicedetail");
+const statisticsRoutes = require("./routes/statistics");
 const multer = require("multer");
 const path = require("path");
 
@@ -36,6 +37,7 @@ app.use("/users", userRoutes);
 app.use("/trip", tripRoutes);
 app.use("/invoice", invoiceRoutes);
 app.use("/invoiceDetail", invoiceDetailRoutes);
+app.use("/statistics", statisticsRoutes);
 
 
 app.listen(8000, () => {
