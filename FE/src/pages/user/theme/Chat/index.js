@@ -1,56 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import "./style.scss";
 
-const Chat = ({ isOpen, onClose }) => {
-  const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([
-    { text: "Xin chào! Tôi có thể giúp gì cho bạn?", from: "bot" },
-    { text: "Bạn cần hỗ trợ gì?", from: "bot" },
-  ]);
+const Chat = () => {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src =
+      "https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1";
+    script.async = true;
+    script.onload = () => {
+      console.log("Dialogflow script loaded successfully");
+    };
+    script.onerror = () => {
+      console.error("Failed to load Dialogflow script");
+    };
+    document.body.appendChild(script);
 
-  const handleInputChange = (e) => {
-    setMessage(e.target.value);
-  };
-
-  const handleSendMessage = () => {
-    if (message.trim()) {
-      setMessages([...messages, { text: message, from: "user" }]);
-      setMessage("");
-    }
-  };
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   return (
-    <div className={`chat-box ${isOpen ? "show" : ""}`}>
-      <div className="chat-header">
-        <h4>Phúc An Travel</h4>
-        <button
-          onClick={onClose}
-          className="close-chat"
-          aria-label="Close chat"
-        >
-          &times;
-        </button>
-      </div>
-      <div className="chat-content">
-        <div className="message-container">
-          {messages.map((msg, index) => (
-            <div key={index} className={`message ${msg.from}`}>
-              <p>{msg.text}</p>
-            </div>
-          ))}
-        </div>
-        <div className="chat-input">
-          <input
-            type="text"
-            value={message}
-            onChange={handleInputChange}
-            placeholder="Hãy nhập tin nhắn của bạn..."
-          />
-          <button onClick={handleSendMessage} aria-label="Send message">
-            Gửi
-          </button>
-        </div>
-      </div>
+    <div>
+      <df-messenger
+        intent="WELCOME"
+        chat-title="WEB_BROPLUS"
+        agent-id="e90dddc1-d7dc-45c9-8c18-92837ee83d45"
+        language-code="en"
+      ></df-messenger>
     </div>
   );
 };
