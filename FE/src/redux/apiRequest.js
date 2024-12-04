@@ -79,7 +79,9 @@ export const updateUserAvatar = async (base64Image, dispatch) => {
     console.log("Avatar updated successfully");
   } catch (err) {
     dispatch(updateUserInfoFailed());
-    console.error("Lỗi khi cập nhật avatar:", err.response ? err.response.data : err.message);
+    console.error(
+      "Lỗi khi cập nhật avatar:",
+      err.response ? err.response.data : err.message
+    );
   }
-  
 };
