@@ -9,8 +9,6 @@ const tripRoutes = require("./routes/trip");
 const invoiceRoutes = require("./routes/invoice");
 const invoiceDetailRoutes = require("./routes/invoicedetail");
 const statisticsRoutes = require("./routes/statistics");
-const multer = require("multer");
-const path = require("path");
 
 dotenv.config();
 const app = express();

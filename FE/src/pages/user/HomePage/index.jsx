@@ -170,6 +170,7 @@ const HomePage = () => {
     navigate(`${ROUTER.USER.BOOK_TICKET}/${tripId}`);
   };
 
+
   return (
     <>
       <div className="hero-item"></div>
