@@ -5,7 +5,6 @@ const Chat = ({ isOpen, onClose }) => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([
     { text: "Xin chào! Tôi có thể giúp gì cho bạn?", from: "bot" },
-    { text: "Bạn cần hỗ trợ gì?", from: "bot" },
   ]);
 
   const handleInputChange = (e) => {

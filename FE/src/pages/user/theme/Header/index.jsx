@@ -66,12 +66,10 @@ const Header = () => {
     setIsMenuOpen(false);
   }, [location]);
 
-  // Xử lý khi người dùng bấm vào tên để mở menu
   const handleUserClick = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // Đóng menu khi chọn một chức năng
   const handleMenuClick = (path) => {
     setIsMenuOpen(false);
     navigate(path);
