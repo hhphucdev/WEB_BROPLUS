@@ -18,17 +18,17 @@ body {
 
   .news-list {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+    overflow-x: auto; /* Cho phép cuộn ngang nếu không đủ không gian */
+    gap: 20px; /* Khoảng cách giữa các mục */
+    padding: 10px 0;
 
     .news-item {
-      width: 350px;
+      flex: 0 0 30%; /* Chiếm 30% chiều rộng mỗi mục */
+      min-width: 300px; /* Đảm bảo kích thước tối thiểu */
       border: 1px solid #ddd;
       border-radius: 8px;
       background-color: #fff;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
       transition: transform 0.3s, box-shadow 0.3s;
       cursor: pointer;
 
@@ -39,8 +39,9 @@ body {
 
       .news-image {
         width: 100%;
-        height: 200px;
+        height: 180px;
         object-fit: cover;
+        border-bottom: 1px solid #ddd;
       }
 
       .news-content {
@@ -51,14 +52,21 @@ body {
           font-weight: bold;
           margin-bottom: 10px;
           color: #007bff;
+          text-align: center;
         }
 
         .news-description {
           color: #555;
           font-size: 0.9rem;
+          text-align: center;
         }
       }
     }
+  }
+
+  /* Xóa thanh cuộn mặc định trên các trình duyệt */
+  .news-list::-webkit-scrollbar {
+    display: none;
   }
 
   .news-detail {
