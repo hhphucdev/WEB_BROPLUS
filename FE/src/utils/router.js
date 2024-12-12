@@ -15,6 +15,7 @@ export const ROUTER = {
     ADDRESS: "address",
     RESET_PASSWORD: "reset-password",
     GUIDE: "guide",
+    NEWS: "news",
   },
   ADMIN: {
     HOMEADMIN: "admin",
