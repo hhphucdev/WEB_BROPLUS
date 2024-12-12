@@ -42,7 +42,7 @@ const Footer = () => {
                   <Link to={ROUTER.USER.INTRODUCE}>Giới thiệu</Link>
                 </li>
                 <li>
-                  <Link to={ROUTER.USER.INTRODUCE}>Tin tức</Link>
+                  <Link to={ROUTER.USER.NEWS}>Tin tức</Link>
                 </li>
               </ul>
 
